@@ -20,7 +20,7 @@ markdown-create-table-of-contents -i input.md -h3
 Default is README.md,
 
 ```bash
-markdown-create-table-of-contents
+go run markdown-create-table-of-contents
 ```
 
 Use filename `input.md`,

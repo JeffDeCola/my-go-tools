@@ -4,7 +4,7 @@
 decryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 
 Use my other tool
-[encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)
+[encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/encryptfile)
 to decrypt.
 
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
