@@ -55,4 +55,4 @@ Refer to that example for a complete description.
 
 This illustration may help,
 
-![IMAGE - decryptfile - IMAGE](../../docs/pics/decryptfile.jpg)
+![IMAGE - decryptfile - IMAGE](../docs/pics/decryptfile.jpg)
