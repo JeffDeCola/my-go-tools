@@ -13,7 +13,7 @@ markdown-create-table-of-contents -i input.md
 markdown-create-table-of-contents -i input.md -h3
 ```
 
-[GitHub Webpage](https://jeffdecola.github.io/my-go-examples/)
+[GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
 
