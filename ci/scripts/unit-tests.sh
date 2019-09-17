@@ -1,5 +1,5 @@
 #!/bin/sh
-# my-go-examples unit-test.sh
+# my-go-tools unit-test.sh
 
 echo " "
 
@@ -17,13 +17,13 @@ else
     echo " "
 fi
 
-echo "The goal is to set up a go src/github.com/JeffDeCola/my-go-examples directory"
+echo "The goal is to set up a go src/github.com/JeffDeCola/my-go-tools directory"
 echo "Then tests will be run in that directory"
 echo "Test coverage results, text_coverage.txt, will be moved to /coverage-results directory"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /my-go-examples"
+echo "   /my-go-tools"
 echo "   /coverage-results (created in task-unit-test.yml task file)"
 echo " "
 
@@ -38,14 +38,14 @@ echo "Setup the GOPATH based on current directory"
 export GOPATH=$PWD
 echo " "
 
-echo "Now we must move our code from the current directory ./my-go-examples to" 
-echo "$GOPATH/src/github.com/JeffDeCola/my-go-examples"
+echo "Now we must move our code from the current directory ./my-go-tools to" 
+echo "$GOPATH/src/github.com/JeffDeCola/my-go-tools"
 mkdir -p src/github.com/JeffDeCola/
-cp -R ./my-go-examples src/github.com/JeffDeCola/.
+cp -R ./my-go-tools src/github.com/JeffDeCola/.
 echo " "
 
-echo "cd src/github.com/JeffDeCola/my-go-examples"
-cd src/github.com/JeffDeCola/my-go-examples
+echo "cd src/github.com/JeffDeCola/my-go-tools"
+cd src/github.com/JeffDeCola/my-go-tools
 echo " "
 
 echo "Check that you are set and everything is in the right place for go:"
@@ -58,7 +58,7 @@ echo "Run go test -cover"
 echo "   -cover shows the percentage coverage"
 echo "   Put results in /test/test_coverage.txt file"
 # go test -cover ./... | tee test/test_coverage.txt
-echo "Placeholder to run go tests for my-go-examples" | tee test_coverage.txt
+echo "Placeholder to run go tests for my-go-tools" | tee test_coverage.txt
 echo " "
 
 echo "Clean test_coverage.txt file - add some whitespace to the begining of each line"

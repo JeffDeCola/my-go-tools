@@ -1,5 +1,5 @@
 #!/bin/sh
-# my-go-examples readme-github-pages.sh
+# my-go-tools readme-github-pages.sh
 
 echo " "
 
@@ -17,14 +17,14 @@ else
     echo " "
 fi
 
-echo "The goal is to git clone /my-go-examples to /my-go-examples-updated"
+echo "The goal is to git clone /my-go-tools to /my-go-tools-updated"
 echo "Then script will edit the /docs/_includes/README.md for GITHUB WEBPAGES"
 echo "Finally push the changes in /docs/_includes/README.md to github"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
-echo "   /my-go-examples"
-echo "   /my-go-examples-updated (created in task-build-push.yml task file)"
+echo "   /my-go-tools"
+echo "   /my-go-tools-updated (created in task-build-push.yml task file)"
 echo " "
 
 echo "pwd is: $PWD"
@@ -34,12 +34,12 @@ echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "git clone my-go-examples to my-go-examples-updated"
-git clone my-go-examples my-go-examples-updated
+echo "git clone my-go-tools to my-go-tools-updated"
+git clone my-go-tools my-go-tools-updated
 echo " "
 
-echo "cd my-go-examples-updated"
-cd my-go-examples-updated
+echo "cd my-go-tools-updated"
+cd my-go-tools-updated
 echo " "
 
 echo "List whats in the current directory"
