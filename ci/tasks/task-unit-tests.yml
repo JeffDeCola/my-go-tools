@@ -1,4 +1,4 @@
-# my-go-examples task-unit-tests.yml
+# my-go-tools task-unit-tests.yml
 
 platform: linux
 
@@ -9,11 +9,11 @@ image_resource:
     tag: 1.7.1
 
 inputs:
-- name: my-go-examples
+- name: my-go-tools
 
 outputs:
 - name: coverage-results
 
 run:
-  path: ./my-go-examples/ci/scripts/unit-tests.sh
+  path: ./my-go-tools/ci/scripts/unit-tests.sh
   # args: [-debug]

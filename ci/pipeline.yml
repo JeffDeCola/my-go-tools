@@ -1,74 +1,74 @@
-# my-go-examples pipeline.yml
+# my-go-tools pipeline.yml
 
 jobs:
 
 - name: job-readme-github-pages
   plan:
-  - get: my-go-examples
+  - get: my-go-tools
     trigger: true
   - put: resource-slack-alert
     params:
       channel: '#jeff-builds'
-      text: "From my-go-examples: STARTED job-readme-github-pages in concourse ci."
+      text: "From my-go-tools: STARTED job-readme-github-pages in concourse ci."
   - put: resource-repo-status
-    params: { state: "pending", description: "STARTED job-readme-github-pages in concourse ci.", commit: "my-go-examples" }
+    params: { state: "pending", description: "STARTED job-readme-github-pages in concourse ci.", commit: "my-go-tools" }
   - task: task-readme-github-pages
-    file: my-go-examples/ci/tasks/task-readme-github-pages.yml
+    file: my-go-tools/ci/tasks/task-readme-github-pages.yml
     on_success:
       do:
-      - put: my-go-examples
+      - put: my-go-tools
         params:
-          repository: my-go-examples-updated  
+          repository: my-go-tools-updated  
       - put: resource-slack-alert
         params:
           channel: '#jeff-builds'
-          text: "From my-go-examples: PASSED job-readme-github-pages in concourse ci."
+          text: "From my-go-tools: PASSED job-readme-github-pages in concourse ci."
       - put: resource-repo-status
-        params: { state: "success", description: "PASSED job-readme-github-pages in concourse ci", commit: "my-go-examples" }
+        params: { state: "success", description: "PASSED job-readme-github-pages in concourse ci", commit: "my-go-tools" }
     on_failure:
       do:
       - put: resource-slack-alert
         params:
           channel: '#jeff-builds'
-          text: "From my-go-examples: FAILED job-readme-github-pages in concourse ci."
+          text: "From my-go-tools: FAILED job-readme-github-pages in concourse ci."
       - put: resource-repo-status
-        params: { state: "failure", description: "FAILED job-readme-github-pages in concourse ci", commit: "my-go-examples" }
+        params: { state: "failure", description: "FAILED job-readme-github-pages in concourse ci", commit: "my-go-tools" }
 
 - name: job-unit-tests
   plan:
-  - get: my-go-examples
+  - get: my-go-tools
     trigger: true
     passed: [job-readme-github-pages]
   - put: resource-slack-alert
     params:
       channel: '#jeff-builds'
-      text: "From my-go-examples: STARTED job-unit-tests in concourse ci."
+      text: "From my-go-tools: STARTED job-unit-tests in concourse ci."
   - put: resource-repo-status
-    params: { state: "pending", description: "STARTED job-unit-tests in concourse ci.", commit: "my-go-examples" }
+    params: { state: "pending", description: "STARTED job-unit-tests in concourse ci.", commit: "my-go-tools" }
   - task: task-unit-tests
-    file: my-go-examples/ci/tasks/task-unit-tests.yml
+    file: my-go-tools/ci/tasks/task-unit-tests.yml
     on_success:
       do:
-      - put: my-go-examples
+      - put: my-go-tools
         params:
-          repository: my-go-examples  
+          repository: my-go-tools  
       - put: resource-slack-alert
         params:
           channel: '#jeff-builds'
           text_file: coverage-results/test_coverage.txt
           text: |
-            From my-go-examples: PASSED job-unit-tests in concourse ci. 
+            From my-go-tools: PASSED job-unit-tests in concourse ci. 
             $TEXT_FILE_CONTENT
       - put: resource-repo-status
-        params: { state: "success", description: "PASSED job-unit-tests in concourse ci", commit: "my-go-examples" }
+        params: { state: "success", description: "PASSED job-unit-tests in concourse ci", commit: "my-go-tools" }
     on_failure:
       do:
       - put: resource-slack-alert
         params:
           channel: '#jeff-builds'
-          text: "From my-go-examples: FAILED job-unit-tests in concourse ci."
+          text: "From my-go-tools: FAILED job-unit-tests in concourse ci."
       - put: resource-repo-status
-        params: { state: "failure", description: "FAILED job-unit-tests in concourse ci.", commit: "my-go-examples" }
+        params: { state: "failure", description: "FAILED job-unit-tests in concourse ci.", commit: "my-go-tools" }
 
 resource_types:
 
@@ -85,11 +85,11 @@ resource_types:
 
 resources:
 
-- name: my-go-examples
+- name: my-go-tools
   type: git
   source:
-    #uri: https://github.com/jeffdecola/my-go-examples
-    uri: git@github.com:jeffdecola/my-go-examples.git
+    #uri: https://github.com/jeffdecola/my-go-tools
+    uri: git@github.com:jeffdecola/my-go-tools.git
     branch: master
     private_key: {{git_private_key}}
 - name: resource-slack-alert
@@ -99,5 +99,5 @@ resources:
 - name: resource-repo-status 
   type: github-status
   source:
-    repository: jeffdecola/my-go-examples 
+    repository: jeffdecola/my-go-tools 
     access_token: {{repo_github_token}}

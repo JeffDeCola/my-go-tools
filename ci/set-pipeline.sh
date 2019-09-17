@@ -1,4 +1,4 @@
 #!/bin/bash
-# my-go-examples set-pipeline.sh
+# my-go-tools set-pipeline.sh
 
-fly -t ci set-pipeline -p my-go-examples -c pipeline.yml --load-vars-from ../../../../../.credentials.yml
+fly -t ci set-pipeline -p my-go-tools -c pipeline.yml --load-vars-from ../../../../../.credentials.yml

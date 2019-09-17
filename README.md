@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/my-go-tools)](https://goreportcard.com/report/github.com/JeffDeCola/my-go-tools)
 [![GoDoc](https://godoc.org/github.com/JeffDeCola/my-go-tools?status.svg)](https://godoc.org/github.com/JeffDeCola/my-go-tools)
-[![Maintainability](https://api.codeclimate.com/v1/badges/6ed9dfb17eedad9c40ee/maintainability)](https://codeclimate.com/github/JeffDeCola/my-go-tools/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ad5212958a91606b685e/maintainability)](https://codeclimate.com/github/JeffDeCola/my-go-tools/maintainability)
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/my-go-tools/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/my-go-tools/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
