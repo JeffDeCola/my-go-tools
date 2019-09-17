@@ -10,7 +10,7 @@ tl;dr,
 markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md
 ```
 
-[GitHub Webpage](https://jeffdecola.github.io/my-go-examples/)
+[GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
 
