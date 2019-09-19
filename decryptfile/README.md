@@ -12,6 +12,7 @@ to decrypt.
 ## RUN
 
 ```bash
+go run decryptfile -v
 go run decryptfile <INPUTFILE> <OUTPUTFILE>
 ```
 

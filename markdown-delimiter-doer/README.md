@@ -4,12 +4,6 @@
 taking a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
 
-tl;dr,
-
-```bash
-markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md
-```
-
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
@@ -17,6 +11,7 @@ markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md
 Run using delimiters `$$` and the `-htmltable` switch,
 
 ```bash
+markdown-delimiter-doer -v
 go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md
 ```
 

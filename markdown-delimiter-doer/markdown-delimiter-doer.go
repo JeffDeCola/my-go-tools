@@ -11,6 +11,8 @@ import (
 	"time"
 )
 
+const toolVersion = "1.0.1"
+
 type table struct {
 	columns       int
 	colWdth       [20]string
@@ -232,12 +234,19 @@ func makeHTMLTABLE(stuff []string, outputFile *os.File) {
 func main() {
 
 	// Flags
+	version := flag.Bool("v", false, "prints current version")
 	delimiterPtr := flag.String("delimiter", "DELIMETER", "what is the delimiter")
 	inputFilenamePtr := flag.String("i", "INPUT", "input file")
 	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
 	htmlTableBoolPtr := flag.Bool("htmltable", false, "a bool")
 	flag.Parse()
 
+    // CHECK VERSION
+	if *version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
+    }
+    
 	// Temp storage for what you want to process between the delimiters
 	var stuff []string
 

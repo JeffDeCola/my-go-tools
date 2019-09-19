@@ -14,6 +14,8 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+const toolVersion = "1.0.1"
+
 // HASH THE PARAPHRASE TO GET 32 BYTE KEY
 func createKey(paraphrase string) (string, error) {
 	log.Trace("hashing the paraphrase")
@@ -105,12 +107,21 @@ func init() {
 	// SET OUTPUT (DEFAULT stderr)
 	log.SetOutput(os.Stdout)
 
+	// FLAGS
+	version := flag.Bool("v", false, "prints current version")
+	flag.Parse()
+
+	// CHECK VERSION
+	if *version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
+	}
+
 }
 
 func main() {
 
 	// GET FILE NAME FROM ARGS
-	flag.Parse()
 	filenameSlice := flag.Args()
 	if len(filenameSlice) != 2 {
 		err := errors.New("only two files allowed")
