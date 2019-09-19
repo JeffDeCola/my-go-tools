@@ -5,14 +5,6 @@ parsing a markdown file to find ##, ### to create a table
 of contents (TOC) for links at github.  I like to use a
 TOC it at the beginning of my readme files._
 
-tl;dr,
-
-```bash
-markdown-create-table-of-contents
-markdown-create-table-of-contents -i input.md
-markdown-create-table-of-contents -i input.md -h3
-```
-
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
@@ -20,6 +12,7 @@ markdown-create-table-of-contents -i input.md -h3
 Default is README.md,
 
 ```bash
+markdown-create-table-of-contents -v
 go run markdown-create-table-of-contents
 ```
 

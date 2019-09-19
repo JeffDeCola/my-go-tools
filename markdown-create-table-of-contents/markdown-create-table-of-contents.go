@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
+const toolVersion = "1.0.1"
+
 func makeTOC(heading string, headingNumber string, inputFilename string) {
 	//fmt.Println("Working on heading", heading, line)
 
@@ -86,9 +88,16 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 func main() {
 
 	// Flags - Will default to README.md if no input giving
+	version := flag.Bool("v", false, "prints current version")
 	inputFilenamePtr := flag.String("i", "README.md", "input file")
 	heading3Ptr := flag.Bool("h3", false, "a bool for heading2")
 	flag.Parse()
+
+	// CHECK VERSION
+	if *version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
+	}
 
 	// Do we put this in the link?
 	inputFilename := *inputFilenamePtr
