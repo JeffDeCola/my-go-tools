@@ -39,7 +39,7 @@ The `my-go-tools`
 
   _Get an md5 hash (fingerprint) from an input file using the standard
   `crypto/md5` package.
-  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint.
+  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
   
 ## UPDATE GITHUB WEBPAGE USING CONCOURSE (OPTIONAL)
 

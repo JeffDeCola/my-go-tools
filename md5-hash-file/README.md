@@ -6,7 +6,7 @@ getting an md5 hash (fingerprint) from an input file using the standard
 I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint.
 
 I expanded
-[md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
+[md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
 example in `my-go-examples` to include a way to get the
 md5 fingerprint from a ssh key.
 
