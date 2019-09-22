@@ -7,6 +7,10 @@ Use my other tool
 [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/encryptfile)
 to decrypt.
 
+Refer to my
+[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
+example in `my-go-examples` repo for how I did the decryption.
+
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
