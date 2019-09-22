@@ -6,7 +6,7 @@
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/my-go-tools/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/my-go-tools/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`my-go-tools` _A place to keep useful tools I created.
+`my-go-tools` _A place to keep useful tools I created in go.
 
 The `my-go-tools`
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/).
@@ -35,6 +35,12 @@ The `my-go-tools`
   _Take a markdown file and "do whatever you want" between the delimiters
   and output new markdown file._
 
+* [md5-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/md5-hash-file)
+
+  _Get an md5 hash (fingerprint) from an input file using the standard
+  `crypto/md5` package.
+  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint.
+  
 ## UPDATE GITHUB WEBPAGE USING CONCOURSE (OPTIONAL)
 
 For fun, I use concourse to update
