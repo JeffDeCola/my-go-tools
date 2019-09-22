@@ -5,6 +5,11 @@ parsing a markdown file to find ##, ### to create a table
 of contents (TOC) for links at github.  I like to use a
 TOC it at the beginning of my readme files._
 
+For example, the following Table of Contents was generated using this tool,
+
+* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents#run)
+* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents#install)
+
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## RUN
