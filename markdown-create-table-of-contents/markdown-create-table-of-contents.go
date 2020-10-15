@@ -58,12 +58,12 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 		parts := strings.Split(dir, "github.com/JeffDeCola/")
 		dir = parts[1]
 	}
-	// Get everything after "jeff/JeffDeCola/"
+	// Get everything after "jeff/systemverilog/"
 	if strings.Contains(dir, "jeff/systemverilog/") {
 		parts := strings.Split(dir, "jeff/systemverilog/")
 		dir = parts[1]
 	}
-	// Get everything after "jeff/JeffDeCola/"
+	// Get everything after "jeff/website/"
 	if strings.Contains(dir, "jeff/website/") {
 		parts := strings.Split(dir, "jeff/website/")
 		dir = parts[1]
