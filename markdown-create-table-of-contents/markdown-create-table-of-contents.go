@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-const toolVersion = "1.0.1"
+const toolVersion = "1.0.2"
 
 func makeTOC(heading string, headingNumber string, inputFilename string) {
 	//fmt.Println("Working on heading", heading, line)
@@ -56,6 +56,16 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 	// Get everything after "github.com/JeffDeCola/"
 	if strings.Contains(dir, "github.com/JeffDeCola/") {
 		parts := strings.Split(dir, "github.com/JeffDeCola/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/JeffDeCola/"
+	if strings.Contains(dir, "jeff/systemverilog/") {
+		parts := strings.Split(dir, "jeff/systemverilog/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/JeffDeCola/"
+	if strings.Contains(dir, "jeff/website/") {
+		parts := strings.Split(dir, "jeff/website/")
 		dir = parts[1]
 	}
 

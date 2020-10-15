@@ -6,9 +6,8 @@
 [![Issue Count](https://codeclimate.com/github/JeffDeCola/my-go-tools/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/my-go-tools/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
 
-`my-go-tools` _A place to keep useful tools I created in go.
+_A place to keep useful tools I created in go.
 
-The `my-go-tools`
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/).
 
 ## USEFUL TOOLS I CREATED
