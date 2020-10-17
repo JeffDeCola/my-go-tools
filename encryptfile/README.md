@@ -1,7 +1,7 @@
 # encryptfile tool
 
 `encryptfile` _is a useful tool for
-encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
+encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package._
 
 Use my other tool
 [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)
@@ -54,7 +54,7 @@ hash := hex.EncodeToString(hasher.Sum(nil))
 ### STEP 2 - ENCRYPT FILE WITH 32 BYTE HASH KEY
 
 The encryption was done using AES-256 GCM from my example
-[aes-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/encryption-decryption/aes-gcm).
+[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
 
 Refer to that example for a complete description.
 
