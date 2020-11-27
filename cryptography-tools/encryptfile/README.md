@@ -4,7 +4,7 @@
 encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package._
 
 Use my other tool
-[decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)
+[decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
 to decrypt.
 
 Refer to my
@@ -60,4 +60,4 @@ Refer to that example for a complete description.
 
 This illustration may help,
 
-![IMAGE - encryptfile - IMAGE](../docs/pics/encryptfile.jpg)
+![IMAGE - encryptfile - IMAGE](../../docs/pics/encryptfile.jpg)
