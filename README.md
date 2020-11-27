@@ -10,9 +10,8 @@ _A place to keep useful tools I created in go._
 
 Table of Contents,
 
-* [USEFUL TOOLS I CREATED](https://github.com/JeffDeCola/my-go-tools#useful-tools-i-created)
-  * [CRYPTOGRAPHY TOOLS](https://github.com/JeffDeCola/my-go-tools#cryptography-tools)
-  * [MARKDOWN TOOLS](https://github.com/JeffDeCola/my-go-tools#markdown-tools)
+* [CRYPTOGRAPHY TOOLS](https://github.com/JeffDeCola/my-go-tools#cryptography-tools)
+* [MARKDOWN TOOLS](https://github.com/JeffDeCola/my-go-tools#markdown-tools)
 
 Documentation and reference,
 
