@@ -7,8 +7,8 @@ TOC it at the beginning of my readme files._
 
 For example, the following Table of Contents was generated using this tool,
 
-* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents#run)
-* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents#install)
+* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#run)
+* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#install)
 
 [GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
