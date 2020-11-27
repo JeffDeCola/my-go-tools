@@ -8,9 +8,25 @@
 
 _A place to keep useful tools I created in go._
 
-[GitHub Webpage](https://jeffdecola.github.io/my-go-tools/).
+Table of Contents,
+
+* [USEFUL TOOLS I CREATED](https://github.com/JeffDeCola/my-go-tools#useful-tools-i-created)
+  * [CRYPTOGRAPHY TOOLS](https://github.com/JeffDeCola/my-go-tools#cryptography-tools)
+  * [MARKDOWN TOOLS](https://github.com/JeffDeCola/my-go-tools#markdown-tools)
+
+Documentation and reference,
+
+* [go-cheat-sheet](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+* [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
+* [my-go-packages](https://github.com/JeffDeCola/my-go-packages)
+
+[GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
 
 ## USEFUL TOOLS I CREATED
+
+_All sections in alphabetical order._
+
+### CRYPTOGRAPHY TOOLS
 
 * [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)
 
@@ -24,6 +40,14 @@ _A place to keep useful tools I created in go._
   Works with
   [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)._
 
+* [md5-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/md5-hash-file)
+
+  _Get an md5 hash (fingerprint) from an input file using the standard
+  `crypto/md5` package.
+  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
+
+### MARKDOWN TOOLS
+
 * [markdown-create-table-of-contents](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents)
 
   _Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
@@ -33,12 +57,6 @@ _A place to keep useful tools I created in go._
 
   _Take a markdown file and "do whatever you want" between the delimiters
   and output new markdown file._
-
-* [md5-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/md5-hash-file)
-
-  _Get an md5 hash (fingerprint) from an input file using the standard
-  `crypto/md5` package.
-  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
   
 ## UPDATE GITHUB WEBPAGE USING CONCOURSE (OPTIONAL)
 
