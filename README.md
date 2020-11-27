@@ -28,19 +28,19 @@ _All sections in alphabetical order._
 
 ### CRYPTOGRAPHY TOOLS
 
-* [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)
+* [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
 
   _Decrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
   Works with
-  [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/encryptfile)._
+  [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile)._
 
-* [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/encryptfile)
+* [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile)
 
   _Encrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
   Works with
-  [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/decryptfile)._
+  [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)._
 
-* [md5-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/md5-hash-file)
+* [md5-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file)
 
   _Get an md5 hash (fingerprint) from an input file using the standard
   `crypto/md5` package.
@@ -48,12 +48,12 @@ _All sections in alphabetical order._
 
 ### MARKDOWN TOOLS
 
-* [markdown-create-table-of-contents](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-create-table-of-contents)
+* [markdown-create-table-of-contents](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents)
 
   _Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
   for links at github.  I like to use a TOC at the beginning of my README.md files._
 
-* [markdown-delimiter-doer](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-delimiter-doer)
+* [markdown-delimiter-doer](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer)
 
   _Take a markdown file and "do whatever you want" between the delimiters
   and output new markdown file._
