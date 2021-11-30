@@ -1,3 +1,3 @@
-module github.com/JeffDeCola/my-go-tools/markdown-tools/markdown-create-table-of-contents
+module mymodule
 
-go 1.16
+go 1.17
