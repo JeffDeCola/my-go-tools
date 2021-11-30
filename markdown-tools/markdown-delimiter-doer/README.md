@@ -23,10 +23,10 @@ Documentation and references,
 ## RUN
 
 The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer-tool/run.sh).
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/run.sh).
 
 To run
-[markdown-delimiter-doer-tool.go](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer-tool/markdown-delimiter-doer-tool.go)
+[markdown-delimiter-doer.go](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/markdown-delimiter-doer.go)
 from the command line,
 
 Run using delimiters `$$` and the `-htmltable` switch on input.md,
@@ -38,7 +38,7 @@ go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o outp
 ## TEST
 
 The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer-tool/test/unit-tests.sh).
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/test/unit-tests.sh).
 
 To unit test the code,
 
@@ -50,7 +50,7 @@ cat test/test_coverage.txt
 To create `_test` files,
 
 ```bash
-gotests -w -all markdown-delimiter-doer-tool.go
+gotests -w -all markdown-delimiter-doer.go
 ```
 
 ## INSTALL
@@ -58,7 +58,7 @@ gotests -w -all markdown-delimiter-doer-tool.go
 Will place an executable in your go bin,
 
 ```bash
-go install markdown-delimiter-doer-tool.go
+go install markdown-delimiter-doer.go
 ```
 
 ## USAGE
@@ -66,13 +66,13 @@ go install markdown-delimiter-doer-tool.go
 Help,
 
 ```bash
-markdown-delimiter-doer-tool -h
+markdown-delimiter-doer -h
 ```
 
 Get version,
 
 ```bash
-markdown-delimiter-doer-tool -v
+markdown-delimiter-doer -v
 ```
 
 ### -htmltable Switch
