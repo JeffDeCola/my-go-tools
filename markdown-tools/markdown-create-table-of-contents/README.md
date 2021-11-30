@@ -80,11 +80,11 @@ markdown-create-table-of-contents -v
 Use a specific filename `input.md`,
 
 ```bash
-markdown-create-table-of-contents.go -i input.md
+markdown-create-table-of-contents -i input.md
 ```
 
 Include sub headings 3 `###`,
 
 ```bash
-markdown-create-table-of-contents.go -i input.md -h3
+markdown-create-table-of-contents -i input.md -h3
 ```
