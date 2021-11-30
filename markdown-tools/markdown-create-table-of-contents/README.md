@@ -9,9 +9,11 @@ Table of Contents,
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#run)
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#install)
-* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#usage)
-  * [-i Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-i-switch)
-  * [-h3 Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h3-switch)
+* [SWITCHES](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#switches)
+  * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h)
+  * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-v)
+  * [-i string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-i-string)
+  * [-h3](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h3)
 
 Documentation and references,
 
@@ -59,13 +61,15 @@ Will place an executable in your go bin,
 go install markdown-create-table-of-contents.go
 ```
 
-## USAGE
+## SWITCHES
 
-Default is to read README.md,
+The default is to use README.md and create a table of contents,
 
 ```bash
 markdown-create-table-of-contents
 ```
+
+### -h
 
 Help,
 
@@ -73,21 +77,23 @@ Help,
 markdown-create-table-of-contents -h
 ```
 
+### -v
+
 Get version,
 
 ```bash
 markdown-create-table-of-contents -v
 ```
 
-### -i Switch
+### -i string
 
-Use a specific filename `input.md`,
+Use a specific input file `input.md`,
 
 ```bash
 markdown-create-table-of-contents -i input.md
 ```
 
-### -h3 Switch
+### -h3
 
 Include sub headings 3 `###`,
 
