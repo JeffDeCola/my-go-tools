@@ -1,1 +1,1 @@
-ok  	github.com/JeffDeCola/my-go-tools/markdown-tools/markdown-delimiter-doer	(cached)	coverage: 0.0% of statements
+ok  	mymodule	(cached)	coverage: 0.0% of statements
