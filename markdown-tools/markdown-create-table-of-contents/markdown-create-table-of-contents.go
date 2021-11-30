@@ -10,9 +10,10 @@ import (
 	"strings"
 )
 
-const toolVersion = "1.0.3"
+const toolVersion = "1.0.4"
 
 func makeTOC(heading string, headingNumber string, inputFilename string) {
+
 	//fmt.Println("Working on heading", heading, line)
 
 	// STEP 1 ***************************
@@ -43,9 +44,39 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 		parts := strings.Split(dir, "jeff/cheatsheets/")
 		dir = parts[1]
 	}
+	// Get everything after "jeff/crypto/"
+	if strings.Contains(dir, "jeff/crypto/") {
+		parts := strings.Split(dir, "jeff/crypto/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/development/"
+	if strings.Contains(dir, "jeff/development/") {
+		parts := strings.Split(dir, "jeff/development/")
+		dir = parts[1]
+	}
 	// Get everything after "jeff/fpga/"
 	if strings.Contains(dir, "jeff/fpga/") {
 		parts := strings.Split(dir, "jeff/fpga/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/golang/"
+	if strings.Contains(dir, "jeff/golang/") {
+		parts := strings.Split(dir, "jeff/golang/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/keeperlabs/"
+	if strings.Contains(dir, "jeff/keeperlabs/") {
+		parts := strings.Split(dir, "jeff/keeperlabs/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/mystuff/"
+	if strings.Contains(dir, "jeff/mystuff/") {
+		parts := strings.Split(dir, "jeff/mystuff/")
+		dir = parts[1]
+	}
+	// Get everything after "jeff/operations/"
+	if strings.Contains(dir, "jeff/operations/") {
+		parts := strings.Split(dir, "jeff/operations/")
 		dir = parts[1]
 	}
 	// Get everything after "jeff/other/"
@@ -58,14 +89,14 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 		parts := strings.Split(dir, "jeff/python/")
 		dir = parts[1]
 	}
-	// Get everything after "github.com/JeffDeCola/"
-	if strings.Contains(dir, "github.com/JeffDeCola/") {
-		parts := strings.Split(dir, "github.com/JeffDeCola/")
+	// Get everything after "jeff/services/"
+	if strings.Contains(dir, "jeff/services/") {
+		parts := strings.Split(dir, "jeff/services/")
 		dir = parts[1]
 	}
-	// Get everything after "jeff/systemverilog/"
-	if strings.Contains(dir, "jeff/systemverilog/") {
-		parts := strings.Split(dir, "jeff/systemverilog/")
+	// Get everything after "jeff/verilog/"
+	if strings.Contains(dir, "jeff/verilog/") {
+		parts := strings.Split(dir, "jeff/verilog/")
 		dir = parts[1]
 	}
 	// Get everything after "jeff/website/"
@@ -98,6 +129,7 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 		fmt.Print("  * ")
 	}
 	fmt.Print("[", heading, "](", link, ")\n")
+
 }
 
 func main() {
@@ -132,6 +164,8 @@ func main() {
 	}
 	defer inputFile.Close()
 
+	fmt.Println("")
+	fmt.Println("Table of Contents,")
 	fmt.Println("")
 
 	// Start scanning the input file
