@@ -7,8 +7,9 @@ of contents (TOC) for links at github._
 Table of Contents,
 
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#run)
+* [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#install)
-* [HOW TO USE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#how-to-use)
+* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#usage)
 
 Documentation and references,
 
@@ -19,21 +20,44 @@ Documentation and references,
 
 ## RUN
 
-The following steps are located in run.sh,
+The following steps are located in
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/run.sh).
+
+To run
+[markdown-create-table-of-contents.go](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/markdown-create-table-of-contents.go)
+from the command line,
 
 ```bash
 go run markdown-create-table-of-contents.go
 ```
 
+## TEST
+
+The following steps are located in
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/test/unit-tests.sh).
+
+To unit test the code,
+
+```bash
+go test -cover ./... | tee test/test_coverage.txt
+cat test/test_coverage.txt
+```
+
+To create `_test` files,
+
+```bash
+gotests -w -all markdown-create-table-of-contents.go
+```
+
 ## INSTALL
 
-Will place in your go bin,
+Will place an executable in your go bin,
 
 ```bash
 go install markdown-create-table-of-contents.go
 ```
 
-## HOW TO USE
+## USAGE
 
 Default is to read README.md,
 
