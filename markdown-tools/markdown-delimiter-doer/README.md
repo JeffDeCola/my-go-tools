@@ -10,6 +10,7 @@ Table of Contents,
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#install)
 * [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#usage)
+  * [-i -o Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-i--o-switch)
   * [-htmltable Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-htmltable-switch)
 * [FUTURE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#future)
 
@@ -75,7 +76,21 @@ Get version,
 markdown-delimiter-doer -v
 ```
 
+### -i -o Switch
+
+The `-i` and `-o` switches are used to define the input and output file respectively.
+
+```bash
+markdown-delimiter-doer -i input.md -o output.md
+```
+
 ### -htmltable Switch
+
+This switch is used to create an html table,
+
+```bash
+markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md
+```
 
 Here is an illustration using the `-htmltable` switch,
 
