@@ -1,3 +1,3 @@
-module github.com/JeffDeCola/my-go-tools/markdown-tools/markdown-delimiter-doer
+module mymodule
 
 go 1.17

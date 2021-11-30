@@ -10,6 +10,8 @@ Table of Contents,
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#install)
 * [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#usage)
+  * [-i Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-i-switch)
+  * [-h3 Switch](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h3-switch)
 
 Documentation and references,
 
@@ -77,11 +79,15 @@ Get version,
 markdown-create-table-of-contents -v
 ```
 
+### -i Switch
+
 Use a specific filename `input.md`,
 
 ```bash
 markdown-create-table-of-contents -i input.md
 ```
+
+### -h3 Switch
 
 Include sub headings 3 `###`,
 

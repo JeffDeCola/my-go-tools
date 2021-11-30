@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-const toolVersion = "1.0.1"
+const toolVersion = "1.0.2"
 
 type table struct {
 	columns       int
@@ -241,12 +241,12 @@ func main() {
 	htmlTableBoolPtr := flag.Bool("htmltable", false, "a bool")
 	flag.Parse()
 
-    // CHECK VERSION
+	// CHECK VERSION
 	if *version {
 		fmt.Println(toolVersion)
 		os.Exit(0)
-    }
-    
+	}
+
 	// Temp storage for what you want to process between the delimiters
 	var stuff []string
 
