@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# my-go-tools markdown-create-table-of-contents unit-tests.sh
+# my-go-tools encryptfile unit-tests.sh
 
 echo " "
 
@@ -19,7 +19,7 @@ else
 fi
 
 echo "If you need to generate _test files run"
-echo "   gotests -w -all markdown-create-table-of-contents.go"
+echo "   gotests -w -all encryptfile.go"
 echo " "
 
 echo "cd up to code level"

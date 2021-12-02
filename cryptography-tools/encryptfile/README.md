@@ -1,32 +1,39 @@
 # encryptfile tool
 
 `encryptfile` _is a useful tool for
-encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package._
+encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
+Works with
+[decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)._
 
-Use my other tool
-[decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
-to decrypt.
+Table of Contents,
 
-Refer to my
-[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
-example in `my-go-examples` repo for how I did the encryption.
+* [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#overview)
+  * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#step-1---create-a-hash-key)
+  * [STEP 2 - ENCRYPT FILE WITH 32 BYTE HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#step-2---encrypt-file-with-32-byte-hash-key)
+* [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#prerequisites)
+* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#run)
+* [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#test)
+* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#install)
+* [SWITCHES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#switches)
+  * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-h)
+  * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-v)
+  * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-i-string--o-string)
+  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-debug)
 
-[GitHub Webpage](https://jeffdecola.github.io/my-go-tools/)
+Documentation and references,
 
-## RUN
+* Use my other tool
+  [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
+  to encrypt
+* Refer to my
+  [aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
+  example in `my-go-examples` repo on how I did the decryption.
+* This repos
+  [github webpage](https://jeffdecola.github.io/my-go-tools/)
+  _built with
+  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
 
-```bash
-go run encryptfile -v
-go run encryptfile <INPUTFILE> <OUTPUTFILE>
-```
-
-## INSTALL
-
-```bash
-go install encryptfile.go
-```
-
-## HOW IT WORKS
+## OVERVIEW
 
 The Advanced Encryption Standard, or AES, is a symmetric
 block cipher chosen by the U.S. government to protect classified
@@ -37,9 +44,9 @@ We're going to use AES-256 GCM encryption from the standard go
 [crypto/aes](https://golang.org/pkg/crypto/aes/)
 package.
 
-### STEP 1 - LETS CREATE A HASH KEY
+### STEP 1 - CREATE A HASH KEY
 
-First you need a 32 byte key (AES-256).  Instead of typing a 32
+First you need a 32 byte key (AES-256). Instead of typing a 32
 character in, lets make it simple by turning a simple paraphrase into a key.
 We will use the standard go
 [crypto/md5](https://golang.org/pkg/crypto/md5/)
@@ -61,3 +68,89 @@ Refer to that example for a complete description.
 This illustration may help,
 
 ![IMAGE - encryptfile - IMAGE](../../docs/pics/encryptfile.jpg)
+
+## PREREQUISITES
+
+I used the following language,
+
+* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+
+You will need the following go packages,
+
+```bash
+go get -u -v github.com/sirupsen/logrus
+```
+
+## RUN
+
+The following steps are located in
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/run.sh).
+
+To run
+[encryptfile.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/encryptfile.go)
+from the command line,
+
+```bash
+go run encryptfile.go -i encrypted.txt -o output.txt
+go run encryptfile.go -i encrypted.txt -o output.txt -debug
+```
+
+Use the paraphrase `test`.
+
+## TEST
+
+The following steps are located in
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/test/unit-tests.sh).
+
+To unit test the code,
+
+```bash
+go test -cover ./... | tee test/test_coverage.txt
+cat test/test_coverage.txt
+```
+
+To create `_test` files,
+
+```bash
+gotests -w -all encryptfile.go
+```
+
+## INSTALL
+
+Will place an executable in your go bin,
+
+```bash
+go install encryptfile.go
+```
+
+## SWITCHES
+
+### -h
+
+Help,
+
+```bash
+encryptfile -h
+```
+
+### -v
+
+Get version,
+
+```bash
+encryptfile -v
+```
+
+### -i string, -o string
+
+Use a specific input file and output file`,
+
+```bash
+encryptfile -i input.txt -o encrypted.txt
+```
+
+### -debug
+
+```bash
+encryptfile -i input.txt -o encrypted.txt -debug
+```

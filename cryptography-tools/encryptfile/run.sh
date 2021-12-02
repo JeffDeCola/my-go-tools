@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# my-go-tools markdown-create-table-of-contents run.sh
+# my-go-tools encryptfile run.sh
 
 echo " "
 
@@ -18,9 +18,9 @@ else
     echo " "
 fi
 
-echo "go run markdown-create-table-of-contents.go"
+echo "go run encryptfile.go"
 echo " "
-go run markdown-create-table-of-contents.go
+go run encryptfile.go -i input.txt - o encrypted.txt
 echo " "
 
 echo "************************************************************************"

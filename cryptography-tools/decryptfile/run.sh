@@ -18,9 +18,9 @@ else
     echo " "
 fi
 
-echo "go run decryptfile.go -i input.txt -o output.txt"
+echo "go run decryptfile.go -i encrypted.txt -o output.txt"
 echo " "
-go run decryptfile.go -i input.txt -o output.txt
+go run decryptfile.go -i encrypted.txt -o output.txt
 echo " "
 
 echo "************************************************************************"

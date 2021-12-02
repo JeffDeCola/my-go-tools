@@ -7,6 +7,10 @@ Works with
 
 Table of Contents,
 
+* [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#overview)
+  * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#step-1---create-a-hash-key)
+  * [STEP 2 - DECRYPT FILE WITH 32 BYTE HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#step-2---decrypt-file-with-32-byte-hash-key)
+* [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#prerequisites)
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#run)
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#install)
@@ -14,9 +18,7 @@ Table of Contents,
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-v)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-i-string--o-string)
-* [HOW IT WORKS](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#how-it-works)
-  * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#step-1---create-a-hash-key)
-  * [STEP 2 - DECRYPT FILE WITH 32 BYTE HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#step-2---decrypt-file-with-32-byte-hash-key)
+  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-debug)
 
 Documentation and references,
 
@@ -31,78 +33,7 @@ Documentation and references,
   _built with
   [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
 
-## RUN
-
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/run.sh).
-
-To run
-[decryptfile.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/decryptfile.go)
-from the command line,
-
-```bash
-go run decryptfile.go -i input.txt -o output.txt
-```
-
-## TEST
-
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/test/unit-tests.sh).
-
-To unit test the code,
-
-```bash
-go test -cover ./... | tee test/test_coverage.txt
-cat test/test_coverage.txt
-```
-
-To create `_test` files,
-
-```bash
-gotests -w -all decryptfile.go
-```
-
-## INSTALL
-
-Will place an executable in your go bin,
-
-```bash
-go install decryptfile.go
-```
-
-## SWITCHES
-
-The default is to use README.md and create a table of contents,
-
-```bash
-decryptfile
-```
-
-### -h
-
-Help,
-
-```bash
-decryptfile -h
-```
-
-### -v
-
-Get version,
-
-```bash
-decryptfile -v
-```
-
-### -i string, -o string
-
-Use a specific input file and output file`,
-
-```bash
-decryptfile -i input.txt -o output.txt
-```
-
-## HOW IT WORKS
+## OVERVIEW
 
 The Advanced Encryption Standard, or AES, is a symmetric
 block cipher chosen by the U.S. government to protect classified
@@ -136,3 +67,89 @@ Refer to that example for a complete description.
 This illustration may help,
 
 ![IMAGE - decryptfile - IMAGE](../../docs/pics/decryptfile.jpg)
+
+## PREREQUISITES
+
+I used the following language,
+
+* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
+
+You will need the following go packages,
+
+```bash
+go get -u -v github.com/sirupsen/logrus
+```
+
+## RUN
+
+The following steps are located in
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/run.sh).
+
+To run
+[decryptfile.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/decryptfile.go)
+from the command line,
+
+```bash
+go run decryptfile.go -i encrypted.txt -o output.txt
+go run decryptfile.go -i encrypted.txt -o output.txt -debug
+```
+
+Use the paraphrase `test`.
+
+## TEST
+
+The following steps are located in
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/test/unit-tests.sh).
+
+To unit test the code,
+
+```bash
+go test -cover ./... | tee test/test_coverage.txt
+cat test/test_coverage.txt
+```
+
+To create `_test` files,
+
+```bash
+gotests -w -all decryptfile.go
+```
+
+## INSTALL
+
+Will place an executable in your go bin,
+
+```bash
+go install decryptfile.go
+```
+
+## SWITCHES
+
+### -h
+
+Help,
+
+```bash
+decryptfile -h
+```
+
+### -v
+
+Get version,
+
+```bash
+decryptfile -v
+```
+
+### -i string, -o string
+
+Use a specific input file and output file`,
+
+```bash
+decryptfile -i encrypted.txt -o output.txt
+```
+
+### -debug
+
+```bash
+decryptfile -i encrypted.txt -o output.txt -debug
+```

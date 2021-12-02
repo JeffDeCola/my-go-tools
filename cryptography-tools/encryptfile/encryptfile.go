@@ -6,7 +6,6 @@ import (
 	"crypto/md5"
 	"crypto/rand"
 	"encoding/hex"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -17,7 +16,9 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "1.0.1"
+const toolVersion = "2.0.0"
+
+var inputFilenamePtr, outputFilenamePtr *string
 
 // HASH THE PARAPHRASE TO GET 32 BYTE KEY
 func createKey(paraphrase string) (string, error) {
@@ -109,9 +110,19 @@ func checkErr(err error) {
 
 func init() {
 
+	// FLAGS
+	version := flag.Bool("v", false, "prints current version")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	inputFilenamePtr = flag.String("i", "INPUT", "input file")
+	outputFilenamePtr = flag.String("o", "OUTPUT", "output file")
+	flag.Parse()
+
 	// SET LOG LEVEL
-	log.SetLevel(log.InfoLevel)
-	// log.SetLevel(log.TraceLevel)
+	if *debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
 
 	// SET FORMAT
 	log.SetFormatter(&log.TextFormatter{})
@@ -119,10 +130,6 @@ func init() {
 
 	// SET OUTPUT (DEFAULT stderr)
 	log.SetOutput(os.Stdout)
-
-	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	flag.Parse()
 
 	// CHECK VERSION
 	if *version {
@@ -134,20 +141,13 @@ func init() {
 
 func main() {
 
-	// GET FILE NAME FROM ARGS
-	flag.Parse()
-	filenameSlice := flag.Args()
-	if len(filenameSlice) != 2 {
-		err := errors.New("only two file allowed")
-		checkErr(err)
-	}
-	filename := filenameSlice[0]    // Make it a string
-	filenameout := filenameSlice[1] // Make it a string
+	log.Trace("inputFilename is ", *inputFilenamePtr)
+	log.Trace("outputFilename is ", *outputFilenamePtr)
 
 	// DATA
 	// Read the file - Will be a slice of bytes
 	log.Trace("Read the file to encrypt")
-	fileDataToEncrypt, err := ioutil.ReadFile(filename)
+	fileDataToEncrypt, err := ioutil.ReadFile(*inputFilenamePtr)
 	checkErr(err)
 	// fmt.Printf("Data/File to encrypt\n--------------------\n%s\n--------------------\n", fileDataToEncrypt)
 
@@ -176,7 +176,7 @@ func main() {
 	// Write cipherTex TO A FILE
 	log.Trace("Write cipherText to a file")
 	// Create file
-	outputFile, err := os.Create(filenameout)
+	outputFile, err := os.Create(*outputFilenamePtr)
 	checkErr(err)
 	defer outputFile.Close()
 	// This just makes it nice and pretty
