@@ -1,5 +1,5 @@
 #!/bin/sh -e
-# my-go-tools markdown-create-table-of-contents run.sh
+# my-go-tools md5-hash-file run.sh
 
 echo " "
 
@@ -18,9 +18,9 @@ else
     echo " "
 fi
 
-echo "go run markdown-create-table-of-contents.go"
+echo "go run md5-hash-file.go"
 echo " "
-go run markdown-create-table-of-contents.go
+go run md5-hash-file.go testfile.txt
 echo " "
 
 echo "************************************************************************"

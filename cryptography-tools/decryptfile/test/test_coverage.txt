@@ -1,0 +1,11 @@
+flag provided but not defined: -test.testlogfile
+Usage of /tmp/go-build3420827216/b001/decryptfile.test:
+  -debug
+    	log trace level
+  -i string
+    	input file (default "INPUT")
+  -o string
+    	output file (default "OUTPUT")
+  -v	prints current version
+FAIL	github.com/JeffDeCola/my-go-tools/cryptography-tools/decryptfile	0.001s
+FAIL

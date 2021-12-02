@@ -16,7 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "1.0.1"
+const toolVersion = "2.0.0"
 
 var filename string
 
@@ -71,9 +71,19 @@ func calculateMD5Hash(plainText string, isSSH bool) string {
 
 func init() {
 
+	// FLAGS
+	version := flag.Bool("v", false, "prints current version")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	filenamePtr := flag.String("ssh", "", "ssh input file")
+	flag.Parse()
+	filename = *filenamePtr
+
 	// SET LOG LEVEL
-	log.SetLevel(log.InfoLevel)
-	// log.SetLevel(log.TraceLevel)
+	if *debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
 
 	// SET FORMAT
 	log.SetFormatter(&log.TextFormatter{})
@@ -81,12 +91,6 @@ func init() {
 
 	// SET OUTPUT (DEFAULT stderr)
 	log.SetOutput(os.Stdout)
-
-	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	filenamePtr := flag.String("ssh", "", "input file")
-	flag.Parse()
-	filename = *filenamePtr
 
 	// CHECK VERSION
 	if *version {
