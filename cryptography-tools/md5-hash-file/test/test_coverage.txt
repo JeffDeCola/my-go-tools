@@ -1,0 +1,7 @@
+flag provided but not defined: -test.testlogfile
+Usage of /tmp/go-build1746066264/b001/md5-hash-file.test:
+  -ssh string
+    	input file
+  -v	prints current version
+FAIL	github.com/JeffDeCola/my-go-tools/cryptography-tools/md5-hash-file	0.001s
+FAIL
