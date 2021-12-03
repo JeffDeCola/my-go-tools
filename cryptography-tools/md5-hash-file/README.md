@@ -11,7 +11,7 @@ Table of Contents,
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#run)
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#install)
-* [SWITCHES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#switches)
+* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#usage)
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-v)
   * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-debug)
@@ -104,7 +104,11 @@ Will place an executable in your go bin,
 go install md5-hash-file.go
 ```
 
-## SWITCHES
+## USAGE
+
+```txt
+md5-hash-file {-h|-v|-debug} [FILENAME]
+```
 
 ### -h
 
@@ -116,7 +120,7 @@ md5-hash-file -h
 
 ### -v
 
-Get version,
+Version,
 
 ```bash
 md5-hash-file -v

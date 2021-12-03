@@ -14,7 +14,7 @@ Table of Contents,
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#run)
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#install)
-* [SWITCHES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#switches)
+* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#usage)
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-v)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-i-string--o-string)
@@ -123,7 +123,11 @@ Will place an executable in your go bin,
 go install encryptfile.go
 ```
 
-## SWITCHES
+## USAGE
+
+```txt
+encryptfile {-h|-v|-debug} -i [input file] -o [output file]
+```
 
 ### -h
 
@@ -135,7 +139,7 @@ encryptfile -h
 
 ### -v
 
-Get version,
+Version,
 
 ```bash
 encryptfile -v

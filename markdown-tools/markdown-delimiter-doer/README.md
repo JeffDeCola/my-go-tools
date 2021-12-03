@@ -11,7 +11,7 @@ Table of Contents,
 * [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#run)
 * [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#test)
 * [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#install)
-* [SWITCHES](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#switches)
+* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#usage)
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-v)
   * [-delimiter string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-delimiter-string)
@@ -55,8 +55,8 @@ from the command line,
 Run using delimiters `$$` and the `-htmltable` switch on input.md,
 
 ```bash
-go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md
-go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md -debug
+go run markdown-delimiter-doer.go -delimiter \$\$ -i input.md -o output.md -htmltable
+go run markdown-delimiter-doer.go -delimiter \$\$ -i input.md -o output.md -htmltable -debug
 ```
 
 ## TEST
@@ -85,7 +85,11 @@ Will place an executable in your go bin,
 go install markdown-delimiter-doer.go
 ```
 
-## SWITCHES
+## USAGE
+
+```txt
+markdown-delimiter-doer {-h|-v|-debug} -delimiter [delimiter] -i [input file] -o [output file]  -htmltable
+```
 
 ### -h
 
@@ -97,7 +101,7 @@ markdown-delimiter-doer -h
 
 ### -v
 
-Get version,
+Version,
 
 ```bash
 markdown-delimiter-doer -v
@@ -115,14 +119,14 @@ The `-i` and `-o` switches are used to define the input and output file respecti
 markdown-delimiter-doer -i input.md -o output.md
 ```
 
-Running this command won't do anything, you need to use a switch.
+Running this command won't do anything, you need to use a switch like -htmltable.
 
 ### -htmltable
 
 This switch is used to create an html table,
 
 ```bash
-markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md
+markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable
 ```
 
 Here is an illustration using the `-htmltable` switch,
@@ -134,7 +138,7 @@ It will even check the dates and strikethrough them automatically.
 ### -debug
 
 ```bash
-markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md -debug
+markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable -debug
 ```
 
 ## FUTURE
