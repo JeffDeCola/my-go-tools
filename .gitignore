@@ -6,3 +6,6 @@ coverage.out
 
 # macOS
 .DS_Store
+
+# Ignore test coverage
+**/test/test_coverage.txt

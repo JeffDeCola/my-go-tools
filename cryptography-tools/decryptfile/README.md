@@ -46,7 +46,7 @@ package.
 
 ### STEP 1 - CREATE A HASH KEY
 
-First you need a 32 byte key (AES-256).  Instead of typing a 32
+First you need a 32 byte key (AES-256). Instead of typing a 32
 character in, lets make it simple by turning a simple paraphrase into a key.
 We will use the standard go
 [crypto/md5](https://golang.org/pkg/crypto/md5/)

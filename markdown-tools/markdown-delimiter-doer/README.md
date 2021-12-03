@@ -17,6 +17,7 @@ Table of Contents,
   * [-delimiter string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-delimiter-string)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-i-string--o-string)
   * [-htmltable](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-htmltable)
+  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-debug)
 * [FUTURE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#future)
 
 Documentation and references,
@@ -55,6 +56,7 @@ Run using delimiters `$$` and the `-htmltable` switch on input.md,
 
 ```bash
 go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md
+go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md -debug
 ```
 
 ## TEST
@@ -128,6 +130,12 @@ Here is an illustration using the `-htmltable` switch,
 ![IMAGE - markdown-delimiter-doer - IMAGE](../../docs/pics/markdown-delimiter-doer.jpg)
 
 It will even check the dates and strikethrough them automatically.
+
+### -debug
+
+```bash
+markdown-delimiter-doer -htmltable -delimiter \$\$ -i input.md -o output.md -debug
+```
 
 ## FUTURE
 

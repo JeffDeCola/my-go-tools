@@ -16,7 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.0"
+const toolVersion = "2.0.1"
 
 var filename string
 
