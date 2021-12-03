@@ -51,6 +51,7 @@ from the command line,
 
 ```bash
 go run markdown-create-table-of-contents.go
+go run markdown-create-table-of-contents.go -debug
 ```
 
 ## TEST
@@ -117,4 +118,10 @@ Include sub headings 3 `###`,
 
 ```bash
 markdown-create-table-of-contents -i input.md -h3
+```
+
+### -debug
+
+```bash
+markdown-create-table-of-contents -i input.md -h3 -debug
 ```

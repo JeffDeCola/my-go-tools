@@ -4,13 +4,17 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"regexp"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "1.0.4"
+const toolVersion = "2.0.1"
+
+var inputFilenamePtr *string
+var heading3Ptr *bool
 
 func makeTOC(heading string, headingNumber string, inputFilename string) {
 
@@ -19,11 +23,12 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 	// STEP 1 ***************************
 	// FIX HEADING
 	// Replace withspace with -
+	log.Trace("STEP 1 - FIX HEADING - Replace withspace with - ")
 	headingLower := strings.Replace(heading, " ", "-", -1)
 	// Remove all special characters except -
 	reg, err := regexp.Compile("[^a-zA-Z0-9-]+")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR:", err)
 
 	}
 	headingLower = reg.ReplaceAllString(headingLower, "")
@@ -33,11 +38,12 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 	// STEP 2 *****************************
 	// Get components to build link
 	// This will be based on my directory structure
+	log.Trace("STEP 2 - Get components to build link - This will be based on my directory structure")
 	githubURL := "https://github.com/JeffDeCola/"
 	// What is repo name and path after that (if any)
 	dir, err := os.Getwd()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR:", err)
 	}
 	// Get everything after "jeff/cheatsheets/"
 	if strings.Contains(dir, "jeff/cheatsheets/") {
@@ -114,6 +120,7 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 
 	// STEP 3 Build link
 	// DO NOT add /tree/master if the dir string is empty
+	log.Trace("STEP 3 - Build link - DO NOT add /tree/master if the dir string is empty")
 	link := ""
 	if dir == "" {
 		link = githubURL + repoName + inputFilename + "#" + headingLower
@@ -132,19 +139,38 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 
 }
 
-func main() {
+func init() {
 
-	// Flags - Will default to README.md if no input giving
+	// FLAGS
 	version := flag.Bool("v", false, "prints current version")
-	inputFilenamePtr := flag.String("i", "README.md", "input file")
-	heading3Ptr := flag.Bool("h3", false, "a bool for heading2")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	inputFilenamePtr = flag.String("i", "README.md", "input file")
+	heading3Ptr = flag.Bool("h3", false, "a bool for heading2")
 	flag.Parse()
+
+	// SET LOG LEVEL
+	if *debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
+
+	// SET FORMAT
+	log.SetFormatter(&log.TextFormatter{})
+	// log.SetFormatter(&log.JSONFormatter{})
+
+	// SET OUTPUT (DEFAULT stderr)
+	log.SetOutput(os.Stdout)
 
 	// CHECK VERSION
 	if *version {
 		fmt.Println(toolVersion)
 		os.Exit(0)
 	}
+
+}
+
+func main() {
 
 	// Do we put this in the link?
 	inputFilename := *inputFilenamePtr
@@ -160,7 +186,7 @@ func main() {
 	// Open input file
 	inputFile, err := os.Open(*inputFilenamePtr)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR:", err)
 	}
 	defer inputFile.Close()
 
@@ -169,6 +195,7 @@ func main() {
 	fmt.Println("")
 
 	// Start scanning the input file
+	log.Trace("Start scanning the input file", inputFile)
 	scanner := bufio.NewScanner(inputFile) // Increment the token
 	for scanner.Scan() {
 

@@ -61,7 +61,7 @@ hash := hex.EncodeToString(hasher.Sum(nil))
 ### STEP 2 - ENCRYPT FILE WITH 32 BYTE HASH KEY
 
 The encryption was done using AES-256 GCM from my example
-[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
+[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm).
 
 Refer to that example for a complete description.
 

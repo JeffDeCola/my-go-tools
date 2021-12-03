@@ -4,14 +4,19 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "1.0.2"
+const toolVersion = "2.0.1"
+
+var inputFilenamePtr, outputFilenamePtr *string
+var delimiterPtr *string
+var htmlTableBoolPtr *bool
 
 type table struct {
 	columns       int
@@ -139,7 +144,7 @@ func buildTableStruct(t *table, stuff []string) {
 			columnNumber = tempcolumnNumber
 			replace := "rowcol" + tempcolumnNumberStr + ": "
 			line := strings.Replace(line, replace, "", -1)
-			//fmt.Println(replace, "rowNumber:", rowNumber, "columnNumber:", columnNumber, "lineNumber:", lineNumber, "----", line)
+			log.Trace(replace, "rowNumber:", rowNumber, "columnNumber:", columnNumber, "lineNumber:", lineNumber, "----", line)
 			// Place in 3-D array
 			t.rowColumnLine[rowNumber][columnNumber][lineNumber] = line
 		}
@@ -231,15 +236,30 @@ func makeHTMLTABLE(stuff []string, outputFile *os.File) {
 	printLine(line, outputFile)
 }
 
-func main() {
+func init() {
 
-	// Flags
+	// FLAGS
 	version := flag.Bool("v", false, "prints current version")
-	delimiterPtr := flag.String("delimiter", "DELIMETER", "what is the delimiter")
-	inputFilenamePtr := flag.String("i", "INPUT", "input file")
-	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
-	htmlTableBoolPtr := flag.Bool("htmltable", false, "a bool")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	delimiterPtr = flag.String("delimiter", "DELIMETER", "what is the delimiter")
+	inputFilenamePtr = flag.String("i", "INPUT", "input file")
+	outputFilenamePtr = flag.String("o", "OUTPUT", "output file")
+	htmlTableBoolPtr = flag.Bool("htmltable", false, "a bool")
 	flag.Parse()
+
+	// SET LOG LEVEL
+	if *debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
+
+	// SET FORMAT
+	log.SetFormatter(&log.TextFormatter{})
+	// log.SetFormatter(&log.JSONFormatter{})
+
+	// SET OUTPUT (DEFAULT stderr)
+	log.SetOutput(os.Stdout)
 
 	// CHECK VERSION
 	if *version {
@@ -247,13 +267,17 @@ func main() {
 		os.Exit(0)
 	}
 
+}
+
+func main() {
+
 	// Temp storage for what you want to process between the delimiters
 	var stuff []string
 
 	// Open input file
 	inputFile, err := os.Open(*inputFilenamePtr)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR:", err)
 	}
 	defer inputFile.Close()
 
@@ -265,6 +289,7 @@ func main() {
 	}
 
 	// Start scanning the input file
+	log.Trace("Start scanning the input file")
 	scanner := bufio.NewScanner(inputFile) // Increment the token
 	for scanner.Scan() {
 
@@ -320,7 +345,7 @@ func main() {
 	}
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
+		log.Fatal("ERROR:", err)
 	}
 
 }
