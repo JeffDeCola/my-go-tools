@@ -24,7 +24,7 @@ Documentation and references,
 
 * Use my other tool
   [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
-  to encrypt
+  to decrypt
 * Refer to my
   [aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
   example in `my-go-examples` repo on how I did the decryption.
@@ -78,7 +78,7 @@ I used the following language,
 You will need the following go packages,
 
 ```bash
-go get -u -v github.com/sirupsen/logrus
+go install -v github.com/sirupsen/logrus
 ```
 
 ## RUN
@@ -91,6 +91,7 @@ To run
 from the command line,
 
 ```bash
+go run . -i encrypted.txt -o output.txt
 go run encryptfile.go -i encrypted.txt -o output.txt
 go run encryptfile.go -i encrypted.txt -o output.txt -debug
 ```
@@ -102,17 +103,17 @@ Use the paraphrase `test`.
 The following steps are located in
 [unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/test/unit-tests.sh).
 
+To create `_test` files,
+
+```bash
+gotests -w -all encryptfile.go
+```
+
 To unit test the code,
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
 cat test/test_coverage.txt
-```
-
-To create `_test` files,
-
-```bash
-gotests -w -all encryptfile.go
 ```
 
 ## INSTALL

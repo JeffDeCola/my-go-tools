@@ -18,20 +18,82 @@ import (
 
 const toolVersion = "2.0.1"
 
-var inputFilenamePtr, outputFilenamePtr *string
+func checkErr(err error) {
 
-// HASH THE PARAPHRASE TO GET 32 BYTE KEY
-func createKey(paraphrase string) (string, error) {
-	log.Trace("Hashing the paraphrase")
+	if err != nil {
+		fmt.Printf("Error is %+v\n", err)
+		log.Fatal("ERROR:", err)
+	}
+
+}
+
+func checkVersion(version bool) {
+
+	if version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
+	}
+
+}
+
+func setLogLevel(debugTrace bool) {
+
+	// SET LOG LEVEL
+	if debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
+
+	// SET FORMAT
+	log.SetFormatter(&log.TextFormatter{})
+	// log.SetFormatter(&log.JSONFormatter{})
+
+	// SET OUTPUT (DEFAULT stderr)
+	log.SetOutput(os.Stdout)
+
+}
+
+func readFile(filename string) []byte {
+
+	log.Trace("Read the file ", filename, " to encrypt")
+	fileDataToEncrypt, err := ioutil.ReadFile(filename)
+	checkErr(err)
+	log.Trace("Data/File to encrypt\n--------------------\n", string(fileDataToEncrypt), "\n--------------------\n")
+	return fileDataToEncrypt
+
+}
+
+func getParaphrase() string {
+
+	log.Trace("Get the paraphrase")
+	paraphrase := ""
+	fmt.Print("\nWhat is your secret paraphrase? ")
+	_, err := fmt.Scan(&paraphrase)
+	checkErr(err)
+	return paraphrase
+}
+
+func getKeyByte(paraphrase string) []byte {
+
+	log.Trace("hash the paraphrase'", paraphrase, "'to get 32 byte key")
 	hasher := md5.New()
 	hasher.Write([]byte(paraphrase))
 	hash := hex.EncodeToString(hasher.Sum(nil))
 	log.Trace("Hash is ", hash)
-	return hash, nil
+
+	keyByte := []byte(hash)
+	log.Trace("keybyte is ", keyByte)
+	return keyByte
+
 }
 
-// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
-func encrypt(keyByte []byte, plainTextByte []byte) string {
+func encryptFileData(keyByte []byte, plainTextByte []byte) string {
+
+	// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
+
+	log.Trace("Encrypt file with key")
+	fmt.Println("Encrypting input file")
 
 	// GET CIPHER BLOCK USING KEY
 	block, err := aes.NewCipher(keyByte)
@@ -55,12 +117,22 @@ func encrypt(keyByte []byte, plainTextByte []byte) string {
 
 	// RETURN HEX
 	cipherText := hex.EncodeToString(cipherTextByte)
+	log.Trace("Encrypted Data\n--------------------\n", cipherText, "\n--------------------\n")
 	return cipherText
+
 }
 
-func writeCipherText(cipherText string, outputFile *os.File) {
+func writeCipherText(cipherText string, filename string) {
 
-	_, err := outputFile.WriteString("\nThis secret file was created by Jeff DeCola\n")
+	// Write cipherTex TO A FILE
+	log.Trace("Write cipherText to a file")
+
+	// Create file
+	outputFile, err := os.Create(filename)
+	checkErr(err)
+	defer outputFile.Close()
+
+	_, err = outputFile.WriteString("\nThis secret file was created by Jeff DeCola\n")
 	checkErr(err)
 	t := time.Now()
 	_, err = outputFile.WriteString(t.Format(time.ANSIC) + "\n")
@@ -99,88 +171,42 @@ func writeCipherText(cipherText string, outputFile *os.File) {
 
 	_, err = outputFile.WriteString("--------------------------------------------------------------------------------\n\n")
 	checkErr(err)
-}
 
-func checkErr(err error) {
-	if err != nil {
-		fmt.Printf("Error is %+v\n", err)
-		log.Fatal("ERROR:", err)
-	}
-}
-
-func init() {
-
-	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	debugTrace := flag.Bool("debug", false, "log trace level")
-	inputFilenamePtr = flag.String("i", "INPUT", "input file")
-	outputFilenamePtr = flag.String("o", "OUTPUT", "output file")
-	flag.Parse()
-
-	// SET LOG LEVEL
-	if *debugTrace {
-		log.SetLevel(log.TraceLevel)
-	} else {
-		log.SetLevel(log.InfoLevel)
-	}
-
-	// SET FORMAT
-	log.SetFormatter(&log.TextFormatter{})
-	// log.SetFormatter(&log.JSONFormatter{})
-
-	// SET OUTPUT (DEFAULT stderr)
-	log.SetOutput(os.Stdout)
-
-	// CHECK VERSION
-	if *version {
-		fmt.Println(toolVersion)
-		os.Exit(0)
-	}
+	fmt.Printf("Wrote output file\n\n")
 
 }
 
 func main() {
 
+	// FLAGS
+	version := flag.Bool("v", false, "prints current version")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	inputFilenamePtr := flag.String("i", "INPUT", "input file")
+	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
+	flag.Parse()
+
 	log.Trace("inputFilename is ", *inputFilenamePtr)
 	log.Trace("outputFilename is ", *outputFilenamePtr)
 
-	// DATA
-	// Read the file - Will be a slice of bytes
-	log.Trace("Read the file to encrypt")
-	fileDataToEncrypt, err := ioutil.ReadFile(*inputFilenamePtr)
-	checkErr(err)
-	// fmt.Printf("Data/File to encrypt\n--------------------\n%s\n--------------------\n", fileDataToEncrypt)
+	// CHECK VERSION
+	checkVersion(*version)
 
-	// PARAPHRASE
-	// Ask the User
-	log.Trace("Get the paraphrase")
-	paraphrase := ""
-	fmt.Printf("\nWhat is your secret paraphrase? ")
-	_, err = fmt.Scan(&paraphrase)
-	checkErr(err)
+	// CHECK LOG LEVEL
+	setLogLevel(*debugTrace)
 
-	// KEY
-	// Has the paraphrase to get 32 Byte Key
-	log.Trace("hash the paraphrase to get 32 byte key")
-	keyText, err := createKey(paraphrase)
-	keyByte := []byte(keyText)
-	checkErr(err)
+	// GET DATA - Read the file - Will be a slice of bytes
+	fileDataToEncrypt := readFile(*inputFilenamePtr)
 
-	// ENCRYPT
-	log.Trace("Encrypt file with key")
-	fmt.Println("Encrypting input file")
-	cipherText := encrypt(keyByte, fileDataToEncrypt)
-	//fmt.Printf("Encrypted Data\n--------------------\n%s\n--------------------\n", cipherText)
+	// GET PARAPHRASE - Ask the User
+	paraphrase := getParaphrase()
 
-	// WRITE TO FILE
-	// Write cipherTex TO A FILE
-	log.Trace("Write cipherText to a file")
-	// Create file
-	outputFile, err := os.Create(*outputFilenamePtr)
-	checkErr(err)
-	defer outputFile.Close()
-	// This just makes it nice and pretty
-	writeCipherText(cipherText, outputFile)
-	fmt.Printf("Wrote output file\n\n")
+	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
+	keyByte := getKeyByte(paraphrase)
+
+	// ENCRYPT FILE DATA
+	cipherText := encryptFileData(keyByte, fileDataToEncrypt)
+
+	// WRITE cipherText TO FILE
+	writeCipherText(cipherText, *outputFilenamePtr)
 
 }
