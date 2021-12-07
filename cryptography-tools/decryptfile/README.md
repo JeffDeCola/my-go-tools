@@ -90,6 +90,7 @@ To run
 from the command line,
 
 ```bash
+go run . -i encrypted.txt -o output.txt
 go run decryptfile.go -i encrypted.txt -o output.txt
 go run decryptfile.go -i encrypted.txt -o output.txt -debug
 ```
@@ -101,17 +102,17 @@ Use the paraphrase `test`.
 The following steps are located in
 [unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/test/unit-tests.sh).
 
+To create `_test` files,
+
+```bash
+gotests -w -all decryptfile.go
+```
+
 To unit test the code,
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
 cat test/test_coverage.txt
-```
-
-To create `_test` files,
-
-```bash
-gotests -w -all decryptfile.go
 ```
 
 ## INSTALL

@@ -70,6 +70,7 @@ If you run on testfile.txt your md5 hash shall be,
 You may also use the -ssh flag to read in a public ssh key file,
 
 ```bash
+go run . -ssh <FILENAME>
 go run md5-hash-file.go -ssh <FILENAME>
 go run md5-hash-file.go -ssh ~/.ssh/id_rsa.pub
 go run md5-hash-file.go -ssh $HOME/.ssh/id_rsa.pub
@@ -83,17 +84,17 @@ Its nice because you can check you have the right fingerprint at
 The following steps are located in
 [unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/test/unit-tests.sh).
 
+To create `_test` files,
+
+```bash
+gotests -w -all md5-hash-file.go
+```
+
 To unit test the code,
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
 cat test/test_coverage.txt
-```
-
-To create `_test` files,
-
-```bash
-gotests -w -all md5-hash-file.go
 ```
 
 ## INSTALL

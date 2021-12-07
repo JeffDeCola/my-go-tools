@@ -51,6 +51,7 @@ To run
 from the command line,
 
 ```bash
+go run .
 go run markdown-create-table-of-contents.go
 go run markdown-create-table-of-contents.go -debug
 ```
@@ -60,17 +61,17 @@ go run markdown-create-table-of-contents.go -debug
 The following steps are located in
 [unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/test/unit-tests.sh).
 
+To create `_test` files,
+
+```bash
+gotests -w -all markdown-create-table-of-contents.go
+```
+
 To unit test the code,
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
 cat test/test_coverage.txt
-```
-
-To create `_test` files,
-
-```bash
-gotests -w -all markdown-create-table-of-contents.go
 ```
 
 ## INSTALL
