@@ -145,7 +145,7 @@ md5-hash-file -v
 Check your public ssh file,
 
 ```bash
-md5-hash-file.go -ssh ~/.ssh/id_rsa.pub
+md5-hash-file -ssh ~/.ssh/id_rsa.pub
 ```
 
 ### -debug

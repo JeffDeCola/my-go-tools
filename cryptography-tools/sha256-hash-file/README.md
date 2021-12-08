@@ -72,7 +72,7 @@ go run sha256-hash-file.go -debug testfile.txt
 If you run on testfile.txt your sha256 hash shall be,
 
 ```txt
-af6a4de528eae378e082fc6f5b7e1c4fab3aeb6fff1dfc9e991b2cdfc640faf9
+r2pN5Sjq43jggvxvW34cT6s662//HfyemRss38ZA+vk
 ```
 
 You may also use the -ssh flag to read in a public ssh key file,
@@ -145,7 +145,7 @@ sha256-hash-file -v
 Check your public ssh file,
 
 ```bash
-sha256-hash-file.go -ssh ~/.ssh/id_rsa.pub
+sha256-hash-file -ssh ~/.ssh/id_rsa.pub
 ```
 
 ### -debug
