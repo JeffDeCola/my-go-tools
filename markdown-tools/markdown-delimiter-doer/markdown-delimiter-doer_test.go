@@ -1,77 +1,112 @@
 package main
 
-import (
-	"os"
-	"testing"
-)
+import "testing"
 
-func Test_printLine(t *testing.T) {
+func Test_checkErr(t *testing.T) {
 	type args struct {
-		line       string
-		outputFile *os.File
+		err error
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test checkErr nil",
+			args: args{
+				err: nil,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			printLine(tt.args.line, tt.args.outputFile)
+			checkErr(tt.args.err)
 		})
 	}
 }
 
-func Test_checkExpiredDates(t *testing.T) {
+func Test_checkVersion(t *testing.T) {
 	type args struct {
-		t *table
+		version bool
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test check version false",
+			args: args{
+				version: false,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			checkExpiredDates(tt.args.t)
+			checkVersion(tt.args.version)
 		})
 	}
 }
 
-func Test_buildTableStruct(t *testing.T) {
+func Test_setLogLevel(t *testing.T) {
 	type args struct {
-		t     *table
-		stuff []string
+		debugTrace bool
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Debug False",
+			args: args{
+				debugTrace: false,
+			},
+		},
+		{
+			name: "Test Debug True",
+			args: args{
+				debugTrace: true,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			buildTableStruct(tt.args.t, tt.args.stuff)
+			setLogLevel(tt.args.debugTrace)
 		})
 	}
 }
 
-func Test_makeHTMLTABLE(t *testing.T) {
+func Test_doer(t *testing.T) {
 	type args struct {
-		stuff      []string
-		outputFile *os.File
+		delimiter      string
+		inputFilename  string
+		outputFilename string
+		htmlTableBool  bool
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test doer",
+			args: args{
+				delimiter:      "$$",
+				inputFilename:  "input.md",
+				outputFilename: "output_test.md",
+				htmlTableBool:  false,
+			},
+		},
+		{
+			name: "Test doer -html switch",
+			args: args{
+				delimiter:      "$$",
+				inputFilename:  "input.md",
+				outputFilename: "output_test.md",
+				htmlTableBool:  true,
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			makeHTMLTABLE(tt.args.stuff, tt.args.outputFile)
+			doer(tt.args.delimiter, tt.args.inputFilename, tt.args.outputFilename, tt.args.htmlTableBool)
 		})
 	}
 }
