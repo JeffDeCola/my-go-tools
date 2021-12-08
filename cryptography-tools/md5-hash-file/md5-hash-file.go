@@ -141,8 +141,6 @@ func printReadableMD5(md5Hash string) {
 
 func main() {
 
-	fmt.Println(" ")
-
 	// FLAGS
 	version := flag.Bool("v", false, "prints current version")
 	debugTrace := flag.Bool("debug", false, "log trace level")
@@ -158,6 +156,8 @@ func main() {
 	log.Trace("Version flag = ", *version)
 	log.Trace("Debug flag = ", *debugTrace)
 	log.Trace("sshPointer = ", *sshPtr)
+
+	fmt.Println(" ")
 
 	// GET FILENAME
 	filename := getFilename(*sshPtr)
