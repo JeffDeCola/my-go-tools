@@ -2,7 +2,8 @@
 
 `md5-hash-file` _is a useful tool for
 getting an md5 hash (fingerprint) from an input file using the standard
-`crypto/md5` package._
+`crypto/md5` package.
+I also added a flag to read in your .ssh/id_rsa.pub key to get your ssh md5 fingerprint._
 
 Table of Contents,
 
