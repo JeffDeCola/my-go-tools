@@ -14,6 +14,7 @@ Table of Contents,
 * [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#usage)
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-v)
+  * [-ssh](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-ssh)
   * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-debug)
 
 Documentation and references,
@@ -28,12 +29,24 @@ Documentation and references,
 `md5-hash-file` _is a useful tool for
 getting an md5 hash (fingerprint) from an input file using the standard
 `crypto/md5` package.
-I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint.
+I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh md5 fingerprint.
 
 I expanded
 [md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
 example in `my-go-examples` to include a way to get the
 md5 fingerprint from a ssh key.
+
+In a nutshell, the guts of the code is,
+
+```go
+plainTextBytes := []byte(plainText)
+
+// HASH
+md5HashByte := md5.Sum(plainTextBytes)
+
+// CONVERT TO STRING
+md5Hash := hex.EncodeToString(md5HashByte[:])
+```
 
 ## PREREQUISITES
 
@@ -78,6 +91,12 @@ go run md5-hash-file.go -ssh $HOME/.ssh/id_rsa.pub
 
 Its nice because you can check you have the right fingerprint at
 [github.com/settings/keys](https://github.com/settings/keys).
+
+You can also run the unix command to check your md5,
+
+```bash
+ssh-keygen -l -E md5 -f ~/.ssh/id_rsa.pub
+```
 
 ## TEST
 
@@ -125,6 +144,14 @@ Version,
 
 ```bash
 md5-hash-file -v
+```
+
+### -ssh
+
+Check your public ssh file,
+
+```bash
+md5-hash-file.go -ssh ~/.ssh/id_rsa.pub
 ```
 
 ### -debug

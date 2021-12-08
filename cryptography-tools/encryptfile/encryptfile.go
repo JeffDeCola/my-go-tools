@@ -16,7 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.1"
+const toolVersion = "2.0.2"
 
 func checkErr(err error) {
 
@@ -76,14 +76,14 @@ func getParaphrase() string {
 
 func getKeyByte(paraphrase string) []byte {
 
-	log.Trace("hash the paraphrase'", paraphrase, "'to get 32 byte key")
+	log.Trace("Hash the paraphrase'", paraphrase, "'to get 32 byte key")
 	hasher := md5.New()
 	hasher.Write([]byte(paraphrase))
 	hash := hex.EncodeToString(hasher.Sum(nil))
 	log.Trace("Hash is ", hash)
 
 	keyByte := []byte(hash)
-	log.Trace("keybyte is ", keyByte)
+	log.Trace("keyByte is ", keyByte)
 	return keyByte
 
 }
@@ -91,9 +91,8 @@ func getKeyByte(paraphrase string) []byte {
 func encryptFileData(keyByte []byte, plainTextByte []byte) string {
 
 	// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
-
 	log.Trace("Encrypt file with key")
-	fmt.Println("Encrypting input file")
+	log.Info("Encrypting input file")
 
 	// GET CIPHER BLOCK USING KEY
 	block, err := aes.NewCipher(keyByte)
@@ -167,12 +166,12 @@ func writeCipherText(cipherText string, filename string) {
 		checkErr(err)
 	}
 
-	fmt.Printf("There were %v characters and %v lines created\n", numberCharacters, numberLines)
+	log.Info("There were ", numberCharacters, " characters and ", numberLines, " lines created")
 
 	_, err = outputFile.WriteString("--------------------------------------------------------------------------------\n\n")
 	checkErr(err)
 
-	fmt.Printf("Wrote output file\n\n")
+	log.Info("Wrote output file\n\n")
 
 }
 
@@ -185,16 +184,18 @@ func main() {
 	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
 	flag.Parse()
 
-	log.Trace("inputFilename is ", *inputFilenamePtr)
-	log.Trace("outputFilename is ", *outputFilenamePtr)
-
 	// CHECK VERSION
 	checkVersion(*version)
 
-	// CHECK LOG LEVEL
+	// SET LOG LEVEL
 	setLogLevel(*debugTrace)
 
-	// GET DATA - Read the file - Will be a slice of bytes
+	log.Trace("Version flag = ", *version)
+	log.Trace("Debug flag = ", *debugTrace)
+	log.Trace("inputFilename = ", *inputFilenamePtr)
+	log.Trace("outputFilename = ", *outputFilenamePtr)
+
+	// GET DATA TO ENCRYPT - Read the file - Will be a slice of bytes
 	fileDataToEncrypt := readFile(*inputFilenamePtr)
 
 	// GET PARAPHRASE - Ask the User
@@ -203,7 +204,7 @@ func main() {
 	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
 	keyByte := getKeyByte(paraphrase)
 
-	// ENCRYPT FILE DATA
+	// ENCRYPT FILE DATA BASED ON PARAPHRASE TO GET cipherText
 	cipherText := encryptFileData(keyByte, fileDataToEncrypt)
 
 	// WRITE cipherText TO FILE
