@@ -97,7 +97,7 @@ func getParaphrase() string {
 
 	log.Trace("Get the paraphrase")
 	paraphrase := ""
-	fmt.Print("\nWhat is your secret paraphrase? ")
+	fmt.Print("What is your secret paraphrase? ")
 	_, err := fmt.Scan(&paraphrase)
 	checkErr(err)
 	return paraphrase
@@ -163,7 +163,7 @@ func writePlainTextByte(plainTextByte []byte, filename string) {
 	checkErr(err)
 	defer f.Close()
 	f.Write(plainTextByte)
-	log.Info("Wrote output file\n\n")
+	log.Trace("Wrote output file\n")
 
 }
 
@@ -187,6 +187,8 @@ func main() {
 	log.Trace("inputFilename = ", *inputFilenamePtr)
 	log.Trace("outputFilename = ", *outputFilenamePtr)
 
+	fmt.Println(" ")
+
 	// GET CIPHERTEXT (in bytes) FROM INPUT FILE
 	cipherText := getCipherText(*inputFilenamePtr)
 
@@ -201,5 +203,7 @@ func main() {
 
 	// WRITE plainTextByte TO FILE
 	writePlainTextByte(plainTextByte, *outputFilenamePtr)
+
+	fmt.Println(" ")
 
 }

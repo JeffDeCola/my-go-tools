@@ -68,7 +68,7 @@ func getParaphrase() string {
 
 	log.Trace("Get the paraphrase")
 	paraphrase := ""
-	fmt.Print("\nWhat is your secret paraphrase? ")
+	fmt.Print("What is your secret paraphrase? ")
 	_, err := fmt.Scan(&paraphrase)
 	checkErr(err)
 	return paraphrase
@@ -92,7 +92,6 @@ func encryptFileData(keyByte []byte, plainTextByte []byte) string {
 
 	// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
 	log.Trace("Encrypt file with key")
-	log.Info("Encrypting input file")
 
 	// GET CIPHER BLOCK USING KEY
 	block, err := aes.NewCipher(keyByte)
@@ -166,12 +165,12 @@ func writeCipherText(cipherText string, filename string) {
 		checkErr(err)
 	}
 
-	log.Info("There were ", numberCharacters, " characters and ", numberLines, " lines created")
+	log.Trace("There were ", numberCharacters, " characters and ", numberLines, " lines created")
 
 	_, err = outputFile.WriteString("--------------------------------------------------------------------------------\n\n")
 	checkErr(err)
 
-	log.Info("Wrote output file\n\n")
+	log.Trace("Wrote output file\n\n")
 
 }
 
@@ -195,6 +194,8 @@ func main() {
 	log.Trace("inputFilename = ", *inputFilenamePtr)
 	log.Trace("outputFilename = ", *outputFilenamePtr)
 
+	fmt.Println(" ")
+
 	// GET DATA TO ENCRYPT - Read the file - Will be a slice of bytes
 	fileDataToEncrypt := readFile(*inputFilenamePtr)
 
@@ -209,5 +210,7 @@ func main() {
 
 	// WRITE cipherText TO FILE
 	writeCipherText(cipherText, *outputFilenamePtr)
+
+	fmt.Println(" ")
 
 }
