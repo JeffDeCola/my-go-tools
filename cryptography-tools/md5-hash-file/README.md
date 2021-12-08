@@ -19,22 +19,15 @@ Table of Contents,
 
 Documentation and references,
 
+* Refer to
+  [md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
+  example in `my-go-examples`
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
   _built with
   [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
 
 ## OVERVIEW
-
-`md5-hash-file` _is a useful tool for
-getting an md5 hash (fingerprint) from an input file using the standard
-`crypto/md5` package.
-I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh md5 fingerprint.
-
-I expanded
-[md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
-example in `my-go-examples` to include a way to get the
-md5 fingerprint from a ssh key.
 
 In a nutshell, the guts of the code is,
 
@@ -70,6 +63,7 @@ To run
 from the command line,
 
 ```bash
+go run . testfile.txt
 go run md5-hash-file.go testfile.txt
 go run md5-hash-file.go -debug testfile.txt
 ```
@@ -83,10 +77,9 @@ If you run on testfile.txt your md5 hash shall be,
 You may also use the -ssh flag to read in a public ssh key file,
 
 ```bash
-go run . -ssh <FILENAME>
-go run md5-hash-file.go -ssh <FILENAME>
+go run . -ssh ~/.ssh/id_rsa.pub
 go run md5-hash-file.go -ssh ~/.ssh/id_rsa.pub
-go run md5-hash-file.go -ssh $HOME/.ssh/id_rsa.pub
+go run md5-hash-file.go -ssh -debug ~/.ssh/id_rsa.pub
 ```
 
 Its nice because you can check you have the right fingerprint at
@@ -127,7 +120,7 @@ go install md5-hash-file.go
 ## USAGE
 
 ```txt
-md5-hash-file {-h|-v|-debug} [FILENAME]
+md5-hash-file {-h|-v|-debug|-ssh} [FILENAME]
 ```
 
 ### -h
