@@ -29,8 +29,6 @@ Documentation and references,
 
 ## CRYPTOGRAPHY TOOLS
 
-TESTSTSETSETSETSETSET
-
 * [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
 
   _Decrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
@@ -47,6 +45,12 @@ TESTSTSETSETSETSETSET
 
   _Get an md5 hash (fingerprint) from an input file using the standard
   `crypto/md5` package.
+  I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
+
+* [sha256-hash-file](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file)
+
+  _Get an sha256 hash (fingerprint) from an input file using the standard
+  `crypto/sha256` package.
   I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
 
 ## MARKDOWN TOOLS
