@@ -1,10 +1,149 @@
 package main
 
 import (
-	"os"
 	"reflect"
 	"testing"
 )
+
+func Test_checkErr(t *testing.T) {
+	type args struct {
+		err error
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "Test checkErr nil",
+			args: args{
+				err: nil,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			checkErr(tt.args.err)
+		})
+	}
+}
+
+func Test_checkVersion(t *testing.T) {
+	type args struct {
+		version bool
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "Test check version false",
+			args: args{
+				version: false,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			checkVersion(tt.args.version)
+		})
+	}
+}
+
+func Test_setLogLevel(t *testing.T) {
+	type args struct {
+		debugTrace bool
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "Test Debug False",
+			args: args{
+				debugTrace: false,
+			},
+		},
+		{
+			name: "Test Debug True",
+			args: args{
+				debugTrace: true,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			setLogLevel(tt.args.debugTrace)
+		})
+	}
+}
+
+func Test_getCipherText(t *testing.T) {
+	type args struct {
+		filename string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "Test get Cipher Text",
+			args: args{
+				filename: "encrypted.txt",
+			},
+			want: "814ba70e7e9de663778f9c8743c728ab0cfc22a703344b9d72fd786b9930f0af21c00818e7fd48b70dadbb1accf8ce6d9a5c4e39afaa6f483d7131798f4b920217a5e7fa28ac73f0e61b7070fb68b05be8a3bfe2",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getCipherText(tt.args.filename); got != tt.want {
+				t.Errorf("getCipherText() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getParaphrase(t *testing.T) {
+	tests := []struct {
+		name string
+		want string
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getParaphrase(); got != tt.want {
+				t.Errorf("getParaphrase() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getKeyByte(t *testing.T) {
+	type args struct {
+		paraphrase string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []byte
+	}{
+		{
+			name: "Get the keybyte from paraphrase 'test'",
+			args: args{
+				paraphrase: "test",
+			},
+			want: []byte("098f6bcd4621d373cade4e832627b4f6"),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getKeyByte(tt.args.paraphrase); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getKeyByte() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
 
 func Test_createKey(t *testing.T) {
 	type args struct {
@@ -32,7 +171,7 @@ func Test_createKey(t *testing.T) {
 	}
 }
 
-func Test_decrypt(t *testing.T) {
+func Test_decryptCipherText(t *testing.T) {
 	type args struct {
 		keyByte    []byte
 		cipherText string
@@ -42,50 +181,44 @@ func Test_decrypt(t *testing.T) {
 		args args
 		want []byte
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test decrypt cipherText",
+			args: args{
+				keyByte:    []byte("098f6bcd4621d373cade4e832627b4f6"),
+				cipherText: "814ba70e7e9de663778f9c8743c728ab0cfc22a703344b9d72fd786b9930f0af21c00818e7fd48b70dadbb1accf8ce6d9a5c4e39afaa6f483d7131798f4b920217a5e7fa28ac73f0e61b7070fb68b05be8a3bfe2",
+			},
+			want: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := decrypt(tt.args.keyByte, tt.args.cipherText); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("decrypt() = %v, want %v", got, tt.want)
+			if got := decryptCipherText(tt.args.keyByte, tt.args.cipherText); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("decryptCipherText() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func Test_getCipherText(t *testing.T) {
+func Test_writePlainTextByte(t *testing.T) {
 	type args struct {
-		inputFile *os.File
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getCipherText(tt.args.inputFile); got != tt.want {
-				t.Errorf("getCipherText() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func Test_checkErr(t *testing.T) {
-	type args struct {
-		err error
+		plainTextByte []byte
+		filename      string
 	}
 	tests := []struct {
 		name string
 		args args
 	}{
-		// TODO: Add test cases.
+		{
+			name: "",
+			args: args{
+				plainTextByte: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+				filename:      "output_test.txt",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			checkErr(tt.args.err)
+			writePlainTextByte(tt.args.plainTextByte, tt.args.filename)
 		})
 	}
 }

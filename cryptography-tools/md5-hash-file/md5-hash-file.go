@@ -16,37 +16,89 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.1"
-
-var filename string
+const toolVersion = "2.0.2"
 
 func checkErr(err error) {
+
 	if err != nil {
 		fmt.Printf("Error is %+v\n", err)
 		log.Fatal("ERROR:", err)
 	}
+
 }
 
-func getFilename(filename string) (string, bool) {
+func checkVersion(version bool) {
 
-	var isSSH bool
-
-	// Check if the ssh flag is set, if not just use input file
-	if filename == "" {
-		isSSH = false
-		// GET FILE NAME FROM ARGS
-		filenameSlice := flag.Args()
-		if len(filenameSlice) != 1 {
-			err := errors.New("only one files allowed")
-			checkErr(err)
-		}
-		filename = filenameSlice[0] // Make it a string
-
-	} else {
-		isSSH = true
+	if version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
 	}
 
-	return filename, isSSH
+}
+
+func setLogLevel(debugTrace bool) {
+
+	// SET LOG LEVEL
+	if debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
+
+	// SET FORMAT
+	log.SetFormatter(&log.TextFormatter{})
+	// log.SetFormatter(&log.JSONFormatter{})
+
+	// SET OUTPUT (DEFAULT stderr)
+	log.SetOutput(os.Stdout)
+
+}
+
+func getFilename(ssh bool) string {
+
+	// GET FILE NAME FROM ARGS
+	filenameSlice := flag.Args()
+
+	if len(filenameSlice) != 1 {
+		err := errors.New("only one file allowed")
+		checkErr(err)
+	}
+	filename := filenameSlice[0] // Make it a string
+
+	return filename
+
+}
+
+func readFile(filename string) []byte {
+
+	log.Trace("Read the file ", filename, " to MD5")
+	plainTextByte, err := ioutil.ReadFile(filename)
+	checkErr(err)
+	log.Trace("Data/File to encrypt\n--------------------\n", string(plainTextByte), "\n--------------------\n")
+	return plainTextByte
+
+}
+
+func parseSSHFile(ssh bool, plainTextByte []byte) string {
+
+	var plainText string
+
+	// If ssh public key file, we must parse it
+	if ssh {
+		// Parse the file because the file looks like `ssh-rsa AAA...ABC comments`
+		// Hence parts[1] is the key
+		parts := strings.Fields(string(plainTextByte))
+		if len(parts) < 2 {
+			log.Fatal("bad parse")
+		}
+		log.Trace("The parsed ssh key is: \n", parts[1], "\n\n")
+		plainText = parts[1]
+	} else {
+		plainText = string(plainTextByte)
+	}
+
+	return plainText
+
 }
 
 func calculateMD5Hash(plainText string, isSSH bool) string {
@@ -66,36 +118,23 @@ func calculateMD5Hash(plainText string, isSSH bool) string {
 	// CONVERT TO STRING
 	md5Hash := hex.EncodeToString(md5HashByte[:])
 
+	fmt.Printf("The md5 hash is: \n%s \n", md5Hash)
+
 	return md5Hash
 }
 
-func init() {
+func printReadableMD5(md5Hash string) {
 
-	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	debugTrace := flag.Bool("debug", false, "log trace level")
-	filenamePtr := flag.String("ssh", "", "ssh input file")
-	flag.Parse()
-	filename = *filenamePtr
+	// Get the hash in md5 bytes
+	md5HashInBytes, _ := hex.DecodeString(md5Hash)
 
-	// SET LOG LEVEL
-	if *debugTrace {
-		log.SetLevel(log.TraceLevel)
-	} else {
-		log.SetLevel(log.InfoLevel)
-	}
-
-	// SET FORMAT
-	log.SetFormatter(&log.TextFormatter{})
-	// log.SetFormatter(&log.JSONFormatter{})
-
-	// SET OUTPUT (DEFAULT stderr)
-	log.SetOutput(os.Stdout)
-
-	// CHECK VERSION
-	if *version {
-		fmt.Println(toolVersion)
-		os.Exit(0)
+	// Print out the md5 fingerprint
+	fmt.Println("The md5 fingerprint in a more readable form:")
+	for i, b := range md5HashInBytes {
+		fmt.Printf("%02x", b)
+		if i < len(md5HashInBytes)-1 {
+			fmt.Print(":")
+		}
 	}
 
 }
@@ -104,47 +143,38 @@ func main() {
 
 	fmt.Println(" ")
 
+	// FLAGS
+	version := flag.Bool("v", false, "prints current version")
+	debugTrace := flag.Bool("debug", false, "log trace level")
+	sshPtr := flag.Bool("ssh", false, "ssh input file")
+	flag.Parse()
+
+	// CHECK VERSION
+	checkVersion(*version)
+
+	// SET LOG LEVEL
+	setLogLevel(*debugTrace)
+
+	log.Trace("Version flag = ", *version)
+	log.Trace("Debug flag = ", *debugTrace)
+	log.Trace("sshPointer = ", *sshPtr)
+
 	// GET FILENAME
-	filename, isSSH := getFilename(filename)
-	fmt.Printf("The filename is %s which is a public ssh key file: %v\n\n", filename, isSSH)
+	filename := getFilename(*sshPtr)
 
-	// READ FILE INTO BYTES
-	plainTextByte, err := ioutil.ReadFile(filename)
-	checkErr(err)
-	// Convert to string
-	plainText := string(plainTextByte)
-	fmt.Printf("The file %s contains: \n%s\n\n", filename, plainText)
+	// GET DATA TO FINGERPRINT - Read the file - Will be a slice of bytes
+	plainTextByte := readFile(filename)
 
-	// If ssh public key file, we must parse it
-	if isSSH {
-		// Parse the file because the file looks like `ssh-rsa AAA...ABC comments`
-		// Hence parts[1] is the key
-		parts := strings.Fields(string(plainTextByte))
-		if len(parts) < 2 {
-			log.Fatal("bad parse")
-		}
-		fmt.Printf("The public ssh key is: \n%s \n\n", parts[1])
-		plainText = parts[1]
-	}
+	// PARSE plainTextByte IF SSH FLAG USED
+	plainText := parseSSHFile(*sshPtr, plainTextByte)
 
-	// SO NOW WE ARE FINALLY READY
 	// CALCULATE MD5 HASH FROM STRING
-	md5Hash := calculateMD5Hash(plainText, isSSH)
-	fmt.Printf("The md5 hash is: \n%s \n\n", md5Hash)
+	md5Hash := calculateMD5Hash(plainText, *sshPtr)
 
-	if isSSH {
-		// Get the hash in md5 bytes
-		md5HashInBytes, _ := hex.DecodeString(md5Hash)
+	fmt.Println(" ")
 
-		// Print out the md5 fingerprint
-		fmt.Println("The md5 fingerprint in a more readable form:")
-		for i, b := range md5HashInBytes {
-			fmt.Printf("%02x", b)
-			if i < len(md5HashInBytes)-1 {
-				fmt.Print(":")
-			}
-		}
-	}
+	// PRINT MORE READABLE FORM
+	printReadableMD5(md5Hash)
 
 	fmt.Printf("\n\n")
 
