@@ -55,8 +55,8 @@ ls -la
 echo " "
 
 
-# encrypt test -------------------------------------------------
-echo "Run go test -cover"
+# encryptfile test -------------------------------------------------
+echo "ENCRYPTFILE Run go test -cover -------------------------------"
 echo "   -cover shows the percentage coverage"
 echo "   Put results in /test/test_coverage.txt file"
 cd cryptography-tools/encryptfile
@@ -75,11 +75,46 @@ echo "Move test/text_coverage.txt to /coverage-results directory"
 mv "test/test_coverage.txt" "$GOPATH/coverage-results/"
 echo " "
 
-# decrypt test -------------------------------------------------
+# decryptfile test -------------------------------------------------
+echo "DECRYPTFILE Run go test -cover -------------------------------"
+echo "cd ../decryptfile"
 cd ../decryptfile
+echo "go test -cover ./... | tee test/test_coverage.txt"
 go test -cover ./... | tee test/test_coverage.txt
+echo "sed -i -e 's/^/     /' test/test_coverage.txt"
 sed -i -e 's/^/     /' test/test_coverage.txt
-cat "test/test_coverage.txt" >> "$GOPATH/coverage-results/"
+echo "cat \"test/test_coverage.txt\" >> \"$GOPATH/coverage-results/test_coverage.txt\""
+cat "test/test_coverage.txt" >> "$GOPATH/coverage-results/test_coverage.txt"
+echo " "
+
+# md5-hash-file test -------------------------------------------------
+echo "DECRYPTFILE Run go test -cover ---------------------------------"
+echo "cd ../decryptfile"
+cd ../decryptfile
+echo "go test -cover ./... | tee test/test_coverage.txt"
+go test -cover ./... | tee test/test_coverage.txt
+echo "sed -i -e 's/^/     /' test/test_coverage.txt"
+sed -i -e 's/^/     /' test/test_coverage.txt
+echo "cat \"test/test_coverage.txt\" >> \"$GOPATH/coverage-results/test_coverage.txt\""
+cat "test/test_coverage.txt" >> "$GOPATH/coverage-results/test_coverage.txt"
+echo " "
+
+# sha256-hash-file test -------------------------------------------------
+echo "DECRYPTFILE Run go test -cover ------------------------------------"
+echo "cd ../decryptfile"
+cd ../decryptfile
+echo "go test -cover ./... | tee test/test_coverage.txt"
+go test -cover ./... | tee test/test_coverage.txt
+echo "sed -i -e 's/^/     /' test/test_coverage.txt"
+sed -i -e 's/^/     /' test/test_coverage.txt
+echo "cat \"test/test_coverage.txt\" >> \"$GOPATH/coverage-results/test_coverage.txt\""
+cat "test/test_coverage.txt" >> "$GOPATH/coverage-results/test_coverage.txt"
+echo " "
+
+# --------------------------------------------------------------
+echo "Print out test covergage file"
+cat "$GOPATH/coverage-results/test_coverage.txt"
+echo " "
 
 echo "unit-tests.sh (END)"
 echo " "
