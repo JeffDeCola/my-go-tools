@@ -11,12 +11,101 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.1"
+const toolVersion = "2.0.2"
 
-var inputFilenamePtr *string
-var heading3Ptr *bool
+func checkErr(err error) {
 
-func makeTOC(heading string, headingNumber string, inputFilename string) {
+	if err != nil {
+		fmt.Printf("Error is %+v\n", err)
+		log.Fatal("ERROR:", err)
+	}
+
+}
+
+func checkVersion(version bool) {
+
+	if version {
+		fmt.Println(toolVersion)
+		os.Exit(0)
+	}
+
+}
+
+func setLogLevel(debugTrace bool) {
+
+	// SET LOG LEVEL
+	if debugTrace {
+		log.SetLevel(log.TraceLevel)
+	} else {
+		log.SetLevel(log.InfoLevel)
+	}
+
+	// SET FORMAT
+	log.SetFormatter(&log.TextFormatter{})
+	// log.SetFormatter(&log.JSONFormatter{})
+
+	// SET OUTPUT (DEFAULT stderr)
+	log.SetOutput(os.Stdout)
+
+}
+
+func createTOC(inputFilename string, addHeading3 bool) {
+
+	var inputFilenameLink string
+	heading2 := "## "
+	heading3 := "### "
+
+	// Do we put this in the link?
+	if inputFilename == "README.md" {
+		inputFilenameLink = ""
+	} else {
+		inputFilenameLink = "/" + inputFilename
+	}
+
+	// Open input file
+	inputFile, err := os.Open(inputFilename)
+	if err != nil {
+		log.Fatal("ERROR:", err)
+	}
+	defer inputFile.Close()
+
+	fmt.Println("Table of Contents,")
+	fmt.Println("")
+
+	// Start scanning the input file
+	log.Trace("Start scanning the input file", inputFile)
+	scanner := bufio.NewScanner(inputFile) // Increment the token
+	for scanner.Scan() {
+
+		// Read a line in file
+		line := scanner.Text()
+		// fmt.Println("Working on:", line)
+
+		// Find heading 2.
+		if strings.Contains(line, heading2) {
+
+			// Is it ## with a space
+			if string(line[0:3]) == heading2 {
+				line = line[3:]
+				makeTOCEntry(line, "h2", inputFilenameLink)
+			}
+
+			// Find heading 3
+			if strings.Contains(line, heading3) && addHeading3 {
+
+				// Is it ### with a space
+				if string(line[0:4]) == heading3 {
+					line = line[4:]
+					makeTOCEntry(line, "h3", inputFilenameLink)
+				}
+			}
+
+		}
+
+	}
+}
+
+func makeTOCEntry(heading string, headingNumber string, inputFilename string) {
 
 	//fmt.Println("Working on heading", heading, line)
 
@@ -139,92 +228,30 @@ func makeTOC(heading string, headingNumber string, inputFilename string) {
 
 }
 
-func init() {
+func main() {
 
 	// FLAGS
 	version := flag.Bool("v", false, "prints current version")
 	debugTrace := flag.Bool("debug", false, "log trace level")
-	inputFilenamePtr = flag.String("i", "README.md", "input file")
-	heading3Ptr = flag.Bool("h3", false, "a bool for heading2")
+	inputFilenamePtr := flag.String("i", "README.md", "input file")
+	heading3Ptr := flag.Bool("h3", false, "a bool for heading2")
 	flag.Parse()
 
-	// SET LOG LEVEL
-	if *debugTrace {
-		log.SetLevel(log.TraceLevel)
-	} else {
-		log.SetLevel(log.InfoLevel)
-	}
-
-	// SET FORMAT
-	log.SetFormatter(&log.TextFormatter{})
-	// log.SetFormatter(&log.JSONFormatter{})
-
-	// SET OUTPUT (DEFAULT stderr)
-	log.SetOutput(os.Stdout)
-
 	// CHECK VERSION
-	if *version {
-		fmt.Println(toolVersion)
-		os.Exit(0)
-	}
+	checkVersion(*version)
 
-}
+	// SET LOG LEVEL
+	setLogLevel(*debugTrace)
 
-func main() {
+	log.Trace("Version flag = ", *version)
+	log.Trace("Debug flag = ", *debugTrace)
+	log.Trace("inputFilename = ", *inputFilenamePtr)
+	log.Trace("heading3Ptr = ", *heading3Ptr)
 
-	// Do we put this in the link?
-	inputFilename := *inputFilenamePtr
-	if inputFilename == "README.md" {
-		inputFilename = ""
-	} else {
-		inputFilename = "/" + inputFilename
-	}
+	fmt.Println(" ")
 
-	heading2 := "## "
-	heading3 := "### "
-
-	// Open input file
-	inputFile, err := os.Open(*inputFilenamePtr)
-	if err != nil {
-		log.Fatal("ERROR:", err)
-	}
-	defer inputFile.Close()
-
-	fmt.Println("")
-	fmt.Println("Table of Contents,")
-	fmt.Println("")
-
-	// Start scanning the input file
-	log.Trace("Start scanning the input file", inputFile)
-	scanner := bufio.NewScanner(inputFile) // Increment the token
-	for scanner.Scan() {
-
-		// Read a line in file
-		line := scanner.Text()
-		// fmt.Println("Working on:", line)
-
-		// Find heading 2.
-		if strings.Contains(line, heading2) {
-
-			// Is it ## with a space
-			if string(line[0:3]) == heading2 {
-				line = line[3:]
-				makeTOC(line, "h2", inputFilename)
-			}
-
-			// Find heading 3
-			if strings.Contains(line, heading3) && *heading3Ptr {
-
-				// Is it ### with a space
-				if string(line[0:4]) == heading3 {
-					line = line[4:]
-					makeTOC(line, "h3", inputFilename)
-				}
-			}
-
-		}
-
-	}
+	// CREATE THE TABLE OF CONTENTS
+	createTOC(*inputFilenamePtr, *heading3Ptr)
 
 	fmt.Println("")
 
