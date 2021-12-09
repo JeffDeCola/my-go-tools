@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.2"
+const toolVersion = "2.0.3"
 
 type table struct {
 	columns       int
