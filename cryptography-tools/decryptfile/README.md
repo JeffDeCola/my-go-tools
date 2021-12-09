@@ -94,6 +94,8 @@ from the command line,
 go run . -i encrypted.txt -o output.txt
 go run decryptfile.go -i encrypted.txt -o output.txt
 go run decryptfile.go -i encrypted.txt -o output.txt -debug
+go run decryptfile.go -i encrypted.txt -o output.txt -paraphrasefile paraphrase.txt
+go run decryptfile.go -i encrypted.txt -o output.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
 Use the paraphrase `test`.
@@ -156,7 +158,7 @@ decryptfile -i encrypted.txt -o output.txt
 
 ### -paraphrasefile string
 
-Use a file a the paraphrase,
+Use a file as the paraphrase,
 
 ```bash
 decryptfile -i encrypted.txt -o output.txt -paraphrasefile ~/.ssh/id_rsa

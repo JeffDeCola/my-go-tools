@@ -123,6 +123,26 @@ func Test_getParaphrase(t *testing.T) {
 	}
 }
 
+func Test_readFile(t *testing.T) {
+	type args struct {
+		filename string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []byte
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := readFile(tt.args.filename); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("readFile() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_getKeyByte(t *testing.T) {
 	type args struct {
 		paraphrase string

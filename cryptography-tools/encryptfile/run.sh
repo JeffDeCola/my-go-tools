@@ -20,7 +20,7 @@ fi
 
 echo "go run encryptfile.go"
 echo " "
-go run encryptfile.go -i input.txt - o encrypted.txt
+go run encryptfile.go -i input.txt -o encrypted.txt
 echo " "
 
 echo "************************************************************************"
