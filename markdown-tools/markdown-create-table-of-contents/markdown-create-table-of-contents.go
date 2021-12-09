@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.2"
+const toolVersion = "2.0.3"
 
 func checkErr(err error) {
 
@@ -231,20 +231,20 @@ func makeTOCEntry(heading string, headingNumber string, inputFilename string) {
 func main() {
 
 	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	debugTrace := flag.Bool("debug", false, "log trace level")
+	versionPtr := flag.Bool("v", false, "prints current version")
+	debugTracePtr := flag.Bool("debug", false, "log trace level")
 	inputFilenamePtr := flag.String("i", "README.md", "input file")
 	heading3Ptr := flag.Bool("h3", false, "a bool for heading2")
 	flag.Parse()
 
 	// CHECK VERSION
-	checkVersion(*version)
+	checkVersion(*versionPtr)
 
 	// SET LOG LEVEL
-	setLogLevel(*debugTrace)
+	setLogLevel(*debugTracePtr)
 
-	log.Trace("Version flag = ", *version)
-	log.Trace("Debug flag = ", *debugTrace)
+	log.Trace("Version flag = ", *versionPtr)
+	log.Trace("Debug flag = ", *debugTracePtr)
 	log.Trace("inputFilename = ", *inputFilenamePtr)
 	log.Trace("heading3Ptr = ", *heading3Ptr)
 

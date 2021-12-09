@@ -137,8 +137,8 @@ func doer(delimiter string, inputFilename string, outputFilename string, htmlTab
 func main() {
 
 	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	debugTrace := flag.Bool("debug", false, "log trace level")
+	versionPtr := flag.Bool("v", false, "prints current version")
+	debugTracePtr := flag.Bool("debug", false, "log trace level")
 	delimiterPtr := flag.String("delimiter", "DELIMETER", "what is the delimiter")
 	inputFilenamePtr := flag.String("i", "INPUT", "input file")
 	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
@@ -146,13 +146,13 @@ func main() {
 	flag.Parse()
 
 	// CHECK VERSION
-	checkVersion(*version)
+	checkVersion(*versionPtr)
 
 	// SET LOG LEVEL
-	setLogLevel(*debugTrace)
+	setLogLevel(*debugTracePtr)
 
-	log.Trace("Version flag = ", *version)
-	log.Trace("Debug flag = ", *debugTrace)
+	log.Trace("Version flag = ", *versionPtr)
+	log.Trace("Debug flag = ", *debugTracePtr)
 	log.Trace("delimiterPtr = ", *delimiterPtr)
 	log.Trace("inputFilenamePtr = ", *inputFilenamePtr)
 	log.Trace("outputFilenamePtr = ", *outputFilenamePtr)

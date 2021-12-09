@@ -104,16 +104,20 @@ func Test_readFile(t *testing.T) {
 }
 
 func Test_getParaphrase(t *testing.T) {
+	type args struct {
+		paraphraseFile string
+	}
 	tests := []struct {
 		name string
+		args args
 		want string
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getParaphrase(); got != tt.want {
-				t.Errorf("getParaphraseHash() = %v, want %v", got, tt.want)
+			if got := getParaphrase(tt.args.paraphraseFile); got != tt.want {
+				t.Errorf("getParaphrase() = %v, want %v", got, tt.want)
 			}
 		})
 	}

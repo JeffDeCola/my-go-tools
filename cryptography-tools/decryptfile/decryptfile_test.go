@@ -91,7 +91,7 @@ func Test_getCipherText(t *testing.T) {
 			args: args{
 				filename: "encrypted.txt",
 			},
-			want: "814ba70e7e9de663778f9c8743c728ab0cfc22a703344b9d72fd786b9930f0af21c00818e7fd48b70dadbb1accf8ce6d9a5c4e39afaa6f483d7131798f4b920217a5e7fa28ac73f0e61b7070fb68b05be8a3bfe2",
+			want: "9d8af6f16b705de8c8f0072113eda3d38921f617da1b238e3ef311e30719fc1a789b504ce718a3eb182c7c9660364f04ebe2d8650ac610647a46ed5f63faf12a5fed3c40595215f485df4604b958bea2200368da",
 		},
 	}
 	for _, tt := range tests {
@@ -104,15 +104,19 @@ func Test_getCipherText(t *testing.T) {
 }
 
 func Test_getParaphrase(t *testing.T) {
+	type args struct {
+		paraphraseFile string
+	}
 	tests := []struct {
 		name string
+		args args
 		want string
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getParaphrase(); got != tt.want {
+			if got := getParaphrase(tt.args.paraphraseFile); got != tt.want {
 				t.Errorf("getParaphrase() = %v, want %v", got, tt.want)
 			}
 		})
