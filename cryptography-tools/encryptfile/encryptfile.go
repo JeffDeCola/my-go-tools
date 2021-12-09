@@ -69,7 +69,7 @@ func getParaphrase(paraphraseFile string) string {
 	var paraphrase string
 
 	if paraphraseFile != "" {
-		fmt.Println("Getting the paraphrase from the file ", paraphraseFile)
+		fmt.Println("Getting the paraphrase from the file", paraphraseFile)
 		paraphrase = string(readFile(paraphraseFile))
 	} else {
 		log.Trace("Get the paraphrase from User")

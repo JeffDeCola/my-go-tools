@@ -56,8 +56,8 @@ Run using delimiters `$$` and the `-htmltable` switch on input.md,
 
 ```bash
 go run . -delimiter \$\$ -i input.md -o output.md -htmltable
-go run markdown-delimiter-doer.go -delimiter \$\$ -i input.md -o output.md -htmltable
-go run markdown-delimiter-doer.go -delimiter \$\$ -i input.md -o output.md -htmltable -debug
+go run markdown-delimiter-doer.go htmlswitch.go -delimiter \$\$ -i input.md -o output.md -htmltable
+go run markdown-delimiter-doer.go htmlswitch.go -delimiter \$\$ -i input.md -o output.md -htmltable -debug
 ```
 
 ## TEST
@@ -89,7 +89,7 @@ go install markdown-delimiter-doer.go htmlswitch.go
 ## USAGE
 
 ```txt
-markdown-delimiter-doer {-h|-v|-debug} -delimiter [delimiter] -i [input file] -o [output file]  -htmltable
+markdown-delimiter-doer {-h|-v|-debug} -delimiter [delimiter] -i [input file] -o [output file] -htmltable
 ```
 
 ### -h

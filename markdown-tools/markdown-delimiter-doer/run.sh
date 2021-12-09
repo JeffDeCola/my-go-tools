@@ -20,7 +20,7 @@ fi
 
 echo "go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md"
 echo " "
-go run markdown-delimiter-doer.go -htmltable -delimiter \$\$ -i input.md -o output.md
+go run markdown-delimiter-doer.go htmlswitch.go -htmltable -delimiter \$\$ -i input.md -o output.md
 
 echo " "
 

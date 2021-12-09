@@ -91,7 +91,7 @@ func Test_getCipherText(t *testing.T) {
 			args: args{
 				filename: "encrypted.txt",
 			},
-			want: "9d8af6f16b705de8c8f0072113eda3d38921f617da1b238e3ef311e30719fc1a789b504ce718a3eb182c7c9660364f04ebe2d8650ac610647a46ed5f63faf12a5fed3c40595215f485df4604b958bea2200368da",
+			want: "eceedcd4e9021647dfcc4628178b54aff7c83d0bd819d94dc753ccef9db0fd6aa1801cfa0d8a1c0d444657afee8990fb9120837da97d5f65fe96e74e8bd8cb00355950b771409a2d786bc6abc2d6d5aecb887000",
 		},
 	}
 	for _, tt := range tests {
