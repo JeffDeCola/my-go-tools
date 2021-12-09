@@ -18,6 +18,7 @@ Table of Contents,
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-v)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-i-string--o-string)
+  * [-paraphrasefile string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-paraphrasefile-string)
   * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-debug)
 
 Documentation and references,
@@ -126,7 +127,7 @@ go install decryptfile.go
 ## USAGE
 
 ```txt
-decryptfile {-h|-v|-debug} -i [input file] -o [output file]
+decryptfile {-h|-v|-debug} -i [input file] -o [output file] -paraphrasefile [file]
 ```
 
 ### -h
@@ -151,6 +152,14 @@ Use a specific input file and output file`,
 
 ```bash
 decryptfile -i encrypted.txt -o output.txt
+```
+
+### -paraphrasefile string
+
+Use a file a the paraphrase,
+
+```bash
+decryptfile -i encrypted.txt -o output.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
 ### -debug

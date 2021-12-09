@@ -16,7 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.2"
+const toolVersion = "2.0.3"
 
 func checkErr(err error) {
 
@@ -56,22 +56,29 @@ func setLogLevel(debugTrace bool) {
 
 func readFile(filename string) []byte {
 
-	log.Trace("Read the file ", filename, " to encrypt")
-	fileDataToEncrypt, err := ioutil.ReadFile(filename)
+	log.Trace("Read the file ", filename)
+	fileData, err := ioutil.ReadFile(filename)
 	checkErr(err)
-	log.Trace("Data/File to encrypt\n--------------------\n", string(fileDataToEncrypt), "\n--------------------\n")
-	return fileDataToEncrypt
+	log.Trace("File Data\n--------------------\n", string(fileData), "\n--------------------\n")
+	return fileData
 
 }
 
-func getParaphrase() string {
+func getParaphrase(paraphraseFile string) string {
 
-	log.Trace("Get the paraphrase")
-	paraphrase := ""
-	fmt.Print("What is your secret paraphrase? ")
-	_, err := fmt.Scan(&paraphrase)
-	checkErr(err)
+	var paraphrase string
+
+	if paraphraseFile != "" {
+		fmt.Println("Getting the paraphrase from the file ", paraphraseFile)
+		paraphrase = string(readFile(paraphraseFile))
+	} else {
+		log.Trace("Get the paraphrase from User")
+		fmt.Print("What is your secret paraphrase? ")
+		_, err := fmt.Scan(&paraphrase)
+		checkErr(err)
+	}
 	return paraphrase
+
 }
 
 func getKeyByte(paraphrase string) []byte {
@@ -177,30 +184,32 @@ func writeCipherText(cipherText string, filename string) {
 func main() {
 
 	// FLAGS
-	version := flag.Bool("v", false, "prints current version")
-	debugTrace := flag.Bool("debug", false, "log trace level")
+	versionPtr := flag.Bool("v", false, "prints current version")
+	debugTracePtr := flag.Bool("debug", false, "log trace level")
 	inputFilenamePtr := flag.String("i", "INPUT", "input file")
 	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
+	paraphraseFilePtr := flag.String("paraphrasefile", "", "use a file as a paraphrase")
 	flag.Parse()
 
 	// CHECK VERSION
-	checkVersion(*version)
+	checkVersion(*versionPtr)
 
 	// SET LOG LEVEL
-	setLogLevel(*debugTrace)
+	setLogLevel(*debugTracePtr)
 
-	log.Trace("Version flag = ", *version)
-	log.Trace("Debug flag = ", *debugTrace)
-	log.Trace("inputFilename = ", *inputFilenamePtr)
-	log.Trace("outputFilename = ", *outputFilenamePtr)
+	log.Trace("Version flag = ", *versionPtr)
+	log.Trace("Debug flag = ", *debugTracePtr)
+	log.Trace("Input Filename = ", *inputFilenamePtr)
+	log.Trace("Output Filename = ", *outputFilenamePtr)
+	log.Trace("Paraphrase File = ", *paraphraseFilePtr)
 
 	fmt.Println(" ")
 
 	// GET DATA TO ENCRYPT - Read the file - Will be a slice of bytes
 	fileDataToEncrypt := readFile(*inputFilenamePtr)
 
-	// GET PARAPHRASE - Ask the User
-	paraphrase := getParaphrase()
+	// GET PARAPHRASE - Ask the user or use a file
+	paraphrase := getParaphrase(*paraphraseFilePtr)
 
 	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
 	keyByte := getKeyByte(paraphrase)
