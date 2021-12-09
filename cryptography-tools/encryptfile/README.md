@@ -92,9 +92,11 @@ To run
 from the command line,
 
 ```bash
-go run . -i encrypted.txt -o output.txt
-go run encryptfile.go -i encrypted.txt -o output.txt
-go run encryptfile.go -i encrypted.txt -o output.txt -debug
+go run . -i input.txt -o encrypted.txt
+go run encryptfile.go -i input.txt -o encrypted.txt
+go run encryptfile.go -i input.txt -o encrypted.txt -debug
+go run encryptfile.go -i input.txt -o encrypted.txt -paraphrasefile paraphrase.txt
+go run encryptfile.go -i input.txt -o encrypted.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
 Use the paraphrase `test`.
@@ -157,7 +159,7 @@ encryptfile -i input.txt -o encrypted.txt
 
 ### -paraphrasefile string
 
-Use a file a the paraphrase,
+Use a file as the paraphrase,
 
 ```bash
 encryptfile -i input.txt -o encrypted.txt -paraphrasefile ~/.ssh/id_rsa
