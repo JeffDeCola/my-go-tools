@@ -83,7 +83,7 @@ cat test/test_coverage.txt
 Will place an executable in your go bin,
 
 ```bash
-go install markdown-delimiter-doer.go htmlswitch.go 
+go install markdown-delimiter-doer.go htmlswitch.go
 ```
 
 ## USAGE
