@@ -17,16 +17,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.3"
-
-func checkErr(err error) {
-
-	if err != nil {
-		fmt.Printf("Error is %+v\n", err)
-		log.Fatal("ERROR:", err)
-	}
-
-}
+const toolVersion = "2.0.4"
 
 func setLogLevel(logLevel string) error {
 
@@ -46,8 +37,10 @@ func setLogLevel(logLevel string) error {
 	}
 
 	// SET FORMAT
-	log.SetFormatter(&log.TextFormatter{})
-	// log.SetFormatter(&log.JSONFormatter{})
+	log.SetFormatter(&log.TextFormatter{
+		DisableColors: false,
+		FullTimestamp: false,
+	})
 
 	// SET OUTPUT (DEFAULT stderr)
 	log.SetOutput(os.Stdout)
