@@ -64,9 +64,10 @@ func readFile(filename string) ([]byte, error) {
 
 }
 
-func getParaphrase(paraphraseFile string) (string, error) {
+func getParaphrase(r io.Reader, paraphraseFile string) (string, error) {
 
 	var paraphrase string
+	var err error
 
 	// GET THE PARAPHRASE
 	log.Trace("Get the paraphrase")
@@ -74,7 +75,7 @@ func getParaphrase(paraphraseFile string) (string, error) {
 	// IS PARAPHRASE USER INPUT OR A FILE
 	if paraphraseFile != "" {
 
-		// FILE
+		// FROM FILE
 		log.Trace("Get the paraphrase from file")
 		fmt.Println("Getting the paraphrase from the file", paraphraseFile)
 		fileBytes, err := readFile(paraphraseFile)
@@ -87,15 +88,30 @@ func getParaphrase(paraphraseFile string) (string, error) {
 
 		// USER INPUT
 		log.Trace("Get the paraphrase from User")
-		fmt.Print("What is your secret paraphrase? ")
-		_, err := fmt.Scan(&paraphrase)
+		paraphrase, err = getUserInput(r, "What is your secret paraphrase? ")
 		if err != nil {
-			return "", err
+			return "", fmt.Errorf("unable to get get paraphrase: %w", err)
 		}
 
 	}
 
 	return paraphrase, nil
+
+}
+
+func getUserInput(r io.Reader, askUser string) (string, error) {
+
+	var nString string
+
+	// GET STRING FROM USER
+	log.Trace("Get string from user")
+	fmt.Printf("%s", askUser)
+	_, err := fmt.Fscan(r, &nString)
+	if err != nil {
+		return "", fmt.Errorf("unable to get string from user: %w", err)
+	}
+
+	return nString, nil
 
 }
 
@@ -113,12 +129,13 @@ func getKeyByte(paraphrase string) []byte {
 	// MAKE KEYBYTE
 	keyByte := []byte(hash)
 	log.Info("Keybyte is ", keyByte)
+	log.Trace("Keybyte string is ", string(keyByte))
 
 	return keyByte
 
 }
 
-func encryptFileData(keyByte []byte, plainTextByte []byte) (string, error) {
+func encryptFileData(r io.Reader, keyByte []byte, plainTextByte []byte) (string, error) {
 
 	// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
 	log.Trace("Encrypt file with key")
@@ -138,7 +155,7 @@ func encryptFileData(keyByte []byte, plainTextByte []byte) (string, error) {
 	// CREATE A NONCE AND POPULATE
 	nonce := make([]byte, gcm.NonceSize())
 	// Populates our nonce with a cryptographically secure random sequence
-	_, err = io.ReadFull(rand.Reader, nonce)
+	_, err = io.ReadFull(r, nonce)
 	if err != nil {
 		return "", fmt.Errorf("unable to populates our nonce with a random sequence: %w", err)
 	}
@@ -151,7 +168,7 @@ func encryptFileData(keyByte []byte, plainTextByte []byte) (string, error) {
 
 	// RETURN HEX
 	cipherText := hex.EncodeToString(cipherTextByte)
-	log.Trace("Encrypted Data\n--------------------\n", cipherText, "\n--------------------\n")
+	log.Trace("Encrypted Data (cipherText)\n--------------------\n", cipherText, "\n--------------------\n")
 
 	return cipherText, nil
 
@@ -267,7 +284,7 @@ func main() {
 	}
 
 	// GET PARAPHRASE - Ask the user or use a file
-	paraphrase, err := getParaphrase(*paraphraseFilePtr)
+	paraphrase, err := getParaphrase(os.Stdin, *paraphraseFilePtr)
 	if err != nil {
 		log.Fatalf("Error getting paraphrase: %s", err)
 	}
@@ -276,7 +293,7 @@ func main() {
 	keyByte := getKeyByte(paraphrase)
 
 	// ENCRYPT FILE DATA BASED ON PARAPHRASE TO GET cipherText
-	cipherText, err := encryptFileData(keyByte, fileDataToEncrypt)
+	cipherText, err := encryptFileData(rand.Reader, keyByte, fileDataToEncrypt)
 	if err != nil {
 		log.Fatalf("Error getting cipherText: %s", err)
 	}
