@@ -18,9 +18,9 @@ import (
 
 const toolVersion = "2.0.4"
 
-var ErrLogLevel = errors.New("please use trace, info or error")
-var ErrFilenameArg = errors.New("only one filename allowed in args")
-var ErrSSHFile = errors.New("can't parse ssh file correctly")
+var errLogLevel = errors.New("please use trace, info or error")
+var errFilenameArg = errors.New("only one filename allowed in args")
+var errSSHFile = errors.New("can't parse ssh file correctly")
 
 func setLogLevel(logLevel string) error {
 
@@ -36,7 +36,7 @@ func setLogLevel(logLevel string) error {
 		log.SetLevel(log.ErrorLevel)
 	default:
 		log.SetLevel(log.ErrorLevel)
-		return fmt.Errorf("%s", ErrLogLevel)
+		return fmt.Errorf("%s", errLogLevel)
 	}
 
 	// SET FORMAT
@@ -61,7 +61,7 @@ func getFilename(ssh bool) (string, error) {
 	filenameSlice := flag.Args()
 
 	if len(filenameSlice) != 1 {
-		return "", fmt.Errorf("%s", ErrFilenameArg)
+		return "", fmt.Errorf("%s", errFilenameArg)
 	}
 	filename := filenameSlice[0] // Make it a string
 
@@ -99,7 +99,7 @@ func parseSSHFile(ssh bool, plainTextByte []byte) ([]byte, error) {
 		log.Trace("Check that you have a good ssh file")
 		parts := strings.Fields(string(plainTextByte))
 		if len(parts) < 2 {
-			return nil, fmt.Errorf("%s", ErrSSHFile)
+			return nil, fmt.Errorf("%s", errSSHFile)
 		}
 
 		log.Trace("The parsed ssh key is: \n", parts[1], "\n\n")
