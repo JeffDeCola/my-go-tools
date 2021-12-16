@@ -25,8 +25,9 @@ checks:
 
 plugins:
   # A tool designed to check markdown files and flag style issues
+  # I had to shut it off because it flags on inline HTML code
   markdownlint:
-    enabled: true
+    enabled: false
   # A tool for suggesting possible improvements to bash/sh shell scripts.
   shellcheck:
     enabled: true
