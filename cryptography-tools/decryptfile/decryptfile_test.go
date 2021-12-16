@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -15,7 +16,34 @@ func Test_setLogLevel(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Trace",
+			args: args{
+				logLevel: "trace",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Info",
+			args: args{
+				logLevel: "info",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Error",
+			args: args{
+				logLevel: "error",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Bad Log Level",
+			args: args{
+				logLevel: "whatever",
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -36,7 +64,22 @@ func Test_getCipherText(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Get Cipher Text from file",
+			args: args{
+				filename: "test/encrypted_test.txt",
+			},
+			want:    "eceedcd4e9021647dfcc4628178b54aff7c83d0bd819d94dc753ccef9db0fd6aa1801cfa0d8a1c0d444657afee8990fb9120837da97d5f65fe96e74e8bd8cb00355950b771409a2d786bc6abc2d6d5aecb887000",
+			wantErr: false,
+		},
+		{
+			name: "Test Get Cipher Text from file - file does not exit",
+			args: args{
+				filename: "fake.txt",
+			},
+			want:    "",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -63,7 +106,42 @@ func Test_getParaphrase(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test for read file",
+			args: args{
+				r:              strings.NewReader(""),
+				paraphraseFile: "paraphrase.txt",
+			},
+			want:    "test",
+			wantErr: false,
+		},
+		{
+			name: "Test for read file error",
+			args: args{
+				r:              strings.NewReader(""),
+				paraphraseFile: "fake.txt",
+			},
+			want:    "",
+			wantErr: true,
+		},
+		{
+			name: "Test for user input",
+			args: args{
+				r:              strings.NewReader("jeff"),
+				paraphraseFile: "",
+			},
+			want:    "jeff",
+			wantErr: false,
+		},
+		{
+			name: "Test for user input error",
+			args: args{
+				r:              strings.NewReader("\n"),
+				paraphraseFile: "",
+			},
+			want:    "",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -89,7 +167,22 @@ func Test_readFile(t *testing.T) {
 		want    []byte
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Read file",
+			args: args{
+				filename: "test/readfile_test.txt",
+			},
+			want:    []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			wantErr: false,
+		},
+		{
+			name: "Test Read file error",
+			args: args{
+				filename: "fake.txt",
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -116,7 +209,24 @@ func Test_getUserInput(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Get User Input Error",
+			args: args{
+				r:       strings.NewReader("\n"),
+				askUser: "What is your name?",
+			},
+			want:    "",
+			wantErr: true,
+		},
+		{
+			name: "Test Get User Input",
+			args: args{
+				r:       strings.NewReader("jeff"),
+				askUser: "What is your name?",
+			},
+			want:    "jeff",
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -141,7 +251,13 @@ func Test_getKeyByte(t *testing.T) {
 		args args
 		want []byte
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Get the keybyte from paraphrase 'test'",
+			args: args{
+				paraphrase: "test",
+			},
+			want: []byte("098f6bcd4621d373cade4e832627b4f6"),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -163,7 +279,24 @@ func Test_decryptCipherText(t *testing.T) {
 		want    []byte
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test get plainText from CipherText",
+			args: args{
+				keyByte:    []byte("098f6bcd4621d373cade4e832627b4f6"),
+				cipherText: "6120622063206420652066205c7f8975643637854a78d414fd3334673b714ebbb55a34a00f230c2202b12a796df3365603884365e8a3e75b5d90b21df3919b372c5b0cf42d21f1cc4bb03aa45d63e19641823977",
+			},
+			want:    []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			wantErr: false,
+		},
+		{
+			name: "Test get plainText from CipherText - Bad keybyte",
+			args: args{
+				keyByte:    []byte("09"),
+				cipherText: "6120622063206420652066205c7f8975643637854a78d414fd3334673b714ebbb55a34a00f230c2202b12a796df3365603884365e8a3e75b5d90b21df3919b372c5b0cf42d21f1cc4bb03aa45d63e19641823977",
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -179,7 +312,7 @@ func Test_decryptCipherText(t *testing.T) {
 	}
 }
 
-func Test_writePlainTextByte(t *testing.T) {
+func Test_writePlainText(t *testing.T) {
 	type args struct {
 		plainTextByte []byte
 		filename      string
@@ -189,12 +322,27 @@ func Test_writePlainTextByte(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test write plainText to file",
+			args: args{
+				plainTextByte: []byte("Test writing file data"),
+				filename:      "test/output_test.txt",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test write plainText to file - can't create file in fake directory",
+			args: args{
+				plainTextByte: []byte("Test writing file data"),
+				filename:      "fake/output_test.txt",
+			},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := writePlainTextByte(tt.args.plainTextByte, tt.args.filename); (err != nil) != tt.wantErr {
-				t.Errorf("writePlainTextByte() error = %v, wantErr %v", err, tt.wantErr)
+			if err := writePlainText(tt.args.plainTextByte, tt.args.filename); (err != nil) != tt.wantErr {
+				t.Errorf("writePlainText() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

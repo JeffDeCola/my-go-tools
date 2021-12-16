@@ -17,6 +17,7 @@ import (
 )
 
 const toolVersion = "2.0.4"
+const myFileDelimiter = "--------------------------------------------------------------------------------"
 
 func setLogLevel(logLevel string) error {
 
@@ -50,6 +51,9 @@ func setLogLevel(logLevel string) error {
 
 func getCipherText(filename string) (string, error) {
 
+	// get cipherText
+	log.Trace("Get cipherText between delimiters")
+
 	cipherText := ""
 
 	// DATA - Open the file - Will be a slice of bytes
@@ -70,7 +74,7 @@ func getCipherText(filename string) (string, error) {
 		line := scanner.Text()
 
 		// If you find a delimiter, get all the lines in between and place in a table.
-		if line == "--------------------------------------------------------------------------------" {
+		if line == myFileDelimiter {
 
 			// Stay in here until you find another delimiter
 			for scanner.Scan() {
@@ -79,7 +83,7 @@ func getCipherText(filename string) (string, error) {
 				line = scanner.Text()
 
 				// Exit and build table when you find another delimiter
-				if line == "--------------------------------------------------------------------------------" {
+				if line == myFileDelimiter {
 					break
 				}
 				cipherText = cipherText + line
@@ -214,7 +218,7 @@ func decryptCipherText(keyByte []byte, cipherText string) ([]byte, error) {
 	return plainTextByte, nil
 }
 
-func writePlainTextByte(plainTextByte []byte, filename string) error {
+func writePlainText(plainTextByte []byte, filename string) error {
 
 	// Write cipherTex TO A FILE
 	log.Trace("Write plainTextByte to a file")
@@ -265,35 +269,29 @@ func main() {
 
 	fmt.Println(" ")
 
-	// GET DATA TO DECRYPT - Read the file - Will be a slice of bytes
-	//fileDataToDecrypt, err := readFile(*inputFilenamePtr)
-	//if err != nil {
-	//	log.Fatalf("Error reading file: %s", err)
-	//	}
-
-	// GET CIPHERTEXT (in bytes) FROM INPUT FILE
+	// STEP 1 - GET cipherText FROM FILE
 	cipherText, err := getCipherText(*inputFilenamePtr)
 	if err != nil {
 		log.Fatalf("Error getting cipherText: %s", err)
 	}
 
-	// GET PARAPHRASE - Ask the User
+	// STEP 2 - GET PARAPHRASE - Ask the user or use a file
 	paraphrase, err := getParaphrase(os.Stdin, *paraphraseFilePtr)
 	if err != nil {
 		log.Fatalf("Error getting paraphrase: %s", err)
 	}
 
-	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
+	// STEP 3 - GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
 	keyByte := getKeyByte(paraphrase)
 
-	// DECRYPT cipherText BASED ON PARAPHRASE to get FILE DATA
+	// STEP 4 - DECRYPT cipherText BASED ON KEYBYTE to get plainText
 	plainTextByte, err := decryptCipherText(keyByte, cipherText)
 	if err != nil {
 		log.Fatalf("Error decrypting cipherText: %s", err)
 	}
 
-	// WRITE plainTextByte TO FILE
-	err = writePlainTextByte(plainTextByte, *outputFilenamePtr)
+	// STEP 5 - WRITE plainTextByte TO FILE
+	err = writePlainText(plainTextByte, *outputFilenamePtr)
 	if err != nil {
 		log.Fatalf("Error writing plainText to file: %s", err)
 	}
