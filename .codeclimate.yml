@@ -13,7 +13,7 @@ version: "2"
 
 checks:
   similar-code:
-    enabled: true # default
+    enabled: false
   identical-code:
     enabled: false
 
