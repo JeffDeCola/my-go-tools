@@ -16,17 +16,23 @@ version: "2"
 #     enabled: true|false
 #     channel: alternate channel to use (stable is default)
 #     config: plugin configuration
+
 plugins:
+  # A tool designed to check markdown files and flag style issues
   markdownlint:
     enabled: true
+  # A tool for suggesting possible improvements to bash/sh shell scripts.
   shellcheck:
     enabled: true
+  # Official style checker from the Go team.
   gofmt:
     enabled: true
+  # Lints
   golint:
     enabled: true
     config:
       min_confidence: 0.9
+  # Examines Go source code to identify suspicious constructs and potential bugs
   govet:
     enabled: true
 

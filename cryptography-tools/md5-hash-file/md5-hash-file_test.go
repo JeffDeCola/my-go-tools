@@ -7,74 +7,49 @@ import (
 	"testing"
 )
 
-func Test_checkErr(t *testing.T) {
-	type args struct {
-		err error
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{
-			name: "Test checkErr nil",
-			args: args{
-				err: nil,
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			checkErr(tt.args.err)
-		})
-	}
-}
-
-func Test_checkVersion(t *testing.T) {
-	type args struct {
-		version bool
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{
-			name: "Test check version false",
-			args: args{
-				version: false,
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			checkVersion(tt.args.version)
-		})
-	}
-}
-
 func Test_setLogLevel(t *testing.T) {
 	type args struct {
-		debugTrace bool
+		logLevel string
 	}
 	tests := []struct {
-		name string
-		args args
+		name    string
+		args    args
+		wantErr bool
 	}{
 		{
-			name: "Test Debug False",
+			name: "Test Trace",
 			args: args{
-				debugTrace: false,
+				logLevel: "trace",
 			},
+			wantErr: false,
 		},
 		{
-			name: "Test Debug True",
+			name: "Test Info",
 			args: args{
-				debugTrace: true,
+				logLevel: "info",
 			},
+			wantErr: false,
+		},
+		{
+			name: "Test Error",
+			args: args{
+				logLevel: "error",
+			},
+			wantErr: false,
+		},
+		{
+			name: "Test Bad Log Level",
+			args: args{
+				logLevel: "whatever",
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			setLogLevel(tt.args.debugTrace)
+			if err := setLogLevel(tt.args.logLevel); (err != nil) != tt.wantErr {
+				t.Errorf("setLogLevel() error = %v, wantErr %v", err, tt.wantErr)
+			}
 		})
 	}
 }
@@ -84,15 +59,21 @@ func Test_getFilename(t *testing.T) {
 		ssh bool
 	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name    string
+		args    args
+		want    string
+		wantErr bool
 	}{
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := getFilename(tt.args.ssh); got != tt.want {
+			got, err := getFilename(tt.args.ssh)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("getFilename() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
 				t.Errorf("getFilename() = %v, want %v", got, tt.want)
 			}
 		})
@@ -104,25 +85,36 @@ func Test_readFile(t *testing.T) {
 		filename string
 	}
 	tests := []struct {
-		name string
-		args args
-		want []byte
+		name    string
+		args    args
+		want    []byte
+		wantErr bool
 	}{
 		{
-			name: "Test ReadFile",
+			name: "Test Read file",
 			args: args{
-				filename: "testfile.txt",
+				filename: "test/readfile_test.txt",
 			},
-			want: []byte("This is a test to get the md5 fingerprint from this file.\n" +
-				"This is a test to get the md5 fingerprint from this file.\n" +
-				"This is a test to get the md5 fingerprint from this file.\n" +
-				"This is a test to get the md5 fingerprint from this file.\n" +
-				"This is a test to get the md5 fingerprint from this file."),
+			want:    []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			wantErr: false,
+		},
+		{
+			name: "Test Read file error",
+			args: args{
+				filename: "fake.txt",
+			},
+			want:    nil,
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := readFile(tt.args.filename); !reflect.DeepEqual(got, tt.want) {
+			got, err := readFile(tt.args.filename)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("readFile() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("readFile() = %v, want %v", got, tt.want)
 			}
 		})
@@ -135,30 +127,21 @@ func Test_parseSSHFile(t *testing.T) {
 		plainTextByte []byte
 	}
 	tests := []struct {
-		name string
-		args args
-		want string
+		name    string
+		args    args
+		want    []byte
+		wantErr bool
 	}{
-		{
-			name: "Test parseSSHFile false",
-			args: args{
-				ssh:           false,
-				plainTextByte: []byte("This is a test"),
-			},
-			want: "This is a test",
-		},
-		{
-			name: "Test parseSSHFile false",
-			args: args{
-				ssh:           true,
-				plainTextByte: []byte("ssh-rsa Thisisatest blahblah"),
-			},
-			want: "Thisisatest",
-		},
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := parseSSHFile(tt.args.ssh, tt.args.plainTextByte); got != tt.want {
+			got, err := parseSSHFile(tt.args.ssh, tt.args.plainTextByte)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("parseSSHFile() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("parseSSHFile() = %v, want %v", got, tt.want)
 			}
 		})
@@ -167,8 +150,7 @@ func Test_parseSSHFile(t *testing.T) {
 
 func Test_calculateMD5Hash(t *testing.T) {
 	type args struct {
-		plainText string
-		isSSH     bool
+		plainTextByte []byte
 	}
 	tests := []struct {
 		name string
@@ -176,25 +158,16 @@ func Test_calculateMD5Hash(t *testing.T) {
 		want string
 	}{
 		{
-			name: "Test Calculate MD5 Hash",
+			name: "Test Calculate a md5 hash",
 			args: args{
-				plainText: "Thisisatest\n",
-				isSSH:     false,
+				plainTextByte: []byte("Thisisatest"),
 			},
-			want: "85ceadf8a5789290094ac22b03170c6b",
-		},
-		{
-			name: "Test Calculate MD5 Hash on ssh file",
-			args: args{
-				plainText: "Thisisatest\n",
-				isSSH:     true,
-			},
-			want: "259da16013dc6713a6b0b7fa25bf22fe",
+			want: "0480aa34aa3db358b37cde2ab6b65326",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := calculateMD5Hash(tt.args.plainText, tt.args.isSSH); got != tt.want {
+			if got := calculateMD5Hash(tt.args.plainTextByte); got != tt.want {
 				t.Errorf("calculateMD5Hash() = %v, want %v", got, tt.want)
 			}
 		})
@@ -210,9 +183,9 @@ func Test_printReadableMD5(t *testing.T) {
 		args args
 	}{
 		{
-			name: "Test Readable MD5",
+			name: "Test Print more readable form",
 			args: args{
-				md5Hash: "2fe4a3",
+				md5Hash: "0480aa34aa3db358b37cde2ab6b65326",
 			},
 		},
 	}

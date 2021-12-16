@@ -20,6 +20,8 @@ import (
 const toolVersion = "2.0.4"
 const myFileDelimiter = "--------------------------------------------------------------------------------"
 
+var ErrLogLevel = errors.New("please use trace, info or error")
+
 func setLogLevel(logLevel string) error {
 
 	// SET LOG LEVEL (trace, info or error) None of which exit
@@ -34,7 +36,7 @@ func setLogLevel(logLevel string) error {
 		log.SetLevel(log.ErrorLevel)
 	default:
 		log.SetLevel(log.ErrorLevel)
-		return errors.New("please use trace, info or error")
+		return fmt.Errorf("%s", ErrLogLevel)
 	}
 
 	// SET FORMAT
