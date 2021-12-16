@@ -6,61 +6,59 @@ import (
 	"crypto/cipher"
 	"crypto/md5"
 	"encoding/hex"
+	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.3"
+const toolVersion = "2.0.4"
 
-func checkErr(err error) {
+func setLogLevel(logLevel string) error {
 
-	if err != nil {
-		fmt.Printf("Error is %+v\n", err)
-		log.Fatal("ERROR:", err)
-	}
+	// SET LOG LEVEL (trace, info or error) None of which exit
+	log.Trace("Set Log Level")
 
-}
-
-func checkVersion(version bool) {
-
-	if version {
-		fmt.Println(toolVersion)
-		os.Exit(0)
-	}
-
-}
-
-func setLogLevel(debugTrace bool) {
-
-	// SET LOG LEVEL
-	if debugTrace {
+	switch logLevel {
+	case "trace":
 		log.SetLevel(log.TraceLevel)
-	} else {
+	case "info":
 		log.SetLevel(log.InfoLevel)
+	case "error":
+		log.SetLevel(log.ErrorLevel)
+	default:
+		log.SetLevel(log.ErrorLevel)
+		return errors.New("please use trace, info or error")
 	}
 
 	// SET FORMAT
-	log.SetFormatter(&log.TextFormatter{})
-	// log.SetFormatter(&log.JSONFormatter{})
+	log.SetFormatter(&log.TextFormatter{
+		DisableColors: false,
+		FullTimestamp: false,
+	})
 
 	// SET OUTPUT (DEFAULT stderr)
 	log.SetOutput(os.Stdout)
 
+	return nil
+
 }
 
-func getCipherText(filename string) string {
+func getCipherText(filename string) (string, error) {
 
 	cipherText := ""
 
-	// DATA - Read the file - Will be a slice of bytes
+	// DATA - Open the file - Will be a slice of bytes
 	log.Trace("Read the inputFilename to decrypt")
 	// Open input file
 	inputFile, err := os.Open(filename)
-	checkErr(err)
+	if err != nil {
+		return "", fmt.Errorf("unable to open file: %w", err)
+	}
 	defer inputFile.Close()
 
 	// Start scanning the input file line by line
@@ -90,73 +88,115 @@ func getCipherText(filename string) string {
 	}
 
 	log.Trace("cipherText is:\n--------------------\n", cipherText, "\n--------------------\n")
-	return cipherText
+
+	return cipherText, nil
 
 }
 
-func getParaphrase(paraphraseFile string) string {
+func getParaphrase(r io.Reader, paraphraseFile string) (string, error) {
 
 	var paraphrase string
+	var err error
 
+	// GET THE PARAPHRASE
+	log.Trace("Get the paraphrase")
+
+	// IS PARAPHRASE USER INPUT OR A FILE
 	if paraphraseFile != "" {
+
+		// FROM FILE
+		log.Trace("Get the paraphrase from file")
 		fmt.Println("Getting the paraphrase from the file", paraphraseFile)
-		paraphrase = string(readFile(paraphraseFile))
+		fileBytes, err := readFile(paraphraseFile)
+		if err != nil {
+			return "", fmt.Errorf("unable to open paraphrase: %w", err)
+		}
+		paraphrase = string(fileBytes)
+
 	} else {
+
+		// USER INPUT
 		log.Trace("Get the paraphrase from User")
-		fmt.Print("What is your secret paraphrase? ")
-		_, err := fmt.Scan(&paraphrase)
-		checkErr(err)
+		paraphrase, err = getUserInput(r, "What is your secret paraphrase? ")
+		if err != nil {
+			return "", fmt.Errorf("unable to get get paraphrase: %w", err)
+		}
+
 	}
-	return paraphrase
+
+	return paraphrase, nil
 
 }
 
-func readFile(filename string) []byte {
+func readFile(filename string) ([]byte, error) {
 
+	// READ FILE
 	log.Trace("Read the file ", filename)
+
 	fileData, err := ioutil.ReadFile(filename)
-	checkErr(err)
+	if err != nil {
+		return nil, fmt.Errorf("unable to read file: %w", err)
+	}
 	log.Trace("File Data\n--------------------\n", string(fileData), "\n--------------------\n")
-	return fileData
+
+	return fileData, nil
+
+}
+
+func getUserInput(r io.Reader, askUser string) (string, error) {
+
+	var nString string
+
+	// GET STRING FROM USER
+	log.Trace("Get string from user")
+	fmt.Printf("%s", askUser)
+	_, err := fmt.Fscan(r, &nString)
+	if err != nil {
+		return "", fmt.Errorf("unable to get string from user: %w", err)
+	}
+
+	return nString, nil
 
 }
 
 func getKeyByte(paraphrase string) []byte {
 
+	// HASH THE PARAPHRASE
 	log.Trace("Hash the paraphrase'", paraphrase, "'to get 32 byte key")
+
+	// HASH USING MD5 HASH
 	hasher := md5.New()
 	hasher.Write([]byte(paraphrase))
 	hash := hex.EncodeToString(hasher.Sum(nil))
-	log.Trace("Hash is ", hash)
+	log.Info("Hashed paraphrase is ", hash)
 
+	// MAKE KEYBYTE
 	keyByte := []byte(hash)
-	log.Trace("keyByte is ", keyByte)
+	log.Info("Keybyte is ", keyByte)
+	log.Trace("Keybyte string is ", string(keyByte))
+
 	return keyByte
 
 }
 
-// HASH THE PARAPHRASE TO GET 32 BYTE KEY
-func createKey(paraphrase string) (string, error) {
-	log.Trace("hashing the paraphrase")
-	hasher := md5.New()
-	hasher.Write([]byte(paraphrase))
-	hash := hex.EncodeToString(hasher.Sum(nil))
-	log.Trace("32 BYTE hash paraphrase is ", hash)
-	return hash, nil
-}
+func decryptCipherText(keyByte []byte, cipherText string) ([]byte, error) {
 
-// DECRYPT DATA WITH 32 BYTE KEY AND RETURN PLAINTEXT
-func decryptCipherText(keyByte []byte, cipherText string) []byte {
+	// DECRYPT DATA WITH 32 BYTE KEY AND RETURN PLAINTEXT
+	log.Trace("Decrypt data with 32 byte key and return plaintext")
 
 	cipherTextByte, _ := hex.DecodeString(cipherText)
 
 	// GET CIPHER BLOCK USING KEY
 	block, err := aes.NewCipher(keyByte)
-	checkErr(err)
+	if err != nil {
+		return nil, fmt.Errorf("unable to get get cipher block: %w", err)
+	}
 
 	// GET GCM BLOCK
 	gcm, err := cipher.NewGCM(block)
-	checkErr(err)
+	if err != nil {
+		return nil, fmt.Errorf("unable to get gcm block: %w", err)
+	}
 
 	// EXTRACT NONCE FROM cipherTextByte
 	// Because I put it there
@@ -166,22 +206,31 @@ func decryptCipherText(keyByte []byte, cipherText string) []byte {
 	// DECRYPT DATA
 	plainTextByte, err := gcm.Open(nil, nonce, cipherTextByte, nil)
 	log.Trace("Decrypted Data - plainTextByte\n--------------------\n", string(plainTextByte), "\n--------------------\n")
-	checkErr(err)
+	if err != nil {
+		return nil, fmt.Errorf("unable to decrypt cipherTextByte: %w", err)
+	}
 
 	// RETURN STRING
-	return plainTextByte
+	return plainTextByte, nil
 }
 
-func writePlainTextByte(plainTextByte []byte, filename string) {
+func writePlainTextByte(plainTextByte []byte, filename string) error {
 
 	// Write cipherTex TO A FILE
 	log.Trace("Write plainTextByte to a file")
-	// WRITE TO FILE
+
+	// CREATE FILE
 	f, err := os.Create(filename)
-	checkErr(err)
+	if err != nil {
+		return fmt.Errorf("unable to create file: %w", err)
+	}
 	defer f.Close()
+
+	// WRITE TO FILE
 	f.Write(plainTextByte)
 	log.Trace("Wrote output file\n")
+
+	return nil
 
 }
 
@@ -189,40 +238,65 @@ func main() {
 
 	// FLAGS
 	versionPtr := flag.Bool("v", false, "prints current version")
-	debugTracePtr := flag.Bool("debug", false, "log trace level")
+	logLevelPtr := flag.String("loglevel", "error", "log level (trace, info or error)")
 	inputFilenamePtr := flag.String("i", "INPUT", "input file")
 	outputFilenamePtr := flag.String("o", "OUTPUT", "output file")
 	paraphraseFilePtr := flag.String("paraphrasefile", "", "use a file as a paraphrase")
 	flag.Parse()
 
 	// CHECK VERSION
-	checkVersion(*versionPtr)
+	if *versionPtr {
+		fmt.Println(toolVersion)
+		os.Exit(1)
+	}
 
-	// SET LOG LEVEL
-	setLogLevel(*debugTracePtr)
+	// SET LOG LEVEL (trace, info or error) None of which exit
+	err := setLogLevel(*logLevelPtr)
+	if err != nil {
+		log.Errorf("Error getting logLevel: %s", err)
+	}
 
+	// PRINT OUT FOR TRACE LOG
 	log.Trace("Version flag = ", *versionPtr)
-	log.Trace("Debug flag = ", *debugTracePtr)
+	log.Trace("Log Level = ", *logLevelPtr)
 	log.Trace("Input Filename = ", *inputFilenamePtr)
 	log.Trace("Output Filename = ", *outputFilenamePtr)
 	log.Trace("Paraphrase File = ", *paraphraseFilePtr)
 
 	fmt.Println(" ")
 
+	// GET DATA TO DECRYPT - Read the file - Will be a slice of bytes
+	//fileDataToDecrypt, err := readFile(*inputFilenamePtr)
+	//if err != nil {
+	//	log.Fatalf("Error reading file: %s", err)
+	//	}
+
 	// GET CIPHERTEXT (in bytes) FROM INPUT FILE
-	cipherText := getCipherText(*inputFilenamePtr)
+	cipherText, err := getCipherText(*inputFilenamePtr)
+	if err != nil {
+		log.Fatalf("Error getting cipherText: %s", err)
+	}
 
 	// GET PARAPHRASE - Ask the User
-	paraphrase := getParaphrase(*paraphraseFilePtr)
+	paraphrase, err := getParaphrase(os.Stdin, *paraphraseFilePtr)
+	if err != nil {
+		log.Fatalf("Error getting paraphrase: %s", err)
+	}
 
 	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
 	keyByte := getKeyByte(paraphrase)
 
 	// DECRYPT cipherText BASED ON PARAPHRASE to get FILE DATA
-	plainTextByte := decryptCipherText(keyByte, cipherText)
+	plainTextByte, err := decryptCipherText(keyByte, cipherText)
+	if err != nil {
+		log.Fatalf("Error decrypting cipherText: %s", err)
+	}
 
 	// WRITE plainTextByte TO FILE
-	writePlainTextByte(plainTextByte, *outputFilenamePtr)
+	err = writePlainTextByte(plainTextByte, *outputFilenamePtr)
+	if err != nil {
+		log.Fatalf("Error writing plainText to file: %s", err)
+	}
 
 	fmt.Println(" ")
 
