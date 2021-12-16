@@ -49,4 +49,4 @@ plugins:
 
 exclude_patterns:
 - "docs/"
-- "_test.go" # exclude the unit testing code
+- "**/*_test.go" # exclude the unit testing code
