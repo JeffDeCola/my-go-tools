@@ -67,7 +67,7 @@ func Test_readFile(t *testing.T) {
 		{
 			name: "Test Read file",
 			args: args{
-				filename: "input.txt",
+				filename: "test/readfile_test.txt",
 			},
 			want:    []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
 			wantErr: false,
@@ -110,9 +110,9 @@ func Test_getParaphrase(t *testing.T) {
 			name: "Test for read file",
 			args: args{
 				r:              strings.NewReader(""),
-				paraphraseFile: "input.txt",
+				paraphraseFile: "paraphrase.txt",
 			},
-			want:    "Hi Jeff, how are you.\n\nYou can keep secrets in the file.",
+			want:    "test\n",
 			wantErr: false,
 		},
 		{
@@ -226,7 +226,7 @@ func Test_getKeyByte(t *testing.T) {
 		})
 	}
 }
-func Test_encryptFileData(t *testing.T) {
+func Test_encryptPlainText(t *testing.T) {
 	type args struct {
 		r             io.Reader
 		keyByte       []byte
@@ -239,7 +239,7 @@ func Test_encryptFileData(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Get cipherText from KeyByte",
+			name: "Get cipherText from plainText",
 			args: args{
 				// r needs to be long enough
 				r:             strings.NewReader("a b c d e f g"),
@@ -251,7 +251,7 @@ func Test_encryptFileData(t *testing.T) {
 		},
 		{
 			// GET CIPHER BLOCK USING KEY - TEST ERROR
-			name: "Get cipherText from KeyByte - error on get cipher block",
+			name: "Get cipherText from plainText - error on get cipher block",
 			args: args{
 				// r needs to be long enough
 				r:             strings.NewReader("a b c d e f g"),
@@ -263,7 +263,7 @@ func Test_encryptFileData(t *testing.T) {
 		},
 		/* {
 			// GET GCM INSTANCE THAT USES THE AES CIPHER - TEST ERROR
-			name: "Get cipherText from KeyByte - get gcm instance",
+			name: "Get cipherText from plainText - get gcm instance",
 			args: args{
 				r:             strings.NewReader("a b c d e f g"),
 				keyByte:       []byte("098f6bcd4621d373cade4e832627b4f6"),
@@ -274,7 +274,7 @@ func Test_encryptFileData(t *testing.T) {
 		}, */
 		{
 			// CREATE A NONCE AND POPULATE - TEST ERROR
-			name: "Get cipherText from KeyByte - error on populate nonce",
+			name: "Get cipherText from plainText - error on populate nonce",
 			args: args{
 				// r needs to be long enough - here it is too short
 				r:             strings.NewReader("a b c d e f"),
@@ -287,13 +287,13 @@ func Test_encryptFileData(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := encryptFileData(tt.args.r, tt.args.keyByte, tt.args.plainTextByte)
+			got, err := encryptPlainText(tt.args.r, tt.args.keyByte, tt.args.plainTextByte)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("encryptFileData() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("encryptPlainText() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if got != tt.want {
-				t.Errorf("encryptFileData() = %v, want %v", got, tt.want)
+				t.Errorf("encryptPlainText() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -337,11 +337,20 @@ func Test_writeCipherText(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "Test write sipherText to file",
+			name: "Test write cipherText to file",
 			args: args{
 				cipherText: "8976ecbdeec83d82540e01466487acd6a5e841c5bfdb172502894270c84fcde7d12d644abce90b609def3b8eb10537160b6499c4696604cdc8217c9752569eb3535bbab3eed90b9ef01f3e7e213d3a683570dd82",
-				filename:   "encrypted_test.txt",
+				filename:   "test/encrypted_test.txt",
 			},
+			wantErr: false,
+		},
+		{
+			name: "Test write cipherText to file - Can;t write file to fake directory",
+			args: args{
+				cipherText: "8976ecbdeec83d82540e01466487acd6a5e841c5bfdb172502894270c84fcde7d12d644abce90b609def3b8eb10537160b6499c4696604cdc8217c9752569eb3535bbab3eed90b9ef01f3e7e213d3a683570dd82",
+				filename:   "fake/encrypted_test.txt",
+			},
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

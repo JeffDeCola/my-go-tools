@@ -18,6 +18,7 @@ import (
 )
 
 const toolVersion = "2.0.4"
+const myFileDelimiter = "--------------------------------------------------------------------------------"
 
 func setLogLevel(logLevel string) error {
 
@@ -135,10 +136,10 @@ func getKeyByte(paraphrase string) []byte {
 
 }
 
-func encryptFileData(r io.Reader, keyByte []byte, plainTextByte []byte) (string, error) {
+func encryptPlainText(r io.Reader, keyByte []byte, plainTextByte []byte) (string, error) {
 
-	// ENCRYPT DATA WITH 32 BYTE KEY AND RETURN CIPHERTEXT
-	log.Trace("Encrypt file with key")
+	// ENCRYPT PLAINTEXT WITH 32 BYTE KEY AND RETURN CIPHERTEXT
+	log.Trace("Encrypt plainText with key")
 
 	// GET CIPHER BLOCK USING KEY
 	block, err := aes.NewCipher(keyByte)
@@ -196,7 +197,7 @@ func writeCipherText(cipherText string, filename string) error {
 	if err != nil {
 		return fmt.Errorf("unable to add text to file: %w", err)
 	}
-	_, err = outputFile.WriteString("\n--------------------------------------------------------------------------------\n")
+	_, err = outputFile.WriteString("\n" + myFileDelimiter + "\n")
 	if err != nil {
 		return fmt.Errorf("unable to add text to file: %w", err)
 	}
@@ -235,7 +236,7 @@ func writeCipherText(cipherText string, filename string) error {
 	log.Info("There were ", numberCharacters, " characters and ", numberLines, " lines created")
 
 	// ADD FOOTER TO BOTTOM OF FILE
-	_, err = outputFile.WriteString("--------------------------------------------------------------------------------\n\n")
+	_, err = outputFile.WriteString("myFileDelimiter" + "\n\n")
 	if err != nil {
 		return fmt.Errorf("unable to write to file: %w", err)
 	}
@@ -277,28 +278,28 @@ func main() {
 
 	fmt.Println(" ")
 
-	// GET DATA TO ENCRYPT - Read the file - Will be a slice of bytes
-	fileDataToEncrypt, err := readFile(*inputFilenamePtr)
+	// STEP 1 - GET plainText FROM FILE
+	plainTextByte, err := readFile(*inputFilenamePtr)
 	if err != nil {
 		log.Fatalf("Error reading file: %s", err)
 	}
 
-	// GET PARAPHRASE - Ask the user or use a file
+	// STEP 2 - GET PARAPHRASE - Ask the user or use a file
 	paraphrase, err := getParaphrase(os.Stdin, *paraphraseFilePtr)
 	if err != nil {
 		log.Fatalf("Error getting paraphrase: %s", err)
 	}
 
-	// GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
+	// STEP 3 - GET KEY BYTE - Hash the paraphrase to get 32 Byte Key
 	keyByte := getKeyByte(paraphrase)
 
-	// ENCRYPT FILE DATA BASED ON PARAPHRASE TO GET cipherText
-	cipherText, err := encryptFileData(rand.Reader, keyByte, fileDataToEncrypt)
+	// STEP 4 - ENCRYPT plainText BASED ON PARAPHRASE TO GET cipherText
+	cipherText, err := encryptPlainText(rand.Reader, keyByte, plainTextByte)
 	if err != nil {
 		log.Fatalf("Error getting cipherText: %s", err)
 	}
 
-	// WRITE cipherText TO FILE
+	// STEP 5 - WRITE cipherText TO FILE
 	err = writeCipherText(cipherText, *outputFilenamePtr)
 	if err != nil {
 		log.Fatalf("Error writing cipherText to file: %s", err)
