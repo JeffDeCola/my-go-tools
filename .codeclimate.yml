@@ -11,6 +11,12 @@ version: "2"
 #     enabled: true|false
 #     config: check configuration
 
+checks:
+  similar-code:
+    enabled: true # default
+  identical-code:
+    enabled: false
+
 # plugins: Enable optional engines to run in addition to your analysis
 #   <name>
 #     enabled: true|false
@@ -39,5 +45,6 @@ plugins:
 # exclude_patterns: Exclude files and/or directories from analysis
 # - <pattern>
 # - <pattern>
+
 exclude_patterns:
 - "docs/"
