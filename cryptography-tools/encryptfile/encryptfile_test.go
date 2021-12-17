@@ -300,6 +300,7 @@ func Test_encryptPlainText(t *testing.T) {
 	}
 }
 
+/*
 func Test_writeCipherTextFile(t *testing.T) {
 	type args struct {
 		cipherText string
@@ -335,6 +336,7 @@ func Test_writeCipherTextFile(t *testing.T) {
 		})
 	}
 }
+*/
 
 func Test_writeHeader(t *testing.T) {
 	type args struct {
@@ -345,7 +347,13 @@ func Test_writeHeader(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Writing Header",
+			args: args{
+				outputFile: os.File{},
+			},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
