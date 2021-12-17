@@ -177,20 +177,47 @@ func encryptPlainText(r io.Reader, keyByte []byte, plainTextByte []byte) (string
 
 }
 
-func writeCipherText(cipherText string, filename string) error {
+func writeCipherTextFile(cipherText string, filename string) error {
 
 	// WRITE cipherTex TO A FILE
 	log.Trace("Write cipherText to a file")
 
-	// CREATE FILE
+	// CREATE AND OPEN FILE
 	outputFile, err := os.Create(filename)
 	if err != nil {
 		return fmt.Errorf("unable to create file: %w", err)
 	}
 	defer outputFile.Close()
 
-	// ADD HEADER TO TOP OF FILE
-	_, err = outputFile.WriteString("\nThis secret file was created by Jeff DeCola\n")
+	// WRITE HEADER
+	err = writeHeader(*outputFile)
+	if err != nil {
+		return fmt.Errorf("unable to create header for cipherText File: %w", err)
+	}
+
+	// WRITE cipherText
+	// CHOP UP INTO A LINE OF 80 CHARACTERS AND WRITE
+	err = writeCipherText(cipherText, *outputFile)
+	if err != nil {
+		return fmt.Errorf("unable to create cipherText lines for cipherText File: %w", err)
+	}
+
+	// WRITE FOOTER
+	err = writeFooter(*outputFile)
+	if err != nil {
+		return fmt.Errorf("unable to create footer for cipherText File: %w", err)
+	}
+
+	return nil
+
+}
+
+func writeHeader(outputFile os.File) error {
+
+	// WRITE cipherTex Header TO A FILE
+	log.Trace("Write cipherText Header to a file")
+
+	_, err := outputFile.WriteString("\nThis secret file was created by Jeff DeCola\n")
 	if err != nil {
 		return fmt.Errorf("unable to add text to file: %w", err)
 	}
@@ -204,6 +231,14 @@ func writeCipherText(cipherText string, filename string) error {
 		return fmt.Errorf("unable to add text to file: %w", err)
 	}
 
+	return nil
+}
+
+func writeCipherText(cipherText string, outputFile os.File) error {
+
+	// WRITE cipherTex lines TO A FILE
+	log.Trace("Write cipherText lines to a file")
+
 	// CHOP UP cipherText INTO LINE OF 80 CHARACTERS INTO A SLICE.
 	a := []rune(cipherText)
 	line := ""
@@ -214,7 +249,7 @@ func writeCipherText(cipherText string, filename string) error {
 		line = line + string(r)
 		if i > 0 && (i+1)%80 == 0 {
 			line = line + "\n"
-			_, err = outputFile.WriteString(line)
+			_, err := outputFile.WriteString(line)
 			if err != nil {
 				return fmt.Errorf("unable to write to file: %w", err)
 			}
@@ -229,7 +264,7 @@ func writeCipherText(cipherText string, filename string) error {
 		// The remaining line
 		numberLines++
 		line = line + "\n"
-		_, err = outputFile.WriteString(line)
+		_, err := outputFile.WriteString(line)
 		if err != nil {
 			return fmt.Errorf("unable to write to file: %w", err)
 		}
@@ -237,8 +272,17 @@ func writeCipherText(cipherText string, filename string) error {
 
 	log.Info("There were ", numberCharacters, " characters and ", numberLines, " lines created")
 
+	return nil
+
+}
+
+func writeFooter(outputFile os.File) error {
+
+	// WRITE FOOTER TO A FILE
+	log.Trace("Write Footer to a file")
+
 	// ADD FOOTER TO BOTTOM OF FILE
-	_, err = outputFile.WriteString("myFileDelimiter" + "\n\n")
+	_, err := outputFile.WriteString(myFileDelimiter + "\n\n")
 	if err != nil {
 		return fmt.Errorf("unable to write to file: %w", err)
 	}
@@ -302,7 +346,7 @@ func main() {
 	}
 
 	// STEP 5 - WRITE cipherText TO FILE
-	err = writeCipherText(cipherText, *outputFilenamePtr)
+	err = writeCipherTextFile(cipherText, *outputFilenamePtr)
 	if err != nil {
 		log.Fatalf("Error writing cipherText to file: %s", err)
 	}

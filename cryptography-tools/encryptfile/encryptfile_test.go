@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -299,34 +300,7 @@ func Test_encryptPlainText(t *testing.T) {
 	}
 }
 
-/* func Test_encryptFileData(t *testing.T) {
-	type args struct {
-		keyByte       []byte
-		plainTextByte []byte
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    string
-		wantErr bool
-	}{
-
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := encryptFileData(tt.args.keyByte, tt.args.plainTextByte)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("encryptFileData() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("encryptFileData() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-} */
-
-func Test_writeCipherText(t *testing.T) {
+func Test_writeCipherTextFile(t *testing.T) {
 	type args struct {
 		cipherText string
 		filename   string
@@ -355,8 +329,69 @@ func Test_writeCipherText(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := writeCipherText(tt.args.cipherText, tt.args.filename); (err != nil) != tt.wantErr {
+			if err := writeCipherTextFile(tt.args.cipherText, tt.args.filename); (err != nil) != tt.wantErr {
 				t.Errorf("writeCipherText() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_writeHeader(t *testing.T) {
+	type args struct {
+		outputFile os.File
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := writeHeader(tt.args.outputFile); (err != nil) != tt.wantErr {
+				t.Errorf("writeHeader() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_writeCipherText(t *testing.T) {
+	type args struct {
+		cipherText string
+		outputFile os.File
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := writeCipherText(tt.args.cipherText, tt.args.outputFile); (err != nil) != tt.wantErr {
+				t.Errorf("writeCipherText() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func Test_writeFooter(t *testing.T) {
+	type args struct {
+		outputFile os.File
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := writeFooter(tt.args.outputFile); (err != nil) != tt.wantErr {
+				t.Errorf("writeFooter() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
