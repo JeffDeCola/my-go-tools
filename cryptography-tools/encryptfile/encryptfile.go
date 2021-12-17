@@ -196,7 +196,7 @@ func writeCipherTextFile(cipherText string, filename string) error {
 	}
 
 	// WRITE cipherText
-	// CHOP UP INTO A LINE OF 80 CHARACTERS AND WRITE
+	// Chop up into 80 character lines and write
 	err = writeCipherText(cipherText, *outputFile)
 	if err != nil {
 		return fmt.Errorf("unable to create cipherText lines for cipherText File: %w", err)
@@ -207,6 +207,8 @@ func writeCipherTextFile(cipherText string, filename string) error {
 	if err != nil {
 		return fmt.Errorf("unable to create footer for cipherText File: %w", err)
 	}
+
+	log.Trace("Wrote cipherText to file\n\n")
 
 	return nil
 
@@ -286,8 +288,6 @@ func writeFooter(outputFile os.File) error {
 	if err != nil {
 		return fmt.Errorf("unable to write to file: %w", err)
 	}
-
-	log.Trace("Wrote cipherText to file\n\n")
 
 	return nil
 
