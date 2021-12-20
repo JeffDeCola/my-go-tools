@@ -5,6 +5,19 @@ getting an md5 hash (fingerprint) from an input file using the standard
 `crypto/md5` package.
 I also added a flag to read in your .ssh/id_rsa.pub key to get your ssh md5 fingerprint._
 
+tl;dr,
+
+```bash
+# INSTALL VIA GO
+go install md5-hash-file.go
+
+# GET MD5 FINGERPRINT ON FILE
+md5-hash-file testfile.txt
+
+# GET MD5 FINGERPRINT ON KEY FILE
+md5-hash-file -ssh ~/.ssh/id_rsa.pub
+```
+
 Table of Contents,
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#overview)
