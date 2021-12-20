@@ -1,4 +1,4 @@
-module github.com/JeffDeCola/my-go-tools
+module github.com/JeffDeCola/my-go-tools/cryptography-tools/decryptfile
 
 go 1.17
 
