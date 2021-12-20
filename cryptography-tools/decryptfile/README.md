@@ -5,6 +5,19 @@ decryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` 
 Works with
 [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile)._
 
+tl;dr,
+
+```bash
+# INSTALL VIA GO
+go install decryptfile.go
+
+# ENCRYPT FILE
+encryptfile -i mysecrets.txt -o encrypted.txt
+
+# DECRYPT FILE
+decryptfile -i encrypted.txt -o mysecrets.txt
+```
+
 Table of Contents,
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#overview)
@@ -91,11 +104,11 @@ To run
 from the command line,
 
 ```bash
-go run . -i encrypted.txt -o output.txt
-go run decryptfile.go -i encrypted.txt -o output.txt
-go run decryptfile.go -i encrypted.txt -o output.txt -debug
-go run decryptfile.go -i encrypted.txt -o output.txt -paraphrasefile paraphrase.txt
-go run decryptfile.go -i encrypted.txt -o output.txt -paraphrasefile ~/.ssh/id_rsa
+go run . -i encrypted.txt -o mysecrets.txt
+go run decryptfile.go -i encrypted.txt -o mysecrets.txt
+go run decryptfile.go -i encrypted.txt -o mysecrets.txt -debug
+go run decryptfile.go -i encrypted.txt -o mysecrets.txt -paraphrasefile paraphrase.txt
+go run decryptfile.go -i encrypted.txt -o mysecrets.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
 Use the paraphrase `test`.
@@ -153,7 +166,7 @@ decryptfile -v
 Use a specific input file and output file`,
 
 ```bash
-decryptfile -i encrypted.txt -o output.txt
+decryptfile -i encrypted.txt -o mysecrets.txt
 ```
 
 ### -paraphrasefile string
@@ -161,11 +174,11 @@ decryptfile -i encrypted.txt -o output.txt
 Use a file as the paraphrase,
 
 ```bash
-decryptfile -i encrypted.txt -o output.txt -paraphrasefile ~/.ssh/id_rsa
+decryptfile -i encrypted.txt -o mysecrets.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
 ### -debug
 
 ```bash
-decryptfile -i encrypted.txt -o output.txt -debug
+decryptfile -i encrypted.txt -o mysecrets.txt -debug
 ```

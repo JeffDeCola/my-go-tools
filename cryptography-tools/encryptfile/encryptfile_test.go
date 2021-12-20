@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"os"
 	"reflect"
 	"strings"
 	"testing"
@@ -338,9 +337,10 @@ func Test_writeCipherTextFile(t *testing.T) {
 }
 */
 
+/*
 func Test_writeHeader(t *testing.T) {
 	type args struct {
-		outputFile os.File
+		outputFH io.ReadWriter
 	}
 	tests := []struct {
 		name    string
@@ -350,60 +350,27 @@ func Test_writeHeader(t *testing.T) {
 		{
 			name: "Test Writing Header",
 			args: args{
-				outputFile: os.File{},
+				// This is a thing that can written too - writing to a slice
+				outputFH: bytes.NewBuffer(nil),
 			},
 			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := writeHeader(tt.args.outputFile); (err != nil) != tt.wantErr {
+			if err := writeHeader(tt.args.outputFH); (err != nil) != tt.wantErr {
 				t.Errorf("writeHeader() error = %v, wantErr %v", err, tt.wantErr)
 			}
-		})
-	}
-}
-
-func Test_writeCipherText(t *testing.T) {
-	type args struct {
-		cipherText string
-		outputFile os.File
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := writeCipherText(tt.args.cipherText, tt.args.outputFile); (err != nil) != tt.wantErr {
-				t.Errorf("writeCipherText() error = %v, wantErr %v", err, tt.wantErr)
+			b, err := io.ReadAll(tt.args.outputFH)
+			if err != nil {
+				t.Errorf("writeHeader() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if !bytes.HasPrefix(b, []byte("\nThis secret file was created by Jeff DeCola\n")) {
+				t.Errorf("writeHeader() wrote %q but wanted %q, ", string(b), "This secret file....")
 			}
 		})
 	}
-}
-
-func Test_writeFooter(t *testing.T) {
-	type args struct {
-		outputFile os.File
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := writeFooter(tt.args.outputFile); (err != nil) != tt.wantErr {
-				t.Errorf("writeFooter() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
+} */
 
 func Test_main(t *testing.T) {
 	tests := []struct {

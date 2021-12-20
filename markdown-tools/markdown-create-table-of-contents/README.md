@@ -4,6 +4,20 @@
 parsing a markdown file to find ##, ### to create a table
 of contents (TOC) for links at github._
 
+tl;dr,
+
+```bash
+# INSTALL VIA GO
+go install markdown-create-table-of-contents.go
+
+# GET TABLE OF CONTENTS FROM README.md MARKDOWN FILE
+markdown-create-table-of-contents
+markdown-create-table-of-contents -h3
+
+# GET TABLE OF CONTENTS FROM input.md MARKDOWN FILE
+markdown-create-table-of-contents -i input.md
+```
+
 Table of Contents,
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#overview)
@@ -28,6 +42,8 @@ Documentation and references,
 ## OVERVIEW
 
 This tool is useful for creating a Table of Contents for .md files.
+
+You will need to update the go code for your directory structure.
 
 ## PREREQUISITES
 

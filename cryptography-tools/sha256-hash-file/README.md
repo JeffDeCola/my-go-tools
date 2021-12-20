@@ -5,6 +5,19 @@ getting an sha256 hash (fingerprint) from an input file using the standard
 `crypto/sha256` package.
 I also added a flag to read in your .ssh/id_rsa.pub key to get your ssh sha256 fingerprint._
 
+tl;dr,
+
+```bash
+# INSTALL VIA GO
+go install md5-hash-file.go
+
+# GET SH256 FINGERPRINT ON FILE
+sha256-hash-file testfile.txt
+
+# GET SH256 FINGERPRINT ON KEY FILE
+sha256-hash-file -ssh ~/.ssh/id_rsa.pub
+```
+
 Table of Contents,
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#overview)

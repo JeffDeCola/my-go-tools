@@ -4,6 +4,16 @@
 taking a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
 
+tl;dr,
+
+```bash
+# INSTALL VIA GO
+go install markdown-delimiter-doer.go
+
+# GET HTML FROM MARKDOWN
+markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable
+```
+
 Table of Contents,
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#overview)
