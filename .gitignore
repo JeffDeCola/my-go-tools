@@ -2,10 +2,7 @@
 .credentials.yml
 
 # GO
-coverage.out
+**/test/test_coverage.txt
 
 # macOS
 .DS_Store
-
-# Ignore test coverage
-**/test/test_coverage.txt
