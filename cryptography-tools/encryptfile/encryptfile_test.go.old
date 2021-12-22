@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -64,7 +65,22 @@ func Test_readFile(t *testing.T) {
 		want    []byte
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Read file",
+			args: args{
+				filename: "test/readfile_test.txt",
+			},
+			want:    []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			wantErr: false,
+		},
+		{
+			name: "Test Read file error",
+			args: args{
+				filename: "fake.txt",
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -91,7 +107,42 @@ func Test_getParaphrase(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test for read file",
+			args: args{
+				r:              strings.NewReader(""),
+				paraphraseFile: "paraphrase.txt",
+			},
+			want:    "test\n",
+			wantErr: false,
+		},
+		{
+			name: "Test for read file error",
+			args: args{
+				r:              strings.NewReader(""),
+				paraphraseFile: "fake.txt",
+			},
+			want:    "",
+			wantErr: true,
+		},
+		{
+			name: "Test for user input",
+			args: args{
+				r:              strings.NewReader("jeff"),
+				paraphraseFile: "",
+			},
+			want:    "jeff",
+			wantErr: false,
+		},
+		{
+			name: "Test for user input error",
+			args: args{
+				r:              strings.NewReader("\n"),
+				paraphraseFile: "",
+			},
+			want:    "",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -118,7 +169,24 @@ func Test_getUserInput(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Test Get User Input Error",
+			args: args{
+				r:       strings.NewReader("\n"),
+				askUser: "What is your name?",
+			},
+			want:    "",
+			wantErr: true,
+		},
+		{
+			name: "Test Get User Input",
+			args: args{
+				r:       strings.NewReader("jeff"),
+				askUser: "What is your name?",
+			},
+			want:    "jeff",
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -143,7 +211,13 @@ func Test_getKeyByte(t *testing.T) {
 		args args
 		want []byte
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Get the keybyte from paraphrase 'test'",
+			args: args{
+				paraphrase: "test",
+			},
+			want: []byte("098f6bcd4621d373cade4e832627b4f6"),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -153,7 +227,6 @@ func Test_getKeyByte(t *testing.T) {
 		})
 	}
 }
-
 func Test_encryptPlainText(t *testing.T) {
 	type args struct {
 		r             io.Reader
@@ -166,7 +239,52 @@ func Test_encryptPlainText(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Get cipherText from plainText",
+			args: args{
+				// r needs to be long enough
+				r:             strings.NewReader("a b c d e f g"),
+				keyByte:       []byte("098f6bcd4621d373cade4e832627b4f6"),
+				plainTextByte: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			},
+			want:    "6120622063206420652066205c7f8975643637854a78d414fd3334673b714ebbb55a34a00f230c2202b12a796df3365603884365e8a3e75b5d90b21df3919b372c5b0cf42d21f1cc4bb03aa45d63e19641823977",
+			wantErr: false,
+		},
+		{
+			// GET CIPHER BLOCK USING KEY - TEST ERROR
+			name: "Get cipherText from plainText - error on get cipher block",
+			args: args{
+				// r needs to be long enough
+				r:             strings.NewReader("a b c d e f g"),
+				keyByte:       []byte("toshort"),
+				plainTextByte: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			},
+			want:    "",
+			wantErr: true,
+		},
+		/* {
+			// GET GCM INSTANCE THAT USES THE AES CIPHER - TEST ERROR
+			name: "Get cipherText from plainText - get gcm instance",
+			args: args{
+				r:             strings.NewReader("a b c d e f g"),
+				keyByte:       []byte("098f6bcd4621d373cade4e832627b4f6"),
+				plainTextByte: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			},
+			want:    "",
+			wantErr: true,
+		}, */
+		{
+			// CREATE A NONCE AND POPULATE - TEST ERROR
+			name: "Get cipherText from plainText - error on populate nonce",
+			args: args{
+				// r needs to be long enough - here it is too short
+				r:             strings.NewReader("a b c d e f"),
+				keyByte:       []byte("098f6bcd4621d373cade4e832627b4f6"),
+				plainTextByte: []byte("Hi Jeff, how are you.\n\nYou can keep secrets in the file."),
+			},
+			want:    "",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -192,66 +310,12 @@ func Test_writeCipherTextFile(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		// TODO: Add test cases.
+		// fix
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := writeCipherTextFile(tt.args.cipherText, tt.args.filename); (err != nil) != tt.wantErr {
 				t.Errorf("writeCipherTextFile() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
-
-// WE ARE WRITING TO A BUFFER - AND THEN CHECKING THE BEGINING OF IT
-func Test_writeHeader(t *testing.T) {
-	tests := []struct {
-		name       string
-		wantHandle string
-		wantErr    bool
-	}{
-		{
-			name:       "Test Write Footer",
-			wantHandle: "\nThis secret file was created by Jeff DeCola\n",
-			wantErr:    false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			handle := &bytes.Buffer{}
-			if err := writeHeader(handle); (err != nil) != tt.wantErr {
-				t.Errorf("writeHeader() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			// I EDITED THIS TO JUST CHECK THE PREFIX OF THE BUFFER
-			if gotHandle := handle.Bytes(); !bytes.HasPrefix(gotHandle, []byte(tt.wantHandle)) {
-				t.Errorf("writeHeader() = %v, want %v", gotHandle, tt.wantHandle)
-			}
-		})
-	}
-}
-
-func Test_writeCipherText(t *testing.T) {
-	type args struct {
-		cipherText string
-	}
-	tests := []struct {
-		name       string
-		args       args
-		wantHandle string
-		wantErr    bool
-	}{
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			handle := &bytes.Buffer{}
-			if err := writeCipherText(tt.args.cipherText, handle); (err != nil) != tt.wantErr {
-				t.Errorf("writeCipherText() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if gotHandle := handle.String(); gotHandle != tt.wantHandle {
-				t.Errorf("writeCipherText() = %v, want %v", gotHandle, tt.wantHandle)
 			}
 		})
 	}
@@ -292,35 +356,6 @@ func Test_writeHeader(t *testing.T) {
 	}
 } */
 
-// WE ARE WRITING TO A BUFFER - AND THEN CHECKING IT
-func Test_writeFooter(t *testing.T) {
-	tests := []struct {
-		name string
-		// AUTO ADDED
-		wantHandle string
-		wantErr    bool
-	}{
-		{
-			name:       "Test Write Footer",
-			wantHandle: myFileDelimiter + "\n\n",
-			wantErr:    false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			// AUTO ADDED - THIS IS COOL HOW IT PUTS A BUFFER HERE SO WE CAN WRITE TO IT
-			handle := &bytes.Buffer{}
-			if err := writeFooter(handle); (err != nil) != tt.wantErr {
-				t.Errorf("writeFooter() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if gotHandle := handle.String(); gotHandle != tt.wantHandle {
-				t.Errorf("writeFooter() = %v, want %v", gotHandle, tt.wantHandle)
-			}
-		})
-	}
-}
-
 func Test_main(t *testing.T) {
 	tests := []struct {
 		name string
@@ -330,6 +365,76 @@ func Test_main(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			main()
+		})
+	}
+}
+
+func Test_writeHeader(t *testing.T) {
+	tests := []struct {
+		name       string
+		wantHandle string
+		wantErr    bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			handle := &bytes.Buffer{}
+			if err := writeHeader(handle); (err != nil) != tt.wantErr {
+				t.Errorf("writeHeader() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotHandle := handle.String(); gotHandle != tt.wantHandle {
+				t.Errorf("writeHeader() = %v, want %v", gotHandle, tt.wantHandle)
+			}
+		})
+	}
+}
+
+func Test_writeCipherText(t *testing.T) {
+	type args struct {
+		cipherText string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantHandle string
+		wantErr    bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			handle := &bytes.Buffer{}
+			if err := writeCipherText(tt.args.cipherText, handle); (err != nil) != tt.wantErr {
+				t.Errorf("writeCipherText() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotHandle := handle.String(); gotHandle != tt.wantHandle {
+				t.Errorf("writeCipherText() = %v, want %v", gotHandle, tt.wantHandle)
+			}
+		})
+	}
+}
+
+func Test_writeFooter(t *testing.T) {
+	tests := []struct {
+		name       string
+		wantHandle string
+		wantErr    bool
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			handle := &bytes.Buffer{}
+			if err := writeFooter(handle); (err != nil) != tt.wantErr {
+				t.Errorf("writeFooter() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if gotHandle := handle.String(); gotHandle != tt.wantHandle {
+				t.Errorf("writeFooter() = %v, want %v", gotHandle, tt.wantHandle)
+			}
 		})
 	}
 }
