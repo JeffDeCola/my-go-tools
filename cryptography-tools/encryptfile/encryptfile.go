@@ -251,7 +251,7 @@ func writeCipherText(cipherText string, handle io.Writer) error {
 		line = line + string(r)
 		if i > 0 && (i+1)%80 == 0 {
 			line = line + "\n"
-			_, err := fmt.Fprint(handle, line+"\n")
+			_, err := fmt.Fprint(handle, line)
 			if err != nil {
 				return fmt.Errorf("unable to write chopped cipherText to file: %w", err)
 			}
@@ -266,7 +266,7 @@ func writeCipherText(cipherText string, handle io.Writer) error {
 		// The remaining line
 		numberLines++
 		line = line + "\n"
-		_, err := fmt.Fprint(handle, line+"\n")
+		_, err := fmt.Fprint(handle, line)
 		if err != nil {
 			return fmt.Errorf("unable to write to file: %w", err)
 		}
@@ -281,12 +281,12 @@ func writeCipherText(cipherText string, handle io.Writer) error {
 func writeFooter(handle io.Writer) error {
 
 	// WRITE FOOTER TO A FILE
-	log.Trace("Write Footer to a file")
+	log.Trace("Write Footer to io.Writer")
 
 	// ADD FOOTER TO BOTTOM OF FILE
 	_, err := fmt.Fprint(handle, myFileDelimiter+"\n\n")
 	if err != nil {
-		return fmt.Errorf("unable to write to file: %w", err)
+		return fmt.Errorf("unable to write to io.Writer: %w", err)
 	}
 
 	return nil
