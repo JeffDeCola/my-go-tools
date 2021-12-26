@@ -29,6 +29,10 @@
 
 ## MARKDOWN TOOLS
 
+* [markdown-check-links](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links)
+
+  _Check links in a markdown file._
+
 * [markdown-create-table-of-contents](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents)
 
   _Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
