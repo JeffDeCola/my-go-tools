@@ -1,6 +1,6 @@
 # sha256-hash-file tool
 
-`sha256-hash-file` _is a useful tool for
+A useful tool for
 getting an sha256 hash (fingerprint) from an input file using the standard
 `crypto/sha256` package.
 I also added a flag to read in your .ssh/id_rsa.pub key to get your ssh sha256 fingerprint._
@@ -9,7 +9,7 @@ tl;dr,
 
 ```bash
 # INSTALL VIA GO
-go install md5-hash-file.go
+go install sh256-hash-file.go
 
 # GET SH256 FINGERPRINT ON FILE
 sha256-hash-file testfile.txt
@@ -29,7 +29,7 @@ Table of Contents,
   * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#-h)
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#-v)
   * [-ssh](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#-ssh)
-  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#-debug)
+  * [-loglevel-string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/sha256-hash-file#-loglevel-string)
 
 Documentation and references,
 
@@ -79,7 +79,7 @@ from the command line,
 ```bash
 go run . testfile.txt
 go run sha256-hash-file.go testfile.txt
-go run sha256-hash-file.go -debug testfile.txt
+go run sha256-hash-file.go testfile.txt -loglevel trace
 ```
 
 If you run on testfile.txt your sha256 hash shall be,
@@ -93,7 +93,7 @@ You may also use the -ssh flag to read in a public ssh key file,
 ```bash
 go run . -ssh ~/.ssh/id_rsa.pub
 go run sha256-hash-file.go -ssh ~/.ssh/id_rsa.pub
-go run sha256-hash-file.go -ssh -debug ~/.ssh/id_rsa.pub
+go run sha256-hash-file.go -ssh ~/.ssh/id_rsa.pub -loglevel trace
 ```
 
 Its nice because you can check you have the right fingerprint at
@@ -134,7 +134,7 @@ go install sha256-hash-file.go
 ## USAGE
 
 ```txt
-sha256-hash-file {-h|-v|-debug|-ssh} [FILENAME]
+sha256-hash-file {-h|-v|-ssh} [FILENAME] -loglevel [level]
 ```
 
 ### -h
@@ -161,8 +161,10 @@ Check your public ssh file,
 sha256-hash-file -ssh ~/.ssh/id_rsa.pub
 ```
 
-### -debug
+### -loglevel string
+
+Can use trace, info or error,
 
 ```bash
-sha256-hash-file -debug testfile.txt
+sha256-hash-file -ssh ~/.ssh/id_rsa.pub -loglevel trace
 ```
