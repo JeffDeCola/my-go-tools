@@ -1,6 +1,6 @@
 # markdown-delimiter-doer tool
 
-`markdown-delimiter-doer` _is a useful tool for
+A useful tool for
 taking a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
 
@@ -8,7 +8,7 @@ tl;dr,
 
 ```bash
 # INSTALL VIA GO
-go install markdown-delimiter-doer.go
+go install markdown-delimiter-doer.go htmlswitch.go
 
 # GET HTML FROM MARKDOWN
 markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable
@@ -27,7 +27,7 @@ Table of Contents,
   * [-delimiter string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-delimiter-string)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-i-string--o-string)
   * [-htmltable](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-htmltable)
-  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-debug)
+  * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-loglevel-string)
 * [FUTURE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#future)
 
 Documentation and references,
@@ -65,9 +65,12 @@ from the command line,
 Run using delimiters `$$` and the `-htmltable` switch on input.md,
 
 ```bash
-go run . -delimiter \$\$ -i input.md -o output.md -htmltable
-go run markdown-delimiter-doer.go htmlswitch.go -delimiter \$\$ -i input.md -o output.md -htmltable
-go run markdown-delimiter-doer.go htmlswitch.go -delimiter \$\$ -i input.md -o output.md -htmltable -debug
+go run . -delimiter \$\$ \
+       -i input.md -o output.md -htmltable
+go run markdown-delimiter-doer.go htmlswitch.go \
+       -delimiter \$\$ -i input.md -o output.md -htmltable
+go run markdown-delimiter-doer.go htmlswitch.go \
+       -delimiter \$\$ -i input.md -o output.md -htmltable -loglevel trace
 ```
 
 ## TEST
@@ -99,7 +102,9 @@ go install markdown-delimiter-doer.go htmlswitch.go
 ## USAGE
 
 ```txt
-markdown-delimiter-doer {-h|-v|-debug} -delimiter [delimiter] -i [input file] -o [output file] -htmltable
+markdown-delimiter-doer {-h|-v} -delimiter [delimiter]
+                        -i [input file] -o [output file]
+                        -htmltable -loglevel [level]
 ```
 
 ### -h
@@ -146,10 +151,13 @@ Here is an illustration using the `-htmltable` switch,
 
 It will even check the dates and strikethrough them automatically.
 
-### -debug
+### -loglevel string
+
+Can be trace, info or error,
 
 ```bash
-markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable -debug
+markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable \
+                        -loglevel trace
 ```
 
 ## FUTURE

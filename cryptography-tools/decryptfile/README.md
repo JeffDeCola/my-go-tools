@@ -1,6 +1,6 @@
 # decryptfile tool
 
-`decryptfile` _is a useful tool for
+A useful tool for
 decryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 Works with
 [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile)._
@@ -32,7 +32,7 @@ Table of Contents,
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-v)
   * [-i string, -o string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-i-string--o-string)
   * [-paraphrasefile string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-paraphrasefile-string)
-  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-debug)
+  * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-loglevel-string)
 
 Documentation and references,
 
@@ -106,7 +106,7 @@ from the command line,
 ```bash
 go run . -i encrypted.txt -o mysecrets.txt
 go run decryptfile.go -i encrypted.txt -o mysecrets.txt
-go run decryptfile.go -i encrypted.txt -o mysecrets.txt -debug
+go run decryptfile.go -i encrypted.txt -o mysecrets.txt -loglevel trace
 go run decryptfile.go -i encrypted.txt -o mysecrets.txt -paraphrasefile paraphrase.txt
 go run decryptfile.go -i encrypted.txt -o mysecrets.txt -paraphrasefile ~/.ssh/id_rsa
 ```
@@ -142,7 +142,8 @@ go install decryptfile.go
 ## USAGE
 
 ```txt
-decryptfile {-h|-v|-debug} -i [input file] -o [output file] -paraphrasefile [file]
+decryptfile {-h|-v} -i [input file] -o [output file] -paraphrasefile [file]
+            -loglevel [level]
 ```
 
 ### -h
@@ -177,8 +178,10 @@ Use a file as the paraphrase,
 decryptfile -i encrypted.txt -o mysecrets.txt -paraphrasefile ~/.ssh/id_rsa
 ```
 
-### -debug
+### -loglevel string
+
+Can use trace, info or error,
 
 ```bash
-decryptfile -i encrypted.txt -o mysecrets.txt -debug
+decryptfile -i encrypted.txt -o mysecrets.txt -loglevel trace
 ```

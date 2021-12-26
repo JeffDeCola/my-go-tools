@@ -1,6 +1,6 @@
 # markdown-create-table-of-contents tool
 
-`markdown-create-table-of-contents` _is a useful tool for
+A useful tool for
 parsing a markdown file to find ##, ### to create a table
 of contents (TOC) for links at github._
 
@@ -30,7 +30,7 @@ Table of Contents,
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-v)
   * [-i string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-i-string)
   * [-h3](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h3)
-  * [-debug](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-debug)
+  * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-loglevel-string)
 
 Documentation and references,
 
@@ -69,7 +69,7 @@ from the command line,
 ```bash
 go run .
 go run markdown-create-table-of-contents.go
-go run markdown-create-table-of-contents.go -debug
+go run markdown-create-table-of-contents.go -loglevel trace
 ```
 
 ## TEST
@@ -101,7 +101,7 @@ go install markdown-create-table-of-contents.go
 ## USAGE
 
 ```txt
-markdown-create-table-of-contents {-h|-v|-debug} -i [FILENAME] -h3
+markdown-create-table-of-contents {-h|-v} -i [FILENAME] -h3 -loglevel [level]
 ```
 
 The default is to use README.md and create a table of contents,
@@ -138,8 +138,10 @@ Include sub headings 3 `###`,
 markdown-create-table-of-contents -i input.md -h3
 ```
 
-### -debug
+### -loglevel string
+
+Can be trace, info or error,
 
 ```bash
-markdown-create-table-of-contents -i input.md -h3 -debug
+markdown-create-table-of-contents -i input.md -h3 -loglevel trace
 ```
