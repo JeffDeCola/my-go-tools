@@ -1,6 +1,6 @@
 # decryptfile tool
 
-A useful tool for
+_A useful tool for
 decryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 Works with
 [encryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile)._
