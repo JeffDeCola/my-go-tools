@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.3"
+const toolVersion = "3.0.0"
 
 func checkErr(err error) {
 
@@ -208,13 +208,17 @@ func makeTOCEntry(heading string, headingNumber string, inputFilename string) {
 	dir = parts[1]
 
 	// STEP 3 Build link
+	// Tree for directories (i.e. when using README.md)
+	// Blob for files (i.e. todo.md) - So when i have the switch -i hence, inputFilename == ""
 	// DO NOT add /tree/master if the dir string is empty
 	log.Trace("STEP 3 - Build link - DO NOT add /tree/master if the dir string is empty")
 	link := ""
 	if dir == "" {
 		link = githubURL + repoName + inputFilename + "#" + headingLower
-	} else {
+	} else if inputFilename == "" {
 		link = githubURL + repoName + "/tree/master" + dir + inputFilename + "#" + headingLower
+	} else {
+		link = githubURL + repoName + "/blob/master" + dir + inputFilename + "#" + headingLower
 	}
 
 	// OUTPUT
@@ -233,7 +237,7 @@ func main() {
 	// FLAGS
 	versionPtr := flag.Bool("v", false, "prints current version")
 	debugTracePtr := flag.Bool("debug", false, "log trace level")
-	inputFilenamePtr := flag.String("i", "README.md", "input file")
+	inputFilenamePtr := flag.String("i", "README.md", "input file (Will use blob/master)")
 	heading3Ptr := flag.Bool("h3", false, "a bool for heading2")
 	flag.Parse()
 

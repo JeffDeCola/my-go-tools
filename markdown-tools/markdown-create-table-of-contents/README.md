@@ -11,10 +11,12 @@ tl;dr,
 go install markdown-create-table-of-contents.go
 
 # GET TABLE OF CONTENTS FROM README.md MARKDOWN FILE
+# Will use tree/master in path
 markdown-create-table-of-contents
 markdown-create-table-of-contents -h3
 
 # GET TABLE OF CONTENTS FROM input.md MARKDOWN FILE
+# Will use blob/master in path
 markdown-create-table-of-contents -i input.md
 ```
 
@@ -124,7 +126,7 @@ markdown-create-table-of-contents -v
 
 ### -i string
 
-Use a specific input file `input.md`,
+Use a specific input file `input.md` which will use `blob/master` in path,
 
 ```bash
 markdown-create-table-of-contents -i input.md
