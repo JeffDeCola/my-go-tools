@@ -12,7 +12,6 @@ Table of Contents,
 
 * [CRYPTOGRAPHY TOOLS](https://github.com/JeffDeCola/my-go-tools#cryptography-tools)
 * [MARKDOWN TOOLS](https://github.com/JeffDeCola/my-go-tools#markdown-tools)
-* [CONTINUOUS INTEGRATION](https://github.com/JeffDeCola/my-go-tools#continuous-integration)
 
 Documentation and reference,
 
@@ -66,10 +65,3 @@ Documentation and reference,
   _Take a markdown file and "do whatever you want" between the delimiters
   and output new markdown file._
   
-## CONTINUOUS INTEGRATION
-
-Refer to
-[ci-README.md](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)
-on how I automated building this repos
-[github webpage](https://jeffdecola.github.io/my-go-tools/)
-and perform some unit-tests.
