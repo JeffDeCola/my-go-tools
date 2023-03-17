@@ -1,8 +1,7 @@
 # markdown-create-table-of-contents tool
 
-A useful tool for
-parsing a markdown file to find ##, ### to create a table
-of contents (TOC) for links at github._
+_Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
+for links at github._
 
 tl;dr,
 
@@ -20,7 +19,7 @@ markdown-create-table-of-contents -h3
 markdown-create-table-of-contents -i input.md
 ```
 
-Table of Contents,
+Table of Contents
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#overview)
 * [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#prerequisites)
@@ -34,7 +33,7 @@ Table of Contents,
   * [-h3](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-h3)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-create-table-of-contents#-loglevel-string)
 
-Documentation and references,
+Documentation and Reference
 
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
@@ -49,10 +48,6 @@ You will need to update the go code for your directory structure.
 
 ## PREREQUISITES
 
-I used the following language,
-
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
 You will need the following go packages,
 
 ```bash
@@ -61,12 +56,8 @@ go get -u -v github.com/sirupsen/logrus
 
 ## RUN
 
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/run.sh).
-
-To run
-[markdown-create-table-of-contents.go](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/markdown-create-table-of-contents.go)
-from the command line,
+To
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/run.sh),
 
 ```bash
 go run .

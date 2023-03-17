@@ -1,8 +1,26 @@
 # CONCOURSE
 .credentials.yml
 
+# VSCODE
+.vscode/
+
 # GO
-**/test/test_coverage.txt
+coverage.out
 
 # macOS
 .DS_Store
+
+# WINDOWS
+*.jpg:Zone.Identifier
+
+# Ignore binaries
+#**/bin/control-fpga-via-raspi-and-webserver
+
+# Ignore test coverage
+**/test/test_coverage.txt
+
+# Ignore binary used for docker build
+#**/build/control-fpga-via-raspi-and-webserver
+
+# SFTP VS CODE EXTENTION
+sftp.json

@@ -1,6 +1,6 @@
 # markdown-check-links tool
 
-A useful tool for checking links in a markdown file._
+_Check links in a markdown file._
 
 tl;dr,
 
@@ -15,7 +15,7 @@ markdown-check-links
 markdown-check-links -r
 ```
 
-Table of Contents,
+Table of Contents
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#overview)
   * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#step-1---create-a-hash-key)
@@ -31,7 +31,7 @@ Table of Contents,
   * [-r](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-r)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-loglevel-string)
 
-Documentation and references,
+Documentation and Reference
 
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
@@ -44,10 +44,6 @@ Scan a markdown file and check the http links. Can also check subdirectories rec
 
 ## PREREQUISITES
 
-I used the following language,
-
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
 You will need the following go packages,
 
 ```bash
@@ -56,12 +52,8 @@ go install -v github.com/sirupsen/logrus
 
 ## RUN
 
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/run.sh).
-
-To run
-[markdown-check-links.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/markdown-check-links.go)
-from the command line,
+To
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/run.sh),
 
 ```bash
 go run .

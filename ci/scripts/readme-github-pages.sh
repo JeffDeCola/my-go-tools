@@ -17,15 +17,9 @@ else
     echo " "
 fi
 
-echo "GOAL ----------------------------------------------------------------------------------"
-echo " "
-
 echo "The goal is to git clone /my-go-tools to /my-go-tools-updated"
 echo "Then script will edit the /docs/_includes/README.md for GITHUB WEBPAGES"
 echo "Finally push the changes in /docs/_includes/README.md to github"
-echo " "
-
-echo "CHECK THINGS --------------------------------------------------------------------------"
 echo " "
 
 echo "At start, you should be in a /tmp/build/xxxxx directory with two folders:"
@@ -40,9 +34,6 @@ echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "GIT CLONE -----------------------------------------------------------------------------"
-echo " "
-
 echo "git clone my-go-tools to my-go-tools-updated"
 git clone my-go-tools my-go-tools-updated
 echo " "
@@ -55,26 +46,16 @@ echo "List whats in the current directory"
 ls -la
 echo " "
 
-echo "EDIT README FOR GITHUB WEBPAGES -------------------------------------------------------"
+echo "FOR GITHUB WEBPAGES"
+echo "THE GOAL IS TO COPY README.md to /docs/_includes/README.md"
 echo " "
 
-echo "Copy README.md to /docs/_includes/README.md and edit"
-echo "    Remove everything before the second heading in README.md.  Place in temp-README.md"
-echo "    sed '0,/github webpage/d' README.md > temp-README.md"
+echo "Remove everything before the second heading in README.md.  Place in temp-README.md"
 sed '0,/github webpage/d' README.md > temp-README.md
-echo "    Change the first heading ## to #"
-echo "    sed -i '0,/##/{s/##/#/}' temp-README.md"
+# Change the first heading ## to #
 sed -i '0,/##/{s/##/#/}' temp-README.md
-echo "    Update the image links (remove docs/)"
-echo "    sed -i 's#IMAGE](docs/#IMAGE](#g' temp-README.md"
+# update the image links (remove docs/)
 sed -i 's#IMAGE](docs/#IMAGE](#g' temp-README.md
-echo "    Update the image links for svgs (if you have them)"
-echo "    Add \"https://raw.githubusercontent.com/JeffDeCola/REPONAME/master/svgs/\" to \"svgs/\""
-echo "    sed -i 's/svgs\//https:\/\/raw.githubusercontent.com\/JeffDeCola\/my-go-tools\/master\/svgs\//g' temp-README.md"
-sed -i 's/svgs\//https:\/\/raw.githubusercontent.com\/JeffDeCola\/my-go-tools\/master\/svgs\//g' temp-README.md
-echo " "
-
-echo "GIT COMMIT OR NOT ---------------------------------------------------------------------"
 echo " "
 
 commit="yes"
@@ -94,39 +75,30 @@ then
     echo " "
 else
     echo "    No, it does not exist"
-    echo "    Creating the _includes directory if it doesn't exist"
-    mkdir -p docs/_includes
+    echo "    Creating the _includes directory"
+    mkdir docs/_includes
     echo " "
 fi
 
 if [ "$commit" = "yes" ]
 then
-
-    echo "GIT SETUP -------------------------------------------------------------------------"
-    echo " "
-
-    echo "cp temp-README.md docs/_includes/README.md"
+    echo "cp updated temp-README.md to docs/_includes/README.md"
     cp temp-README.md docs/_includes/README.md
     echo " "
 
-    echo "Update some global git variables"
-    echo "git config --global user.email \"jeffdecola@gmail.com\""
-    echo "git config --global user.name \"Jeff DeCola (Concourse)\""
-    git config --global user.email "jeffdecola@gmail.com"
+    echo "update some global git variables"
+    git config --global user.email "jeff@keeperlabs.com"
     git config --global user.name "Jeff DeCola (Concourse)"
     echo " "
     git config --list
     echo " "
 
-    echo "GIT PUSH MASTER BRANCH ------------------------------------------------------------"
-    echo " "
-
-    echo "git add and commit what is needed to protect from unforseen issues"
-    echo "git add docs/_includes/README.md"
+    echo "ONLY git add and commit what is needed to protect from unforseen issues"
+    echo "git add"
     git add docs/_includes/README.md
     echo " "
 
-    echo " git commit -m \"Update docs/_includes/README.md for GitHub WebPage\""
+    echo "git commit"
     git commit -m "Update docs/_includes/README.md for GitHub WebPage"
     echo " "
 
@@ -134,14 +106,11 @@ then
     git status
     echo " "
     
-    echo "git push  - Not needed here since its done in pipeline"
+    echo "git push  - not needed in concourse since its done in pipeline"
     echo " "
 fi
 
-echo "CLEAN UP ------------------------------------------------------------------------------"
-echo " "
-
-echo "rm temp-README.md"
+echo "remove temp-README.md"
 rm temp-README.md
 echo " "
 

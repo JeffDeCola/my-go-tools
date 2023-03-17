@@ -1,19 +1,21 @@
-# my-go-tools
+# MY GO TOOLS
 
+[![Tag Latest](https://img.shields.io/github/v/tag/jeffdecola/my-go-tools)](https://github.com/JeffDeCola/my-go-tools/tags)
+[![Go Reference](https://pkg.go.dev/badge/github.com/JeffDeCola/my-go-tools.svg)](https://pkg.go.dev/github.com/JeffDeCola/my-go-tools)
 [![Go Report Card](https://goreportcard.com/badge/github.com/JeffDeCola/my-go-tools)](https://goreportcard.com/report/github.com/JeffDeCola/my-go-tools)
-[![GoDoc](https://godoc.org/github.com/JeffDeCola/my-go-tools?status.svg)](https://godoc.org/github.com/JeffDeCola/my-go-tools)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ad5212958a91606b685e/maintainability)](https://codeclimate.com/github/JeffDeCola/my-go-tools/maintainability)
-[![Issue Count](https://codeclimate.com/github/JeffDeCola/my-go-tools/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/my-go-tools/issues)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![codeclimate Maintainability](https://api.codeclimate.com/v1/badges/ad5212958a91606b685e/maintainability)](https://codeclimate.com/github/JeffDeCola/my-go-tools/maintainability)
+[![codeclimate Issue Count](https://codeclimate.com/github/JeffDeCola/my-go-tools/badges/issue_count.svg)](https://codeclimate.com/github/JeffDeCola/my-go-tools/issues)
+[![MIT License](http://img.shields.io/:license-mit-blue.svg)](http://jeffdecola.mit-license.org)
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
 
-_A place to keep useful tools I created in go to install on my rig._
+_A place to keep useful tools I created in go._
 
-Table of Contents,
+Table of Contents
 
 * [CRYPTOGRAPHY TOOLS](https://github.com/JeffDeCola/my-go-tools#cryptography-tools)
 * [MARKDOWN TOOLS](https://github.com/JeffDeCola/my-go-tools#markdown-tools)
 
-Documentation and reference,
+Documentation and Reference
 
 * [go-cheat-sheet](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
 * [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
