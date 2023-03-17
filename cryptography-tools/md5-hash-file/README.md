@@ -1,9 +1,8 @@
 # md5-hash-file tool
 
-A useful tool for
-getting an md5 hash (fingerprint) from an input file using the standard
+_Get an md5 hash (fingerprint) from an input file using the standard
 `crypto/md5` package.
-I also added a flag to read in your .ssh/id_rsa.pub key to get your ssh md5 fingerprint._
+I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
 
 tl;dr,
 
@@ -18,7 +17,7 @@ md5-hash-file testfile.txt
 md5-hash-file -ssh ~/.ssh/id_rsa.pub
 ```
 
-Table of Contents,
+Table of Contents
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#overview)
 * [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#prerequisites)
@@ -31,11 +30,12 @@ Table of Contents,
   * [-ssh](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-ssh)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-loglevel-string)
 
-Documentation and references,
+Documentation and Reference
 
 * Refer to
   [md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
-  example in `my-go-examples`
+  example in
+  [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
   _built with
@@ -57,10 +57,6 @@ md5Hash := hex.EncodeToString(md5HashByte[:])
 
 ## PREREQUISITES
 
-I used the following language,
-
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
 You will need the following go packages,
 
 ```bash
@@ -69,12 +65,8 @@ go get -u -v github.com/sirupsen/logrus
 
 ## RUN
 
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/run.sh).
-
-To run
-[md5-hash-file.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/md5-hash-file.go)
-from the command line,
+To
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/run.sh),
 
 ```bash
 go run . testfile.txt

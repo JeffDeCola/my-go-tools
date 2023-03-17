@@ -1,7 +1,6 @@
 # encryptfile tool
 
-A useful tool for
-encryptfile a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
+_Encrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 Works with
 [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)._
 
@@ -18,7 +17,7 @@ encryptfile -i mysecrets.txt -o encrypted.txt
 decryptfile -i encrypted.txt -o mysecrets.txt
 ```
 
-Table of Contents,
+Table of Contents
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#overview)
   * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#step-1---create-a-hash-key)
@@ -34,14 +33,16 @@ Table of Contents,
   * [-paraphrasefile string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-paraphrasefile-string)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/encryptfile#-loglevel-string)
 
-Documentation and references,
+Documentation and Reference
 
 * Use my other tool
   [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
   to decrypt
 * Refer to my
   [aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
-  example in `my-go-examples` repo on how I did the decryption.
+  example in
+  [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
+  repo on how I did the encryption
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
   _built with
@@ -85,10 +86,6 @@ This illustration may help,
 
 ## PREREQUISITES
 
-I used the following language,
-
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
 You will need the following go packages,
 
 ```bash
@@ -97,12 +94,8 @@ go install -v github.com/sirupsen/logrus
 
 ## RUN
 
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/run.sh).
-
-To run
-[encryptfile.go](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/encryptfile.go)
-from the command line,
+To
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/run.sh),
 
 ```bash
 go run . -i mysecrets.txt -o encrypted.txt

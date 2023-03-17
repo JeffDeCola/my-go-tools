@@ -1,7 +1,6 @@
 # markdown-delimiter-doer tool
 
-A useful tool for
-taking a markdown file and "do whatever you want" between the delimiters
+_Take a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
 
 tl;dr,
@@ -14,7 +13,7 @@ go install markdown-delimiter-doer.go htmlswitch.go
 markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable
 ```
 
-Table of Contents,
+Table of Contents
 
 * [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#overview)
 * [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#prerequisites)
@@ -30,7 +29,7 @@ Table of Contents,
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-loglevel-string)
 * [FUTURE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#future)
 
-Documentation and references,
+Documentation and Reference
 
 * This repos
   [github webpage](https://jeffdecola.github.io/my-go-tools/)
@@ -43,10 +42,6 @@ This tool is useful for "doing something" in a file between a delimiter.
 
 ## PREREQUISITES
 
-I used the following language,
-
-* [go](https://github.com/JeffDeCola/my-cheat-sheets/tree/master/software/development/languages/go-cheat-sheet)
-
 You will need the following go packages,
 
 ```bash
@@ -55,12 +50,8 @@ go get -u -v github.com/sirupsen/logrus
 
 ## RUN
 
-The following steps are located in
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/run.sh).
-
-To run
-[markdown-delimiter-doer.go](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/markdown-delimiter-doer.go)
-from the command line,
+To
+[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/run.sh),
 
 Run using delimiters `$$` and the `-htmltable` switch on input.md,
 
