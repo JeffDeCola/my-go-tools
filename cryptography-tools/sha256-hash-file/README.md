@@ -36,10 +36,6 @@ Documentation and Reference
   [sha256-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/sha256-hash-from-file)
   example in
   [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
-* This repos
-  [github webpage](https://jeffdecola.github.io/my-go-tools/)
-  _built with
-  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
 
 ## OVERVIEW
 

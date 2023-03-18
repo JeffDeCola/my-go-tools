@@ -15,7 +15,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.3"
+const toolVersion = "3.0.4"
 
 func checkErr(err error) {
 

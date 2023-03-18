@@ -11,7 +11,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "3.0.0"
+const toolVersion = "3.0.4"
 
 func checkErr(err error) {
 
@@ -69,7 +69,7 @@ func createTOC(inputFilename string, addHeading3 bool) {
 	}
 	defer inputFile.Close()
 
-	fmt.Println("Table of Contents,")
+	fmt.Println("Table of Contents")
 	fmt.Println("")
 
 	// Start scanning the input file
