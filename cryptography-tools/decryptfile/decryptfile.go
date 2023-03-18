@@ -10,13 +10,12 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.4"
+const toolVersion = "3.0.4"
 const myFileDelimiter = "--------------------------------------------------------------------------------"
 
 var errLogLevel = errors.New("please use trace, info or error")
@@ -139,7 +138,7 @@ func readFile(filename string) ([]byte, error) {
 	// READ FILE
 	log.Trace("Read the file ", filename)
 
-	fileData, err := ioutil.ReadFile(filename)
+	fileData, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read file: %w", err)
 	}

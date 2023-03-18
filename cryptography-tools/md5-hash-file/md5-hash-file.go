@@ -16,7 +16,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.4"
+const toolVersion = "3.0.4"
 
 var errLogLevel = errors.New("please use trace, info or error")
 var errFilenameArg = errors.New("only one filename allowed in args")

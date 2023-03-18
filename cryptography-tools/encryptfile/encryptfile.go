@@ -10,14 +10,13 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"time"
 
 	log "github.com/sirupsen/logrus"
 )
 
-const toolVersion = "2.0.4"
+const toolVersion = "3.0.4"
 const myFileDelimiter = "--------------------------------------------------------------------------------"
 
 var errLogLevel = errors.New("please use trace, info or error")
@@ -57,7 +56,7 @@ func readFile(filename string) ([]byte, error) {
 	// READ FILE
 	log.Trace("Read the file ", filename)
 
-	fileData, err := ioutil.ReadFile(filename)
+	fileData, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, fmt.Errorf("unable to read file: %w", err)
 	}
@@ -165,7 +164,7 @@ func encryptPlainText(r io.Reader, keyByte []byte, plainTextByte []byte) (string
 	log.Info("Nonce is ", nonce)
 
 	// ENCRYPT DATA
-	// Note how we put the Nonce in the beginging,
+	// Note how we put the Nonce in the beginning,
 	// So we can rip it out when we decrypt
 	cipherTextByte := gcm.Seal(nonce, nonce, plainTextByte, nil)
 

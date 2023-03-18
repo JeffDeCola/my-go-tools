@@ -31,13 +31,6 @@ Table of Contents
   * [-r](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-r)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-loglevel-string)
 
-Documentation and Reference
-
-* This repos
-  [github webpage](https://jeffdecola.github.io/my-go-tools/)
-  _built with
-  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
-
 ## OVERVIEW
 
 Scan a markdown file and check the http links. Can also check subdirectories recursively.

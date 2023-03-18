@@ -29,13 +29,6 @@ Table of Contents
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#-loglevel-string)
 * [FUTURE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-delimiter-doer#future)
 
-Documentation and Reference
-
-* This repos
-  [github webpage](https://jeffdecola.github.io/my-go-tools/)
-  _built with
-  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
-
 ## OVERVIEW
 
 This tool is useful for "doing something" in a file between a delimiter.

@@ -43,10 +43,6 @@ Documentation and Reference
   example in
   [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
   repo on how I did the encryption
-* This repos
-  [github webpage](https://jeffdecola.github.io/my-go-tools/)
-  _built with
-  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
 
 ## OVERVIEW
 

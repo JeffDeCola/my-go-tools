@@ -30,17 +30,6 @@ Table of Contents
   * [-ssh](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-ssh)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-loglevel-string)
 
-Documentation and Reference
-
-* Refer to
-  [md5-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/md5-hash-from-file)
-  example in
-  [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
-* This repos
-  [github webpage](https://jeffdecola.github.io/my-go-tools/)
-  _built with
-  [concourse](https://github.com/JeffDeCola/my-go-tools/blob/master/ci-README.md)_
-
 ## OVERVIEW
 
 In a nutshell, the guts of the code is,
