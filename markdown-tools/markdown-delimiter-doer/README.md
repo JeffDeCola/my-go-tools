@@ -1,4 +1,4 @@
-# markdown-delimiter-doer tool
+# markdown-delimiter-doer TOOL
 
 _Take a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
@@ -66,16 +66,14 @@ go run markdown-delimiter-doer.go htmlswitch.go \
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all markdown-delimiter-doer.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-delimiter-doer/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt

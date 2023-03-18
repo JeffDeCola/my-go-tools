@@ -1,4 +1,4 @@
-# markdown-check-links tool
+# markdown-check-links TOOL
 
 _Check links in a markdown file._
 
@@ -65,16 +65,14 @@ go run markdown-check-links.go -r
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all markdown-check-links.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
