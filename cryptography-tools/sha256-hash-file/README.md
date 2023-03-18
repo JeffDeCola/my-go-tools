@@ -1,4 +1,4 @@
-# sha256-hash-file tool
+# sha256-hash-file TOOL
 
 _Get an sha256 hash (fingerprint) from an input file using the standard
 `crypto/sha256` package.
@@ -99,16 +99,14 @@ You can also run the unix command to check your sha256,
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/sha256-hash-file/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all sha256-hash-file.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/sha256-hash-file/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt

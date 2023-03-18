@@ -1,4 +1,4 @@
-# markdown-create-table-of-contents tool
+# markdown-create-table-of-contents TOOL
 
 _Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
 for links at github._
@@ -67,16 +67,14 @@ go run markdown-create-table-of-contents.go -loglevel trace
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all markdown-create-table-of-contents.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/markdown-tools/markdown-create-table-of-contents/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt

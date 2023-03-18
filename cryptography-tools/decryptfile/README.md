@@ -1,4 +1,4 @@
-# decryptfile tool
+# decryptfile TOOL
 
 _Decrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 Works with
@@ -108,16 +108,15 @@ Use the paraphrase `test`.
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/test/unit-tests.sh).
 
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all decryptfile.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/decryptfile/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt

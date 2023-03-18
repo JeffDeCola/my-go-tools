@@ -1,4 +1,4 @@
-# encryptfile tool
+# encryptfile TOOL
 
 _Encrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
 Works with
@@ -98,7 +98,7 @@ To
 [run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/run.sh),
 
 ```bash
-go run . -i mysecrets.txt -o encrypted.txt
+go run encryptfile.go -i mysecrets.txt -o encrypted.txt
 go run encryptfile.go -i mysecrets.txt -o encrypted.txt
 go run encryptfile.go -i mysecrets.txt -o encrypted.txt -loglevel trace
 go run encryptfile.go -i mysecrets.txt -o encrypted.txt -paraphrasefile paraphrase.txt
@@ -109,16 +109,14 @@ Use the paraphrase `test`.
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all encryptfile.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/encryptfile/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt

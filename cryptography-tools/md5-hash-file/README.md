@@ -1,4 +1,4 @@
-# md5-hash-file tool
+# md5-hash-file TOOL
 
 _Get an md5 hash (fingerprint) from an input file using the standard
 `crypto/md5` package.
@@ -99,16 +99,14 @@ ssh-keygen -l -E md5 -f ~/.ssh/id_rsa.pub
 
 ## TEST
 
-The following steps are located in
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/test/unit-tests.sh).
-
-To create `_test` files,
+To create _test files,
 
 ```bash
 gotests -w -all md5-hash-file.go
 ```
 
-To unit test the code,
+To
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/md5-hash-file/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
