@@ -11,7 +11,7 @@ I use concourse to automate,
 
 The concourse
 [pipeline.yml](https://github.com/JeffDeCola/my-go-tools/blob/master/ci/pipeline.yml)
-shows the entire ci flow. Visually, it looks like,
+shows the entire ci flow,
 
 ![IMAGE - my-go-tools concourse ci pipeline - IMAGE](docs/pics/my-go-tools-pipeline.jpg)
 
