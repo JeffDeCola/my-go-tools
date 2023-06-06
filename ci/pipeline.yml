@@ -130,7 +130,7 @@ resources:
       #uri: https://github.com/jeffdecola/my-go-tools
       uri: git@github.com:jeffdecola/my-go-tools.git
       branch: master
-      private_key: ((git_private_key))
+      private_key: ((concourse_git_private_key))
 
   - name: resource-slack-alert
     type: slack-notification
