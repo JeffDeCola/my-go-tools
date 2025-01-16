@@ -1,11 +1,7 @@
-# CONCOURSE
+# golang-generic.gitignore
+
+# CONCOURSE SECRETS
 .credentials.yml
-
-# VSCODE
-.vscode/
-
-# GO
-coverage.out
 
 # macOS
 .DS_Store
@@ -13,14 +9,5 @@ coverage.out
 # WINDOWS
 *.jpg:Zone.Identifier
 
-# Ignore binaries
-#**/bin/control-fpga-via-raspi-and-webserver
-
-# Ignore test coverage
+# TEST
 **/test/test_coverage.txt
-
-# Ignore binary used for docker build
-#**/build/control-fpga-via-raspi-and-webserver
-
-# SFTP VS CODE EXTENTION
-sftp.json
