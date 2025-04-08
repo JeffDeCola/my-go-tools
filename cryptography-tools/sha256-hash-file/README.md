@@ -1,10 +1,14 @@
 # sha256-hash-file TOOL
 
-_Get an sha256 hash (fingerprint) from an input file using the standard
-`crypto/sha256` package.
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
+_Get an sha256 hash (fingerprint) from an input file using the
+[crypto/sha256](https://golang.org/pkg/crypto/sha256/)
+standard package.
 I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO
@@ -32,8 +36,10 @@ Table of Contents
 
 Documentation and Reference
 
+* [crypto/sha256](https://golang.org/pkg/crypto/sha256/)
+  standard package
 * Refer to
-  [sha256-hash-from-file](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/hashing/sha256-hash-from-file)
+  [sha256-hash-from-file](https://github.com/JeffDeCola/my-go-examples#cryptography)
   example in
   [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
 

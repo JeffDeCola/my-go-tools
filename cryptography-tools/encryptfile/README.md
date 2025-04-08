@@ -1,10 +1,15 @@
 # encryptfile TOOL
 
-_Encrypt a file with AES-256 GCM (a 32-byte hash key) using the `crypto/aes` package.
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
+_Encrypt a file with AES-256 GCM (a 32-byte hash key) using the
+[crypto/aes](https://golang.org/pkg/crypto/aes/)
+standard package.
 Works with
 [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO
@@ -35,11 +40,11 @@ Table of Contents
 
 Documentation and Reference
 
-* Use my other tool
-  [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
-  to decrypt
+* [decryptfile](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile)
+* [crypto/aes](https://golang.org/pkg/crypto/aes/)
+  standard package
 * Refer to my
-  [aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm)
+  [aes-256-gcm](https://github.com/JeffDeCola/my-go-examples#cryptography)
   example in
   [my-go-examples](https://github.com/JeffDeCola/my-go-examples)
   repo on how I did the encryption
@@ -72,13 +77,13 @@ hash := hex.EncodeToString(hasher.Sum(nil))
 ### STEP 2 - ENCRYPT FILE WITH 32 BYTE HASH KEY
 
 The encryption was done using AES-256 GCM from my example
-[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples/tree/master/cryptography/symmetric-cryptography/aes-256-gcm).
+[aes-256-gcm](https://github.com/JeffDeCola/my-go-examples#cryptography).
 
 Refer to that example for a complete description.
 
 This illustration may help,
 
-![IMAGE - encryptfile - IMAGE](../../docs/pics/encryptfile.jpg)
+![IMAGE - encryptfile - IMAGE](../../docs/pics/encryptfile.svg)
 
 ## PREREQUISITES
 

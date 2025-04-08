@@ -1,9 +1,12 @@
 # markdown-create-table-of-contents TOOL
 
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
 _Parse a markdown file to find `##`, `###` to create a table of contents (TOC)
 for links at github._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO

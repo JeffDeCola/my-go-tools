@@ -1,9 +1,12 @@
 # markdown-delimiter-doer TOOL
 
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
 _Take a markdown file and "do whatever you want" between the delimiters
 and output new markdown file._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO
@@ -129,7 +132,7 @@ markdown-delimiter-doer -delimiter \$\$ -i input.md -o output.md -htmltable
 
 Here is an illustration using the `-htmltable` switch,
 
-![IMAGE - markdown-delimiter-doer - IMAGE](../../docs/pics/markdown-delimiter-doer.jpg)
+![IMAGE - markdown-delimiter-doer - IMAGE](../../docs/pics/markdown-delimiter-doer.svg)
 
 It will even check the dates and strikethrough them automatically.
 
