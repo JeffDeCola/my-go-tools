@@ -1,10 +1,14 @@
 # md5-hash-file TOOL
 
-_Get an md5 hash (fingerprint) from an input file using the standard
-`crypto/md5` package.
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
+_Get an md5 hash (fingerprint) from an input file using the
+[crypto/md5](https://golang.org/pkg/crypto/md5/)
+standard package.
 I also added a flag to read in your `.ssh/id_rsa.pub` key to get your ssh fingerprint._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO
@@ -29,6 +33,11 @@ Table of Contents
   * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-v)
   * [-ssh](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-ssh)
   * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/md5-hash-file#-loglevel-string)
+
+Documentation and Reference
+
+* [crypto/md5](https://golang.org/pkg/crypto/md5/)
+  standard package
 
 ## OVERVIEW
 

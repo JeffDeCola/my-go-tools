@@ -1,8 +1,15 @@
 # markdown-check-links TOOL
 
+[![jeffdecola.com](https://img.shields.io/badge/website-jeffdecola.com-blue)](https://jeffdecola.com)
+[![MIT License](https://img.shields.io/:license-mit-blue.svg)](https://jeffdecola.mit-license.org)
+
+```text
+*** THIS IS UNDER CONSTRUCTION - CHECK BACK SOON ***
+```
+
 _Check links in a markdown file._
 
-tl;dr,
+tl;dr
 
 ```bash
 # INSTALL VIA GO
@@ -17,19 +24,17 @@ markdown-check-links -r
 
 Table of Contents
 
-* [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#overview)
-  * [STEP 1 - CREATE A HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#step-1---create-a-hash-key)
-  * [STEP 2 - ENCRYPT FILE WITH 32 BYTE HASH KEY](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#step-2---encrypt-file-with-32-byte-hash-key)
-* [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#prerequisites)
-* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#run)
-* [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#test)
-* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#install)
-* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#usage)
-  * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-h)
-  * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-v)
-  * [-i string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-i-string)
-  * [-r](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/markdown-check-links#-r)
-  * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/cryptography-tools/decryptfile#-loglevel-string)
+* [OVERVIEW](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#overview)
+* [PREREQUISITES](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#prerequisites)
+* [RUN](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#run)
+* [TEST](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#test)
+* [INSTALL](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#install)
+* [USAGE](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#usage)
+  * [-h](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#-h)
+  * [-v](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#-v)
+  * [-i string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#-i-string)
+  * [-r](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#-r)
+  * [-loglevel string](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links#loglevel-string)
 
 ## OVERVIEW
 
@@ -46,7 +51,7 @@ go install -v github.com/sirupsen/logrus
 ## RUN
 
 To
-[run.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/run.sh),
+[run.sh](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links/run.sh),
 
 ```bash
 go run .
@@ -65,7 +70,7 @@ gotests -w -all markdown-check-links.go
 ```
 
 To
-[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/blob/master/cryptography-tools/markdown-check-links/test/unit-tests.sh),
+[unit-tests.sh](https://github.com/JeffDeCola/my-go-tools/tree/master/markdown-tools/markdown-check-links/test/unit-tests.sh),
 
 ```bash
 go test -cover ./... | tee test/test_coverage.txt
