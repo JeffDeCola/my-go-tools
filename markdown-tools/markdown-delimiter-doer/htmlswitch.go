@@ -1,14 +1,24 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
 	log "github.com/sirupsen/logrus"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/renderer/html"
 )
+
+var inlineMarkdown = goldmark.New(
+	goldmark.WithRendererOptions(html.WithUnsafe()),
+)
+
+var markdownImagePattern = regexp.MustCompile(`!\[([^\]]*)\]\(([^)]+)\)`)
 
 // Make an html table from the stuff
 func makeHTMLTABLE(stuff []string, outputFile *os.File) {
@@ -65,6 +75,7 @@ func makeHTMLTABLE(stuff []string, outputFile *os.File) {
 				preline := t.rowColumnLine[r][c][l]
 				// If blank do not print
 				if preline != "" {
+					preline = convertInlineMarkdownToHTML(preline)
 					// Add linebreak for multi lines
 					if (l > 0) || (t.rowColumnLine[r][c][l+1] != "") {
 						linebreak = "<br>"
@@ -90,6 +101,28 @@ func makeHTMLTABLE(stuff []string, outputFile *os.File) {
 	// <\table>
 	line = "</table>" + "\n"
 	printLine(line, outputFile)
+}
+
+func convertInlineMarkdownToHTML(line string) string {
+	var rendered bytes.Buffer
+
+	line = stripMarkdownImages(line)
+
+	err := inlineMarkdown.Convert([]byte(line), &rendered)
+	if err != nil {
+		log.Warn("unable to render inline markdown: ", err)
+		return line
+	}
+
+	htmlLine := strings.TrimSuffix(rendered.String(), "\n")
+	htmlLine = strings.TrimPrefix(htmlLine, "<p>")
+	htmlLine = strings.TrimSuffix(htmlLine, "</p>")
+
+	return htmlLine
+}
+
+func stripMarkdownImages(line string) string {
+	return markdownImagePattern.ReplaceAllString(line, `$1`)
 }
 
 // Place stuff in table struct

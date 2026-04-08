@@ -5,6 +5,44 @@ import (
 	"testing"
 )
 
+func Test_convertInlineMarkdownToHTML(t *testing.T) {
+	tests := []struct {
+		name string
+		line string
+		want string
+	}{
+		{
+			name: "markdown link",
+			line: "[ADDIE-PC](https://example.com/addie)",
+			want: `<a href="https://example.com/addie">ADDIE-PC</a>`,
+		},
+		{
+			name: "markdown image stripped to alt text",
+			line: `![Addie](https://example.com/addie.png)`,
+			want: `Addie`,
+		},
+		{
+			name: "inline emphasis and code",
+			line: "Use **bold**, *italic*, and `code`.",
+			want: "Use <strong>bold</strong>, <em>italic</em>, and <code>code</code>.",
+		},
+		{
+			name: "raw html preserved",
+			line: `<i>Some notes</i>`,
+			want: `<i>Some notes</i>`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := convertInlineMarkdownToHTML(tt.line)
+			if got != tt.want {
+				t.Fatalf("convertInlineMarkdownToHTML() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_makeHTMLTABLE(t *testing.T) {
 	type args struct {
 		stuff      []string

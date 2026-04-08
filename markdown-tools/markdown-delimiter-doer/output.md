@@ -68,7 +68,7 @@ Process whats between the delimiters,
       10
     </td>
     <td  align="center" valign="top">
-      02/23/25
+      <s>02/23/25</s>
     </td>
   </tr>
 </table>
@@ -108,7 +108,7 @@ Here is another example,
       Y
     </td>
     <td  align="center" valign="top">
-      02/23/25
+      <s>02/23/25</s>
     </td>
   </tr>
 </table>
